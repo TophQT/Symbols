@@ -1,0 +1,56 @@
+<%- include('partials/header') %>
+
+<main class="pt-32 pb-24">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-20 space-y-4 reveal">
+            <h1 class="text-5xl md:text-6xl font-bold font-grotesk text-white">Latest Updates</h1>
+            <p class="text-white/60 max-w-2xl mx-auto">News, insights, and technological breakthroughs from the world of Symbol Sciences.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+            <% const updates = [
+                { date: 'March 1, 2026', title: 'Next-Gen Scanning Technology', desc: 'Symbol Sciences unveils revolutionary 3D scanning technology for enterprise logistics.', tag: 'News' },
+                { date: 'February 24, 2026', title: 'AI in the Warehouse', desc: 'How artificial intelligence is reshaping warehouse management systems in 2026.', tag: 'Insight' },
+                { date: 'February 15, 2026', title: 'Strategic Partnership with Zebra', desc: 'Expanding our collaborative efforts to bring better RFID solutions to the market.', tag: 'Company' },
+                { date: 'February 2, 2026', title: 'Sustainable Automation', desc: 'New energy-efficient robotics designed for green-focused manufacturing plants.', tag: 'Technology' },
+                { date: 'January 28, 2026', title: 'The Future of RFID', desc: 'Exploring long-range passive RFID tags and their applications in global supply chains.', tag: 'Insight' },
+                { date: 'January 12, 2026', title: 'Symbol Sciences Q1 Roadmap', desc: 'A look at our upcoming product launches and technological milestones.', tag: 'Company' }
+            ]; %>
+            <% updates.forEach((update, index) => { %>
+                <article class="glass-card group rounded-3xl overflow-hidden reveal" style="transition-delay: <%= index * 100 %>ms">
+                    <div class="h-48 bg-tech-blue/5 flex items-center justify-center relative">
+                        <i data-lucide="newspaper" class="w-16 h-16 text-tech-blue/20 group-hover:scale-110 transition-transform duration-500"></i>
+                        <span class="absolute top-4 left-4 bg-tech-blue/20 text-tech-blue text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider"><%= update.tag %></span>
+                    </div>
+                    <div class="p-8 space-y-4">
+                        <p class="text-xs text-white/40"><%= update.date %></p>
+                        <h3 class="text-xl font-bold font-grotesk group-hover:text-tech-blue transition-colors leading-tight"><%= update.title %></h3>
+                        <p class="text-sm text-white/60 leading-relaxed"><%= update.desc %></p>
+                        <a href="#" class="inline-flex items-center space-x-2 text-tech-blue text-sm font-bold mt-4">
+                            <span>Read Article</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </article>
+            <% }); %>
+        </div>
+    </div>
+</main>
+
+<script>
+    gsap.registerPlugin(ScrollTrigger);
+    document.querySelectorAll('.reveal').forEach((el) => {
+        gsap.from(el, {
+            scrollTrigger: {
+                trigger: el,
+                start: "top 85%",
+            },
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out"
+        });
+    });
+</script>
+
+<%- include('partials/footer') %>

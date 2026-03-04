@@ -1,0 +1,127 @@
+    <!-- Footer Section -->
+    <footer class="bg-tech-dark/50 backdrop-blur-xl border-t border-white/5 py-16 mt-20">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <!-- Column 1: Logo & Description -->
+                <div class="space-y-6">
+                    <a href="/" class="flex items-center space-x-3 group">
+                        <div class="w-10 h-10 bg-tech-blue rounded-lg flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300 shadow-lg shadow-tech-blue/20">
+                            <i data-lucide="scan-barcode" class="text-white w-6 h-6"></i>
+                        </div>
+                        <span class="text-xl font-bold font-grotesk tracking-tight text-white group-hover:text-tech-blue transition-colors">Symbol Sciences</span>
+                    </a>
+                    <p class="text-white/60 text-sm leading-relaxed">
+                        Delivering advanced barcode, automation, and enterprise technology solutions for the modern industrial landscape. Empowering innovation through intelligent technology.
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-tech-blue hover:border-tech-blue hover:text-white transition-all duration-300">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-tech-blue hover:border-tech-blue hover:text-white transition-all duration-300">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-tech-blue hover:border-tech-blue hover:text-white transition-all duration-300">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-tech-blue hover:border-tech-blue hover:text-white transition-all duration-300">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="space-y-6">
+                    <h4 class="text-lg font-bold font-grotesk">Quick Links</h4>
+                    <ul class="space-y-4">
+                        <li><a href="/" class="text-white/60 hover:text-tech-blue text-sm transition-colors">Home</a></li>
+                        <li><a href="/products" class="text-white/60 hover:text-tech-blue text-sm transition-colors">Products</a></li>
+                        <li><a href="/services" class="text-white/60 hover:text-tech-blue text-sm transition-colors">Services & Solutions</a></li>
+                        <li><a href="/updates" class="text-white/60 hover:text-tech-blue text-sm transition-colors">Latest Updates</a></li>
+                        <li><a href="/about" class="text-white/60 hover:text-tech-blue text-sm transition-colors">About Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Services -->
+                <div class="space-y-6">
+                    <h4 class="text-lg font-bold font-grotesk">Our Services</h4>
+                    <ul class="space-y-4">
+                        <li><a href="#" class="text-white/60 hover:text-tech-blue text-sm transition-colors">Barcode Systems</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-tech-blue text-sm transition-colors">Automation Solutions</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-tech-blue text-sm transition-colors">Warehouse Management</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-tech-blue text-sm transition-colors">Enterprise IT Integration</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-tech-blue text-sm transition-colors">Technology Consulting</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact info -->
+                <div class="space-y-6">
+                    <h4 class="text-lg font-bold font-grotesk">Contact Us</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start space-x-3 text-white/60 text-sm">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-tech-blue mt-0.5 shrink-0"></i>
+                            <span>123 Innovation Drive, Silicon Valley, CA 94025, USA</span>
+                        </li>
+                        <li class="flex items-center space-x-3 text-white/60 text-sm">
+                            <i data-lucide="phone" class="w-5 h-5 text-tech-blue shrink-0"></i>
+                            <span>+1 (888) SYMBOL-SCI</span>
+                        </li>
+                        <li class="flex items-center space-x-3 text-white/60 text-sm">
+                            <i data-lucide="mail" class="w-5 h-5 text-tech-blue shrink-0"></i>
+                            <span>contact@symbolsciences.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="border-t border-white/5 mt-16 pt-8 flex flex-col md:flex-row items-center justify-between text-white/40 text-xs">
+                <p>© 2026 Symbol Sciences. All rights reserved.</p>
+                <div class="flex items-center space-x-8 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-tech-blue transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-tech-blue transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-tech-blue transition-colors">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Navbar Scroll Effect
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('glass', 'py-2');
+                header.classList.remove('py-4');
+            } else {
+                header.classList.remove('glass', 'py-2');
+                header.classList.add('py-4');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+            mobileMenu.classList.add('opacity-100');
+        });
+
+        closeMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+            mobileMenu.classList.remove('opacity-100');
+        });
+
+        // Loading Screen Fade Out
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loading-screen');
+            loader.classList.add('opacity-0', 'pointer-events-none');
+        });
+    </script>
+</body>
+</html>

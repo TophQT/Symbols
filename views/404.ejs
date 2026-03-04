@@ -1,0 +1,38 @@
+<%- include('partials/header') %>
+
+<main class="min-h-screen flex items-center justify-center pt-20">
+    <div class="container mx-auto px-6 text-center space-y-12 reveal">
+        <div class="relative inline-block">
+            <h1 class="text-[10rem] md:text-[15rem] font-bold font-grotesk leading-none text-white/5 select-none">404</h1>
+            <div class="absolute inset-0 flex items-center justify-center">
+                <i data-lucide="alert-triangle" class="w-24 h-24 text-tech-blue animate-pulse"></i>
+            </div>
+        </div>
+        
+        <div class="space-y-6">
+            <h2 class="text-4xl font-bold font-grotesk">System Error: Page Not Found</h2>
+            <p class="text-white/60 text-lg max-w-lg mx-auto leading-relaxed">The coordinates you provided do not match any known destination in our network. The page may have been moved or decommissioned.</p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+            <a href="/" class="px-10 py-4 bg-tech-blue hover:bg-tech-accent text-white rounded-2xl font-bold transition-all shadow-xl shadow-tech-blue/30 transform hover:-translate-y-1">
+                Return Home
+            </a>
+            <a href="/contact" class="px-10 py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl font-bold transition-all backdrop-blur-sm transform hover:-translate-y-1">
+                Report Issue
+            </a>
+        </div>
+    </div>
+</main>
+
+<script>
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.from('.reveal', {
+        y: 40,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out"
+    });
+</script>
+
+<%- include('partials/footer') %>

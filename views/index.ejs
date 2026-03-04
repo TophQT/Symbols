@@ -1,0 +1,376 @@
+<%- include('partials/header') %>
+
+<main class="relative">
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 hero-gradient overflow-hidden">
+        <!-- Three.js Container -->
+        <div id="hero-canvas" class="absolute inset-0 z-0"></div>
+
+        <!-- Hero Content -->
+        <div class="container mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8 reveal">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-tech-blue/10 border border-tech-blue/20 text-tech-blue text-xs font-bold uppercase tracking-widest animate-pulse-slow">
+                    <span class="w-2 h-2 rounded-full bg-tech-blue"></span>
+                    <span>Future of Enterprise Tech</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold font-grotesk leading-tight tracking-tight">
+                    Empowering <span class="text-transparent bg-clip-text bg-gradient-to-r from-tech-blue to-tech-accent">Innovation</span> Through Intelligent Technology
+                </h1>
+                <p class="text-lg text-white/60 max-w-xl leading-relaxed">
+                    Symbol Sciences delivers advanced barcode, automation, and enterprise technology solutions. We bridge the gap between complex data and actionable insights.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                    <a href="/products" class="group relative px-8 py-4 bg-tech-blue hover:bg-tech-accent text-white rounded-xl font-bold transition-all shadow-xl shadow-tech-blue/30 overflow-hidden w-full sm:w-auto text-center">
+                        <span class="relative z-10">Explore Products</span>
+                        <div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                    </a>
+                    <a href="/contact" class="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl font-bold transition-all backdrop-blur-sm w-full sm:w-auto text-center">
+                        Get Consultation
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Particles Background (CSS only) -->
+        <div class="absolute inset-0 pointer-events-none z-0">
+            <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-tech-blue/5 rounded-full blur-[100px] animate-float"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-tech-accent/5 rounded-full blur-[120px] animate-float" style="animation-delay: -1.5s"></div>
+        </div>
+    </section>
+
+    <!-- Brands Section -->
+    <section class="py-24 bg-tech-dark/30">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 space-y-4 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold font-grotesk">Brands We Carry</h2>
+                <div class="w-20 h-1 bg-tech-blue mx-auto rounded-full"></div>
+                <p class="text-white/60 max-w-2xl mx-auto">We partner with industry leaders to provide you with the most reliable and advanced technology solutions.</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                <% const brands = [
+                    { name: 'Zebra', desc: 'Enterprise Asset Intelligence' },
+                    { name: 'Honeywell', desc: 'Industrial Safety & Productivity' },
+                    { name: 'Datalogic', desc: 'Automatic Data Capture' },
+                    { name: 'Cisco', desc: 'Networking & Infrastructure' },
+                    { name: 'Hikvision', desc: 'IoT & Video Surveillance' }
+                ]; %>
+                <% brands.forEach((brand, index) => { %>
+                    <div class="glass-card p-8 rounded-2xl flex flex-col items-center justify-center space-y-4 text-center group tilt-card reveal" style="transition-delay: <%= index * 100 %>ms">
+                        <div class="w-16 h-16 bg-white/5 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500">
+                            <i data-lucide="package" class="text-tech-blue w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-xl font-bold font-grotesk"><%= brand.name %></h3>
+                        <p class="text-xs text-white/40"><%= brand.desc %></p>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consulting Section -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+            <div class="relative group reveal">
+                <div class="absolute -inset-4 bg-tech-blue/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                <div class="relative glass-card aspect-video rounded-3xl overflow-hidden flex items-center justify-center bg-tech-blue/5">
+                    <div id="consulting-canvas" class="absolute inset-0"></div>
+                    <i data-lucide="cpu" class="w-24 h-24 text-tech-blue/30 animate-pulse"></i>
+                </div>
+            </div>
+            <div class="space-y-8 reveal">
+                <h2 class="text-4xl font-bold font-grotesk">Technology Consulting</h2>
+                <div class="space-y-6">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 shrink-0 bg-tech-blue/10 rounded-lg flex items-center justify-center text-tech-blue">
+                            <i data-lucide="scan" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold font-grotesk">Barcode Systems</h4>
+                            <p class="text-white/60">Optimizing inventory tracking and data accuracy with precision scanning tech.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 shrink-0 bg-tech-blue/10 rounded-lg flex items-center justify-center text-tech-blue">
+                            <i data-lucide="workflow" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold font-grotesk">Automation</h4>
+                            <p class="text-white/60">Streamlining operations through intelligent robotic and software workflows.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 shrink-0 bg-tech-blue/10 rounded-lg flex items-center justify-center text-tech-blue">
+                            <i data-lucide="warehouse" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold font-grotesk">Warehouse Solutions</h4>
+                            <p class="text-white/60">Designing smart storage and distribution networks for maximum efficiency.</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="/services" class="inline-flex items-center space-x-2 text-tech-blue font-bold group">
+                    <span>Explore Solutions</span>
+                    <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-2 transition-transform"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="py-24 bg-tech-dark/30">
+        <div class="container mx-auto px-6">
+            <div class="glass-card p-12 md:p-20 rounded-[40px] relative overflow-hidden reveal">
+                <!-- Background decor -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-tech-blue/10 rounded-full blur-[80px] -mr-32 -mt-32"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-tech-accent/10 rounded-full blur-[80px] -ml-32 -mb-32"></div>
+                
+                <div class="relative grid md:grid-cols-3 gap-12 text-center md:text-left">
+                    <div class="space-y-4">
+                        <h3 class="text-2xl font-bold font-grotesk text-tech-blue">Our Mission</h3>
+                        <p class="text-white/70 leading-relaxed">To empower businesses with intelligent technology that transforms data into strategic advantages.</p>
+                    </div>
+                    <div class="space-y-4">
+                        <h3 class="text-2xl font-bold font-grotesk text-tech-blue">Our Vision</h3>
+                        <p class="text-white/70 leading-relaxed">To be the global leader in enterprise automation and smart data capture solutions.</p>
+                    </div>
+                    <div class="space-y-4">
+                        <h3 class="text-2xl font-bold font-grotesk text-tech-blue">Background</h3>
+                        <p class="text-white/70 leading-relaxed">Founded on the principles of precision and innovation, Symbol Sciences has been at the forefront of tech evolution.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-24">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="text-center mb-16 space-y-4 reveal">
+                <h2 class="text-4xl font-bold font-grotesk">Get In Touch</h2>
+                <p class="text-white/60">Ready to transform your business? Let's discuss your next project.</p>
+            </div>
+            
+            <form id="contact-form" class="glass-card p-8 md:p-12 rounded-3xl space-y-6 reveal">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-white/60 ml-1">Full Name</label>
+                        <input type="text" name="name" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-tech-blue transition-colors" placeholder="John Doe">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-white/60 ml-1">Email Address</label>
+                        <input type="email" name="email" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-tech-blue transition-colors" placeholder="john@example.com">
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-white/60 ml-1">Company</label>
+                        <input type="text" name="company" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-tech-blue transition-colors" placeholder="Symbol Sciences">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-white/60 ml-1">Phone Number</label>
+                        <input type="tel" name="phone" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-tech-blue transition-colors" placeholder="+1 (234) 567-890">
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-sm font-medium text-white/60 ml-1">Message</label>
+                    <textarea name="message" required rows="5" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-tech-blue transition-colors" placeholder="Tell us about your project..."></textarea>
+                </div>
+                <button type="submit" class="w-full bg-tech-blue hover:bg-tech-accent text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-tech-blue/20 flex items-center justify-center space-x-2">
+                    <span>Send Message</span>
+                    <i data-lucide="send" class="w-5 h-5"></i>
+                </button>
+                <div id="form-status" class="hidden text-center p-4 rounded-xl"></div>
+            </form>
+        </div>
+    </section>
+</main>
+
+<!-- Three.js Scene Setup -->
+<script type="module">
+    import * as THREE from 'three';
+    import { FontLoader } from 'three/addons/loaders/FontLoader.js';
+    import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+
+    // Hero Section Three.js
+    const heroContainer = document.getElementById('hero-canvas');
+    if (heroContainer) {
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        heroContainer.appendChild(renderer.domElement);
+
+        // Barcode Object (Group of boxes)
+        const barcodeGroup = new THREE.Group();
+        const colors = [0x3b82f6, 0x60a5fa, 0x1e293b];
+        
+        for (let i = 0; i < 40; i++) {
+            const height = Math.random() * 2 + 1;
+            const width = Math.random() * 0.1 + 0.05;
+            const geometry = new THREE.BoxGeometry(width, height, 0.2);
+            const material = new THREE.MeshStandardMaterial({ 
+                color: colors[Math.floor(Math.random() * colors.length)],
+                emissive: colors[Math.floor(Math.random() * colors.length)],
+                emissiveIntensity: 0.2,
+                transparent: true,
+                opacity: 0.8
+            });
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.position.x = (i - 20) * 0.15;
+            barcodeGroup.add(mesh);
+        }
+        scene.add(barcodeGroup);
+
+        // Laser Scanner
+        const laserGeo = new THREE.BoxGeometry(7, 0.02, 0.5);
+        const laserMat = new THREE.MeshBasicMaterial({ color: 0xef4444 });
+        const laser = new THREE.Mesh(laserGeo, laserMat);
+        scene.add(laser);
+
+        // Lights
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+        const pointLight = new THREE.PointLight(0x3b82f6, 2, 10);
+        pointLight.position.set(2, 2, 2);
+        scene.add(pointLight);
+
+        camera.position.z = 5;
+
+        // Animation Loop
+        const animate = () => {
+            requestAnimationFrame(animate);
+            
+            barcodeGroup.rotation.y += 0.005;
+            barcodeGroup.rotation.x += 0.002;
+            
+            const time = Date.now() * 0.002;
+            laser.position.y = Math.sin(time) * 1.5;
+            laser.position.z = 0.5;
+            
+            renderer.render(scene, camera);
+        };
+        animate();
+
+        // Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    }
+
+    // Consulting Section Animation
+    const consultContainer = document.getElementById('consulting-canvas');
+    if (consultContainer) {
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, consultContainer.clientWidth / consultContainer.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(consultContainer.clientWidth, consultContainer.clientHeight);
+        consultContainer.appendChild(renderer.domElement);
+
+        const geometry = new THREE.IcosahedronGeometry(2, 1);
+        const material = new THREE.MeshStandardMaterial({ 
+            color: 0x3b82f6, 
+            wireframe: true,
+            transparent: true,
+            opacity: 0.3
+        });
+        const sphere = new THREE.Mesh(geometry, material);
+        scene.add(sphere);
+
+        const light = new THREE.PointLight(0x3b82f6, 1, 10);
+        light.position.set(5, 5, 5);
+        scene.add(light);
+        scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+
+        camera.position.z = 5;
+
+        const animateConsult = () => {
+            requestAnimationFrame(animateConsult);
+            sphere.rotation.x += 0.005;
+            sphere.rotation.y += 0.005;
+            renderer.render(scene, camera);
+        };
+        animateConsult();
+    }
+</script>
+
+<!-- GSAP & Form Logic -->
+<script>
+    // GSAP Scroll Reveal
+    gsap.registerPlugin(ScrollTrigger);
+    
+    document.querySelectorAll('.reveal').forEach((el) => {
+        gsap.from(el, {
+            scrollTrigger: {
+                trigger: el,
+                start: "top 85%",
+                toggleActions: "play none none none"
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out"
+        });
+    });
+
+    // Tilt Cards
+    document.querySelectorAll('.tilt-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)`;
+        });
+    });
+
+    // Form Submission
+    const contactForm = document.getElementById('contact-form');
+    const formStatus = document.getElementById('form-status');
+
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(contactForm);
+        const data = Object.fromEntries(formData.entries());
+        
+        formStatus.classList.remove('hidden', 'bg-red-500/20', 'text-red-400', 'bg-green-500/20', 'text-green-400');
+        formStatus.classList.add('block', 'bg-blue-500/20', 'text-blue-400');
+        formStatus.textContent = 'Sending message...';
+
+        try {
+            const response = await fetch('/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            
+            formStatus.classList.remove('bg-blue-500/20', 'text-blue-400');
+            if (result.success) {
+                formStatus.classList.add('bg-green-500/20', 'text-green-400');
+                formStatus.textContent = result.message;
+                contactForm.reset();
+            } else {
+                formStatus.classList.add('bg-red-500/20', 'text-red-400');
+                formStatus.textContent = result.message;
+            }
+        } catch (error) {
+            formStatus.classList.remove('bg-blue-500/20', 'text-blue-400');
+            formStatus.classList.add('bg-red-500/20', 'text-red-400');
+            formStatus.textContent = 'An error occurred. Please try again later.';
+        }
+    });
+</script>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,83 @@
+<%- include('partials/header') %>
+
+<main class="pt-32 pb-24">
+    <div class="container mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-16 items-center mb-32 reveal">
+            <div class="space-y-8">
+                <h1 class="text-5xl md:text-6xl font-bold font-grotesk">Our Story</h1>
+                <p class="text-white/60 text-lg leading-relaxed">Founded in 2018, Symbol Sciences was built with a single vision: to simplify the complexity of enterprise data capture through cutting-edge technology.</p>
+                <p class="text-white/60 leading-relaxed">What started as a small team of engineers in a garage has evolved into a global force, providing solutions for some of the world's largest logistics and manufacturing firms.</p>
+                <div class="grid grid-cols-2 gap-8 pt-8">
+                    <div class="space-y-2">
+                        <span class="text-4xl font-bold text-tech-blue font-grotesk">500+</span>
+                        <p class="text-sm text-white/40 uppercase tracking-widest">Global Clients</p>
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-4xl font-bold text-tech-blue font-grotesk">15+</span>
+                        <p class="text-sm text-white/40 uppercase tracking-widest">Years Experience</p>
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-4xl font-bold text-tech-blue font-grotesk">50k+</span>
+                        <p class="text-sm text-white/40 uppercase tracking-widest">Devices Deployed</p>
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-4xl font-bold text-tech-blue font-grotesk">24/7</span>
+                        <p class="text-sm text-white/40 uppercase tracking-widest">Expert Support</p>
+                    </div>
+                </div>
+            </div>
+            <div class="relative group">
+                <div class="absolute -inset-4 bg-tech-blue/10 rounded-[40px] blur-3xl opacity-50"></div>
+                <div class="relative glass-card aspect-square rounded-[40px] overflow-hidden flex items-center justify-center bg-tech-blue/5">
+                    <i data-lucide="building-2" class="w-48 h-48 text-tech-blue/10"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mb-20 space-y-4 reveal">
+            <h2 class="text-4xl font-bold font-grotesk">Leadership Team</h2>
+            <p class="text-white/60 max-w-2xl mx-auto">The visionary minds driving our technological innovation forward.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+            <% const team = [
+                { name: 'Dr. Sarah Chen', role: 'Chief Executive Officer', icon: 'user' },
+                { name: 'Marcus Vane', role: 'Chief Technology Officer', icon: 'user' },
+                { name: 'Elena Rodriguez', role: 'Head of AI Solutions', icon: 'user' }
+            ]; %>
+            <% team.forEach((member, index) => { %>
+                <div class="glass-card p-10 rounded-3xl text-center space-y-6 reveal" style="transition-delay: <%= index * 100 %>ms">
+                    <div class="w-32 h-32 bg-tech-blue/10 rounded-full mx-auto flex items-center justify-center text-tech-blue">
+                        <i data-lucide="<%= member.icon %>" class="w-16 h-16"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-2xl font-bold font-grotesk"><%= member.name %></h3>
+                        <p class="text-tech-blue text-sm font-semibold uppercase tracking-widest"><%= member.role %></p>
+                    </div>
+                    <div class="flex items-center justify-center space-x-4">
+                        <a href="#" class="text-white/40 hover:text-tech-blue transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                        <a href="#" class="text-white/40 hover:text-tech-blue transition-colors"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</main>
+
+<script>
+    gsap.registerPlugin(ScrollTrigger);
+    document.querySelectorAll('.reveal').forEach((el) => {
+        gsap.from(el, {
+            scrollTrigger: {
+                trigger: el,
+                start: "top 85%",
+            },
+            y: 40,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out"
+        });
+    });
+</script>
+
+<%- include('partials/footer') %>

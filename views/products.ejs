@@ -1,0 +1,52 @@
+<%- include('partials/header') %>
+
+<main class="pt-32 pb-24">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-20 space-y-4 reveal">
+            <h1 class="text-5xl md:text-6xl font-bold font-grotesk">Our Products</h1>
+            <p class="text-white/60 max-w-2xl mx-auto">Advanced hardware and software solutions designed for the modern enterprise.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <% const products = [
+                { name: 'Industrial Scanners', icon: 'scan-barcode', desc: 'High-performance barcode scanners for warehouse and logistics.' },
+                { name: 'RFID Solutions', icon: 'radio', desc: 'Real-time asset tracking with cutting-edge RFID technology.' },
+                { name: 'Mobile Computers', icon: 'tablet', desc: 'Rugged enterprise mobile devices for on-the-go productivity.' },
+                { name: 'Label Printers', icon: 'printer', desc: 'Precision industrial thermal printers for every labeling need.' },
+                { name: 'Vision Systems', icon: 'eye', desc: 'Automated inspection and sorting with AI-powered vision.' },
+                { name: 'Software Suites', icon: 'layers', desc: 'Unified platforms for inventory and device management.' }
+            ]; %>
+            <% products.forEach((product, index) => { %>
+                <div class="glass-card p-10 rounded-3xl space-y-6 reveal group hover:border-tech-blue/50" style="transition-delay: <%= index * 100 %>ms">
+                    <div class="w-16 h-16 bg-tech-blue/10 rounded-2xl flex items-center justify-center text-tech-blue group-hover:scale-110 group-hover:bg-tech-blue group-hover:text-white transition-all duration-500">
+                        <i data-lucide="<%= product.icon %>" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold font-grotesk"><%= product.name %></h3>
+                    <p class="text-white/60 leading-relaxed"><%= product.desc %></p>
+                    <a href="#" class="inline-flex items-center space-x-2 text-tech-blue font-bold group/btn">
+                        <span>Learn More</span>
+                        <i data-lucide="chevron-right" class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</main>
+
+<script>
+    gsap.registerPlugin(ScrollTrigger);
+    document.querySelectorAll('.reveal').forEach((el) => {
+        gsap.from(el, {
+            scrollTrigger: {
+                trigger: el,
+                start: "top 85%",
+            },
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out"
+        });
+    });
+</script>
+
+<%- include('partials/footer') %>
