@@ -118,25 +118,121 @@
     </section>
 
     <!-- About Us Section -->
-    <section class="py-24 bg-tech-dark/30">
+    <section id="about-us" class="py-24 bg-tech-dark/30">
         <div class="container mx-auto px-6">
+            <div class="text-center mb-16 space-y-4 reveal">
+                <h2 class="text-4xl md:text-5xl font-bold font-grotesk">About Symbol Sciences</h2>
+                <div class="w-20 h-1 bg-tech-blue mx-auto rounded-full"></div>
+                <p class="text-white/60 max-w-3xl mx-auto text-lg">
+                    Pioneering the future of enterprise technology through innovation, precision, and unwavering commitment to excellence.
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-3 gap-12 mb-16">
+                <div class="glass-card p-8 rounded-3xl text-center space-y-6 reveal" style="transition-delay: 100ms">
+                    <div class="w-20 h-20 bg-tech-blue/10 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-500">
+                        <i data-lucide="target" class="text-tech-blue w-10 h-10"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold font-grotesk text-tech-blue">Our Mission</h3>
+                    <p class="text-white/70 leading-relaxed">
+                        To empower businesses with intelligent technology solutions that transform complex data into strategic advantages, driving growth and operational excellence.
+                    </p>
+                </div>
+                
+                <div class="glass-card p-8 rounded-3xl text-center space-y-6 reveal" style="transition-delay: 200ms">
+                    <div class="w-20 h-20 bg-tech-accent/10 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-500">
+                        <i data-lucide="eye" class="text-tech-accent w-10 h-10"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold font-grotesk text-tech-accent">Our Vision</h3>
+                    <p class="text-white/70 leading-relaxed">
+                        To be the global leader in enterprise automation and smart data capture solutions, setting new standards for innovation and reliability.
+                    </p>
+                </div>
+                
+                <div class="glass-card p-8 rounded-3xl text-center space-y-6 reveal" style="transition-delay: 300ms">
+                    <div class="w-20 h-20 bg-purple-500/10 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-500">
+                        <i data-lucide="award" class="text-purple-400 w-10 h-10"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold font-grotesk text-purple-400">Our Values</h3>
+                    <p class="text-white/70 leading-relaxed">
+                        Innovation, integrity, and customer success guide every solution we deliver, ensuring lasting partnerships and exceptional results.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Company Story -->
             <div class="glass-card p-12 md:p-20 rounded-[40px] relative overflow-hidden reveal">
                 <!-- Background decor -->
                 <div class="absolute top-0 right-0 w-64 h-64 bg-tech-blue/10 rounded-full blur-[80px] -mr-32 -mt-32"></div>
                 <div class="absolute bottom-0 left-0 w-64 h-64 bg-tech-accent/10 rounded-full blur-[80px] -ml-32 -mb-32"></div>
                 
-                <div class="relative grid md:grid-cols-3 gap-12 text-center md:text-left">
+                <div class="relative grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="space-y-8">
+                        <h3 class="text-3xl font-bold font-grotesk">Our Story</h3>
+                        <p class="text-white/70 leading-relaxed text-lg">
+                            Founded on the principles of precision and innovation, Symbol Sciences has been at the forefront of technological evolution for over a decade. We began as a specialized barcode solutions provider and have grown into a comprehensive enterprise technology partner.
+                        </p>
+                        <p class="text-white/70 leading-relaxed text-lg">
+                            Our journey has been marked by continuous innovation, strategic partnerships with industry leaders like Zebra, Honeywell, and Cisco, and an unwavering commitment to solving complex business challenges through intelligent automation.
+                        </p>
+                        <div class="grid grid-cols-3 gap-6 pt-6">
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-tech-blue mb-2">500+</div>
+                                <div class="text-sm text-white/60">Enterprise Clients</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-tech-accent mb-2">15+</div>
+                                <div class="text-sm text-white/60">Years Experience</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-purple-400 mb-2">99.9%</div>
+                                <div class="text-sm text-white/60">Uptime Guarantee</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative group">
+                        <div class="absolute -inset-4 bg-tech-blue/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                        <div class="relative glass-card aspect-video rounded-3xl overflow-hidden flex items-center justify-center bg-tech-blue/5">
+                            <i data-lucide="building" class="w-32 h-32 text-tech-blue/30"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Section -->
+            <div class="mt-16 text-center reveal">
+                <h3 class="text-3xl font-bold font-grotesk mb-8">Our Expert Team</h3>
+                <p class="text-white/60 max-w-2xl mx-auto mb-12 text-lg">
+                    Our diverse team of engineers, consultants, and technology experts brings decades of combined experience to every project.
+                </p>
+                <div class="grid md:grid-cols-4 gap-8">
                     <div class="space-y-4">
-                        <h3 class="text-2xl font-bold font-grotesk text-tech-blue">Our Mission</h3>
-                        <p class="text-white/70 leading-relaxed">To empower businesses with intelligent technology that transforms data into strategic advantages.</p>
+                        <div class="w-24 h-24 bg-gradient-to-br from-tech-blue to-tech-accent rounded-2xl mx-auto flex items-center justify-center">
+                            <i data-lucide="users" class="text-white w-12 h-12"></i>
+                        </div>
+                        <h4 class="font-bold">Expert Engineers</h4>
+                        <p class="text-sm text-white/60">Leading technical talent</p>
                     </div>
                     <div class="space-y-4">
-                        <h3 class="text-2xl font-bold font-grotesk text-tech-blue">Our Vision</h3>
-                        <p class="text-white/70 leading-relaxed">To be the global leader in enterprise automation and smart data capture solutions.</p>
+                        <div class="w-24 h-24 bg-gradient-to-br from-tech-accent to-purple-500 rounded-2xl mx-auto flex items-center justify-center">
+                            <i data-lucide="lightbulb" class="text-white w-12 h-12"></i>
+                        </div>
+                        <h4 class="font-bold">Innovation Leaders</h4>
+                        <p class="text-sm text-white/60">Creative problem solvers</p>
                     </div>
                     <div class="space-y-4">
-                        <h3 class="text-2xl font-bold font-grotesk text-tech-blue">Background</h3>
-                        <p class="text-white/70 leading-relaxed">Founded on the principles of precision and innovation, Symbol Sciences has been at the forefront of tech evolution.</p>
+                        <div class="w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl mx-auto flex items-center justify-center">
+                            <i data-lucide="shield" class="text-white w-12 h-12"></i>
+                        </div>
+                        <h4 class="font-bold">Support Heroes</h4>
+                        <p class="text-sm text-white/60">24/7 assistance</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="w-24 h-24 bg-gradient-to-br from-pink-500 to-tech-blue rounded-2xl mx-auto flex items-center justify-center">
+                            <i data-lucide="trending-up" class="text-white w-12 h-12"></i>
+                        </div>
+                        <h4 class="font-bold">Growth Partners</h4>
+                        <p class="text-sm text-white/60">Your success is ours</p>
                     </div>
                 </div>
             </div>

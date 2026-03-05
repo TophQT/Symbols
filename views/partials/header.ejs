@@ -167,7 +167,7 @@
                 <a href="/products" class="nav-link text-sm font-medium text-white hover:text-blue-600 transition-colors">Products</a>
                 <a href="/services" class="nav-link text-sm font-medium text-white hover:text-blue-600 transition-colors">Services & Solutions</a>
                 <a href="/updates" class="nav-link text-sm font-medium text-white hover:text-blue-600 transition-colors">Updates</a>
-                <a href="/about" class="nav-link text-sm font-medium text-white hover:text-blue-600 transition-colors">About Us</a>
+                <a href="/#about-us" class="nav-link text-sm font-medium text-white hover:text-blue-600 transition-colors">About Us</a>
                 <div class="flex items-center space-x-4">
                     <a href="/login" class="text-sm font-medium text-white/70 hover:text-white transition-colors flex items-center gap-2">
                         <i data-lucide="user" class="w-4 h-4"></i> Login
@@ -191,8 +191,51 @@
             <a href="/products" class="text-2xl font-bold text-white hover:text-blue-600">Products</a>
             <a href="/services" class="text-2xl font-bold text-white hover:text-blue-600">Services & Solutions</a>
             <a href="/updates" class="text-2xl font-bold text-white hover:text-blue-600">Updates</a>
-            <a href="/about" class="text-2xl font-bold text-white hover:text-blue-600">About Us</a>
+            <a href="/#about-us" class="text-2xl font-bold text-white hover:text-blue-600">About Us</a>
             <a href="/login" class="text-2xl font-bold text-white hover:text-blue-600">Login</a>
             <a href="/contact" class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-lg font-semibold">Contact Us</a>
         </div>
     </header>
+
+    <!-- Smooth Scroll Script -->
+    <script>
+        // Smooth scroll for anchor links
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle anchor links
+            document.querySelectorAll('a[href^="/#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(2); // Remove '/#' from href
+                    
+                    // Check if we're on homepage
+                    if (window.location.pathname === '/' || window.location.pathname === '') {
+                        // On homepage: scroll to section
+                        const targetElement = document.getElementById(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    } else {
+                        // On other pages: redirect to homepage with hash
+                        window.location.href = '/#' + targetId;
+                    }
+                });
+            });
+            
+            // Handle hash in URL on page load (only for homepage)
+            if ((window.location.pathname === '/' || window.location.pathname === '') && window.location.hash) {
+                const targetId = window.location.hash.substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    setTimeout(() => {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }, 100);
+                }
+            }
+        });
+    </script>
