@@ -27,6 +27,94 @@
         font-family: 'Inter', sans-serif;
         background-color: #0b0e14;
         color: #ffffff;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      
+      /* Light Mode Styles */
+      body.light {
+        background-color: #ffffff;
+        color: #1f2937;
+      }
+      
+      body.light .glass {
+        background: rgba(31, 41, 55, 0.05);
+        border: 1px solid rgba(31, 41, 55, 0.1);
+      }
+      
+      body.light .glass-card {
+        background: rgba(31, 41, 55, 0.03);
+        border: 1px solid rgba(31, 41, 55, 0.08);
+      }
+      
+      body.light .glass-card:hover {
+        background: rgba(31, 41, 55, 0.05);
+        border-color: rgba(59, 130, 246, 0.2);
+      }
+      
+      body.light .text-white {
+        color: #1f2937 !important;
+      }
+      
+      body.light .text-white\/40 {
+        color: rgba(31, 41, 55, 0.4) !important;
+      }
+      
+      body.light .text-white\/60 {
+        color: rgba(31, 41, 55, 0.6) !important;
+      }
+      
+      body.light .text-white\/80 {
+        color: rgba(31, 41, 55, 0.8) !important;
+      }
+      
+      body.light .bg-white\/5 {
+        background-color: rgba(31, 41, 55, 0.05) !important;
+      }
+      
+      body.light .bg-white\/10 {
+        background-color: rgba(31, 41, 55, 0.1) !important;
+      }
+      
+      body.light .border-white\/5 {
+        border-color: rgba(31, 41, 55, 0.05) !important;
+      }
+      
+      body.light .border-white\/10 {
+        border-color: rgba(31, 41, 55, 0.1) !important;
+      }
+      
+      body.light .bg-tech-blue\/10 {
+        background-color: rgba(59, 130, 246, 0.1) !important;
+      }
+      
+      body.light .bg-tech-blue\/20 {
+        background-color: rgba(59, 130, 246, 0.2) !important;
+      }
+      
+      body.light .border-tech-blue\/20 {
+        border-color: rgba(59, 130, 246, 0.2) !important;
+      }
+      
+      body.light .border-tech-blue\/30 {
+        border-color: rgba(59, 130, 246, 0.3) !important;
+      }
+      
+      body.light #theme-toggle {
+        background-color: rgba(31, 41, 55, 0.1);
+        border-color: rgba(31, 41, 55, 0.2);
+      }
+      
+      body.light #theme-toggle .bg-white {
+        background-color: #f3f4f6;
+      }
+      
+      /* Theme toggle active state */
+      #theme-toggle.active {
+        background-color: rgba(59, 130, 246, 0.2);
+      }
+      
+      #theme-toggle.active .bg-white {
+        transform: translateX(28px);
       }
       
       .font-grotesk {
@@ -102,16 +190,25 @@
             <!-- Settings Header -->
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
                 <div class="space-y-1">
-                    <h1 class="text-3xl font-bold font-grotesk text-white">Website Settings</h1>
-                    <p class="text-white/40 text-sm">Manage your website logo and global settings.</p>
+                    <h1 class="text-3xl font-bold font-grotesk text-white dark:text-white">Website Settings</h1>
+                    <p class="text-white/40 text-sm dark:text-white/40">Manage your website logo and global settings.</p>
                 </div>
-                <div class="flex items-center gap-3 bg-white/5 border border-white/10 p-2 rounded-2xl pr-6">
-                    <div class="w-12 h-12 rounded-xl bg-tech-blue/20 flex items-center justify-center text-tech-blue font-bold border border-tech-blue/30 shadow-lg shadow-tech-blue/10">
-                        A
-                    </div>
-                    <div>
-                        <p class="text-sm font-bold text-white leading-none">Admin User</p>
-                        <p class="text-[10px] text-white/40 uppercase tracking-widest mt-1">Super Admin</p>
+                <div class="flex items-center gap-3">
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="relative w-14 h-7 bg-white/10 border border-white/20 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-tech-blue/50">
+                        <div class="absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full shadow-md transform transition-transform duration-300 flex items-center justify-center">
+                            <i data-lucide="sun" class="w-3 h-3 text-tech-blue dark:hidden"></i>
+                            <i data-lucide="moon" class="w-3 h-3 text-tech-blue hidden dark:block"></i>
+                        </div>
+                    </button>
+                    <div class="flex items-center gap-3 bg-white/5 border border-white/10 p-2 rounded-2xl pr-6">
+                        <div class="w-12 h-12 rounded-xl bg-tech-blue/20 flex items-center justify-center text-tech-blue font-bold border border-tech-blue/30 shadow-lg shadow-tech-blue/10">
+                            A
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-white leading-none">Admin User</p>
+                            <p class="text-[10px] text-white/40 uppercase tracking-widest mt-1">Super Admin</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -323,6 +420,36 @@
     </div>
     <script>
         lucide.createIcons();
+        
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to dark mode
+        const savedTheme = localStorage.getItem('dashboard-theme') || 'dark';
+        body.classList.toggle('light', savedTheme === 'light');
+        themeToggle.classList.toggle('active', savedTheme === 'light');
+        
+        // Theme toggle event listener
+        themeToggle.addEventListener('click', () => {
+            const isLight = body.classList.toggle('light');
+            themeToggle.classList.toggle('active', isLight);
+            
+            // Save theme preference
+            localStorage.setItem('dashboard-theme', isLight ? 'light' : 'dark');
+            
+            // Re-initialize Lucide icons for theme change
+            setTimeout(() => {
+                lucide.createIcons();
+            }, 100);
+        });
+        
+        // Apply theme on page load
+        if (savedTheme === 'light') {
+            setTimeout(() => {
+                lucide.createIcons();
+            }, 100);
+        }
         
         // Logo preview functionality
         document.getElementById('logo-upload').addEventListener('change', function(e) {
