@@ -35,6 +35,12 @@ app.use(session({
 const indexRouter = require('./routes/index');
 app.use('/', indexRouter);
 
+const dashboardRouter = require('./routes/dashboard');
+app.use('/admin', dashboardRouter);
+
+const productsRouter = require('./routes/products');
+app.use('/admin/products', productsRouter);
+
 // 404 handler
 app.use((req, res, next) => {
     res.status(404).render('404', { title: '404 - Not Found' });

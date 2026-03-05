@@ -140,6 +140,13 @@
         transform: translateY(-5px);
         box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.2);
       }
+
+      .image-preview {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 12px;
+      }
     </style>
 </head>
 <body class="bg-tech-dark text-white">
@@ -148,15 +155,9 @@
         <aside class="w-64 glass border-r border-white/5 hidden md:flex flex-col fixed h-screen z-40">
             <div class="p-6">
                 <a href="/" class="flex items-center group mb-8">
-                    <% if (locals.settings && locals.settings.logo) { %>
-                        <img src="<%= settings.logo %>" alt="Logo" class="h-10 w-auto object-contain transform group-hover:scale-110 transition-transform duration-300">
-                    <% } else if (locals.settings && locals.settings.defaultLogo) { %>
-                        <img src="<%= settings.defaultLogo %>" alt="Default Logo" class="h-10 w-auto object-contain transform group-hover:scale-110 transition-transform duration-300">
-                    <% } else { %>
-                        <div class="h-10 w-auto flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                            <i data-lucide="scan-barcode" class="text-tech-blue w-7 h-7"></i>
-                        </div>
-                    <% } %>
+                    <div class="h-10 w-auto flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                        <i data-lucide="scan-barcode" class="text-tech-blue w-7 h-7"></i>
+                    </div>
                 </a>
                 <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-tech-blue/10 border border-tech-blue/20 text-tech-blue text-[10px] font-bold uppercase tracking-widest mb-4">
                     <span class="w-2 h-2 rounded-full bg-tech-blue"></span>
@@ -164,19 +165,15 @@
                 </div>
             </div>
             <nav class="flex-grow space-y-1 px-4">
-                <a href="/admin/dashboard" class="flex items-center gap-3 px-4 py-3 bg-tech-blue/10 text-tech-blue border border-tech-blue/20 rounded-xl transition-all">
-                    <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                <a href="/admin/dashboard" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5 group-hover:text-tech-blue transition-colors"></i>
                     <span class="font-medium">Dashboard</span>
                 </a>
-                <a href="/admin/products" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
-                    <i data-lucide="package" class="w-5 h-5 group-hover:text-tech-blue transition-colors"></i>
-                    <span class="font-medium">Products</span>
-                </a>
                 <div class="space-y-1">
-                    <div class="px-4 py-2 text-xs font-bold text-white/40 uppercase tracking-wider">Product Management</div>
+                    <div class="px-4 py-2 text-xs font-bold text-white/40 uppercase tracking-wider">Products</div>
                     <a href="/admin/products" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
                         <i data-lucide="package" class="w-5 h-5 group-hover:text-tech-blue transition-colors"></i>
-                        <span class="font-medium">All Products</span>
+                        <span class="font-medium">Products</span>
                     </a>
                     <a href="/admin/products/brands" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
                         <i data-lucide="bookmark" class="w-5 h-5 group-hover:text-tech-blue transition-colors"></i>
@@ -202,11 +199,11 @@
 
         <!-- Main Content Area -->
         <main class="flex-grow md:ml-64 p-6 lg:p-10">
-            <!-- Dashboard Header -->
+            <!-- Header -->
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
                 <div class="space-y-1">
-                    <h1 class="text-3xl font-bold font-grotesk text-white dark:text-white">Dashboard Overview</h1>
-                    <p class="text-white/40 text-sm dark:text-white/40">Welcome back, Admin. Here's what's happening today.</p>
+                    <h1 class="text-3xl font-bold font-grotesk text-white">Edit Product</h1>
+                    <p class="text-white/40 text-sm">Update product information</p>
                 </div>
                 <div class="flex items-center gap-3">
                     <!-- Theme Toggle -->
@@ -216,116 +213,122 @@
                             <i data-lucide="moon" class="w-3 h-3 text-tech-blue hidden dark:block"></i>
                         </div>
                     </button>
-                    <div class="flex items-center gap-3 bg-white/5 border border-white/10 p-2 rounded-2xl pr-6">
-                        <div class="w-12 h-12 rounded-xl bg-tech-blue/20 flex items-center justify-center text-tech-blue font-bold border border-tech-blue/30 shadow-lg shadow-tech-blue/10">
-                            A
-                        </div>
-                        <div>
-                            <p class="text-sm font-bold text-white leading-none">Admin User</p>
-                            <p class="text-[10px] text-white/40 uppercase tracking-widest mt-1">Super Admin</p>
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            <!-- Stats Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-                <!-- Stat Card 1 -->
-                <div class="glass-card p-6 rounded-2xl border border-white/5">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 bg-tech-blue/10 rounded-xl flex items-center justify-center text-tech-blue">
-                            <i data-lucide="eye" class="w-6 h-6"></i>
-                        </div>
-                        <span class="text-green-500 text-xs font-bold bg-green-500/10 px-2 py-1 rounded-lg">+12.5%</span>
-                    </div>
-                    <h3 class="text-white/40 text-xs font-bold uppercase tracking-widest">Total Visitors</h3>
-                    <p class="text-2xl font-bold text-white mt-1">24,512</p>
+            <!-- Success/Error Messages -->
+            <% if (success) { %>
+                <div class="mb-6 p-4 bg-green-500/10 border border-green-500/20 rounded-xl text-green-400 flex items-center gap-3">
+                    <i data-lucide="check-circle" class="w-5 h-5"></i>
+                    <span><%= success %></span>
                 </div>
-
-                <!-- Stat Card 2 -->
-                <div class="glass-card p-6 rounded-2xl border border-white/5">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 bg-tech-accent/10 rounded-xl flex items-center justify-center text-tech-accent">
-                            <i data-lucide="shopping-cart" class="w-6 h-6"></i>
-                        </div>
-                        <span class="text-green-500 text-xs font-bold bg-green-500/10 px-2 py-1 rounded-lg">+8.2%</span>
-                    </div>
-                    <h3 class="text-white/40 text-xs font-bold uppercase tracking-widest">New Orders</h3>
-                    <p class="text-2xl font-bold text-white mt-1">1,205</p>
+            <% } %>
+            <% if (error) { %>
+                <div class="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 flex items-center gap-3">
+                    <i data-lucide="alert-circle" class="w-5 h-5"></i>
+                    <span><%= error %></span>
                 </div>
+            <% } %>
 
-                <!-- Stat Card 3 -->
-                <div class="glass-card p-6 rounded-2xl border border-white/5">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center text-purple-500">
-                            <i data-lucide="dollar-sign" class="w-6 h-6"></i>
-                        </div>
-                        <span class="text-tech-red text-xs font-bold bg-tech-red/10 px-2 py-1 rounded-lg">-3.1%</span>
-                    </div>
-                    <h3 class="text-white/40 text-xs font-bold uppercase tracking-widest">Total Revenue</h3>
-                    <p class="text-2xl font-bold text-white mt-1">$45,210</p>
-                </div>
-
-                <!-- Stat Card 4 -->
-                <div class="glass-card p-6 rounded-2xl border border-white/5">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 bg-orange-500/10 rounded-xl flex items-center justify-center text-orange-500">
-                            <i data-lucide="activity" class="w-6 h-6"></i>
-                        </div>
-                        <span class="text-green-500 text-xs font-bold bg-green-500/10 px-2 py-1 rounded-lg">+5.4%</span>
-                    </div>
-                    <h3 class="text-white/40 text-xs font-bold uppercase tracking-widest">Active Users</h3>
-                    <p class="text-2xl font-bold text-white mt-1">3,842</p>
-                </div>
-            </div>
-
-            <!-- Content Sections -->
-            <div class="grid lg:grid-cols-3 gap-8 mb-10">
-                <!-- Recent Activity -->
-                <div class="lg:col-span-2 glass-card rounded-3xl p-8 border border-white/5">
-                    <div class="flex items-center justify-between mb-8">
-                        <h2 class="text-xl font-bold font-grotesk text-white">System Performance</h2>
-                    </div>
-                    <div class="space-y-8">
-                        <div class="relative h-64 bg-white/5 rounded-2xl flex items-center justify-center border border-white/5 overflow-hidden">
-                             <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#3b82f6 1px, transparent 1px); background-size: 20px 20px;"></div>
-                             <div class="relative flex flex-col items-center text-center p-6">
-                                <i data-lucide="bar-chart" class="w-12 h-12 text-tech-blue/40 mb-4"></i>
-                                <p class="text-white/40 text-sm max-w-xs">Performance visualization module would be integrated here.</p>
-                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Quick Actions -->
-                <div class="glass-card rounded-3xl p-8 border border-white/5">
-                    <h2 class="text-xl font-bold font-grotesk text-white mb-8">Quick Actions</h2>
-                    <div class="grid grid-cols-1 gap-4">
-                        <button class="flex items-center justify-between p-4 bg-white/5 hover:bg-tech-blue/10 border border-white/10 hover:border-tech-blue/30 rounded-2xl transition-all group">
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 bg-tech-blue/20 rounded-xl flex items-center justify-center text-tech-blue group-hover:scale-110 transition-transform">
-                                    <i data-lucide="plus" class="w-5 h-5"></i>
+            <!-- Edit Product Form -->
+            <div class="glass-card rounded-3xl p-8 border border-white/5">
+                <form action="/admin/products/<%= product._id %>/edit" method="POST" enctype="multipart/form-data" class="space-y-8">
+                    <div class="grid lg:grid-cols-2 gap-8">
+                        <!-- Left Column -->
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-white/80 mb-2">Current Product Image</label>
+                                <div class="space-y-4">
+                                    <div class="relative">
+                                        <img src="<%= product.image %>" alt="<%= product.name %>" class="image-preview bg-white/5">
+                                    </div>
+                                    <p class="text-xs text-white/40">Upload new image to replace current one (optional)</p>
                                 </div>
-                                <span class="font-medium text-white/80 group-hover:text-white">Add New Item</span>
                             </div>
-                            <i data-lucide="chevron-right" class="w-4 h-4 text-white/20 group-hover:text-tech-blue"></i>
-                        </button>
-                        <button class="flex items-center justify-between p-4 bg-white/5 hover:bg-tech-blue/10 border border-white/10 hover:border-tech-blue/30 rounded-2xl transition-all group">
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 bg-tech-accent/20 rounded-xl flex items-center justify-center text-tech-accent group-hover:scale-110 transition-transform">
-                                    <i data-lucide="user-plus" class="w-5 h-5"></i>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-white/80 mb-2">Product Name</label>
+                                <input type="text" name="name" value="<%= product.name %>" required class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-tech-blue/50 focus:bg-white/10 transition-all" placeholder="Enter product name...">
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-white/80 mb-2">Brand</label>
+                                <select name="brand" id="brandSelect" required class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-tech-blue/50 focus:bg-white/10 transition-all mb-4">
+                                    <option value="">Select a brand</option>
+                                    <% brands.forEach(brand => { %>
+                                        <option value="<%= brand._id %>" <%= product.category.brand && product.category.brand._id.toString() === brand._id.toString() ? 'selected' : '' %>><%= brand.description %></option>
+                                    <% }); %>
+                                </select>
+                                <% if (brands.length === 0) { %>
+                                    <p class="text-yellow-400 text-sm flex items-center gap-2">
+                                        <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+                                        No brands available. <a href="/admin/products/brands" class="underline">Create a brand first</a>
+                                    </p>
+                                <% } %>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-white/80 mb-2">Category</label>
+                                <select name="category" required class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-tech-blue/50 focus:bg-white/10 transition-all">
+                                    <option value="">Select a category</option>
+                                    <% categories.forEach(category => { %>
+                                        <option value="<%= category._id %>" <%= product.category._id.toString() === category._id.toString() ? 'selected' : '' %>><%= category.name %></option>
+                                    <% }); %>
+                                </select>
+                                <% if (categories.length === 0) { %>
+                                    <p class="text-yellow-400 text-sm flex items-center gap-2">
+                                        <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+                                        No categories available. <a href="/admin/products/categories" class="underline">Create categories first</a>
+                                    </p>
+                                <% } %>
+                            </div>
+
+                            <div class="glass-card p-6 rounded-2xl border border-white/5">
+                                <h3 class="text-white font-semibold mb-4 flex items-center gap-2">
+                                    <i data-lucide="info" class="w-5 h-5 text-tech-blue"></i>
+                                    Product Information
+                                </h3>
+                                <div class="space-y-3 text-sm text-white/60">
+                                    <p>• Product name is required</p>
+                                    <p>• Image upload is optional (will keep current if not changed)</p>
+                                    <p>• Category selection is required</p>
+                                    <p>• Created: <%= new Date(product.createdAt).toLocaleDateString() %></p>
+                                    <p>• Last updated: <%= new Date(product.updatedAt).toLocaleDateString() %></p>
                                 </div>
-                                <span class="font-medium text-white/80 group-hover:text-white">Invite User</span>
                             </div>
-                            <i data-lucide="chevron-right" class="w-4 h-4 text-white/20 group-hover:text-tech-blue"></i>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center pt-6 border-t border-white/5">
+                        <a href="/admin/products" class="px-6 py-3 bg-white/5 hover:bg-white/10 text-white font-medium rounded-xl transition-all flex items-center gap-2">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                            Back to Products
+                        </a>
+                        <button type="submit" class="px-6 py-3 bg-tech-blue hover:bg-tech-blue/80 text-white font-medium rounded-xl transition-all transform hover:scale-105 flex items-center gap-2">
+                            <i data-lucide="save" class="w-4 h-4"></i>
+                            Update Product
                         </button>
                     </div>
-                </div>
+                </form>
             </div>
         </main>
     </div>
     <script>
         lucide.createIcons();
+        
+        // Brand Selection and Category Filtering
+        const brandSelect = document.getElementById('brandSelect');
+        
+        brandSelect.addEventListener('change', function() {
+            const selectedBrandId = this.value;
+            if (selectedBrandId) {
+                // Redirect to reload page with selected brand
+                window.location.href = `/admin/products/${document.querySelector('form').action.split('/')[3]}/edit?brand=${selectedBrandId}`;
+            }
+        });
         
         // Theme Toggle Functionality
         const themeToggle = document.getElementById('theme-toggle');
