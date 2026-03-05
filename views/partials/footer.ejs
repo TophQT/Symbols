@@ -4,11 +4,16 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
                 <!-- Column 1: Logo & Description -->
                 <div class="space-y-6">
-                    <a href="/" class="flex items-center space-x-3 group">
-                        <div class="w-10 h-10 bg-tech-blue rounded-lg flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300 shadow-lg shadow-tech-blue/20">
-                            <i data-lucide="scan-barcode" class="text-white w-6 h-6"></i>
-                        </div>
-                        <span class="text-xl font-bold font-grotesk tracking-tight text-white group-hover:text-tech-blue transition-colors">Symbol Sciences</span>
+                    <a href="/" class="flex items-center group">
+                        <% if (locals.settings && locals.settings.logo) { %>
+                            <img src="<%= settings.logo %>" alt="Logo" class="h-10 w-auto object-contain transform group-hover:scale-110 transition-transform duration-300">
+                        <% } else if (locals.settings && locals.settings.defaultLogo) { %>
+                            <img src="<%= settings.defaultLogo %>" alt="Default Logo" class="h-10 w-auto object-contain transform group-hover:scale-110 transition-transform duration-300">
+                        <% } else { %>
+                            <div class="h-10 w-auto flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                                <i data-lucide="scan-barcode" class="text-tech-blue w-7 h-7"></i>
+                            </div>
+                        <% } %>
                     </a>
                     <p class="text-white/60 text-sm leading-relaxed">
                         Delivering advanced barcode, automation, and enterprise technology solutions for the modern industrial landscape. Empowering innovation through intelligent technology.

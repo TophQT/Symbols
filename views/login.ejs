@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'tech-dark': '#0b0e14',
+              'tech-blue': '#3b82f6',
+              'tech-accent': '#60a5fa',
+              'tech-red': '#ef4444',
+            },
+            animation: {
+              'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'float': 'float 3s ease-in-out infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-10px)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+      
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #0b0e14;
+        color: #ffffff;
+        overflow-x: hidden;
+      }
+      
+      .font-grotesk {
+        font-family: 'Space Grotesk', sans-serif;
+      }
+
+      .glass-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: all 0.3s ease;
+      }
+
+      .hero-gradient {
+        background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.15) 0%, rgba(11, 14, 20, 1) 70%);
+      }
+    </style>
+</head>
+<body class="bg-tech-dark text-white">
+    <main class="relative min-h-screen flex items-center justify-center hero-gradient overflow-hidden">
+        <!-- Floating Particles Background -->
+        <div class="absolute inset-0 pointer-events-none z-0">
+            <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/5 rounded-full blur-[100px] animate-float"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-400/5 rounded-full blur-[120px] animate-float" style="animation-delay: -1.5s"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10 flex justify-center">
+            <div class="glass-card rounded-2xl p-8 w-full max-w-md border border-white/10 shadow-2xl shadow-tech-blue/10">
+                <div class="text-center mb-10 space-y-2">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 text-xs font-bold uppercase tracking-widest mb-4">
+                        <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                        <span>Admin Access</span>
+                    </div>
+                    <h1 class="text-3xl font-bold font-grotesk text-white">Welcome Back</h1>
+                    <p class="text-white/60 text-sm">Please login to access the dashboard.</p>
+                </div>
+
+                <% if (error) { %>
+                    <div class="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl mb-6 flex items-center gap-3 animate-pulse">
+                        <i data-lucide="alert-circle" class="w-5 h-5"></i>
+                        <span class="text-sm font-medium"><%= error %></span>
+                    </div>
+                <% } %>
+
+                <form action="/login" method="POST" class="space-y-6">
+                    <div class="space-y-2">
+                        <label for="email" class="block text-sm font-medium text-white/70 ml-1">Email Address</label>
+                        <div class="relative group">
+                            <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-white/30 group-focus-within:text-blue-500 transition-colors">
+                                <i data-lucide="mail" class="w-5 h-5"></i>
+                            </span>
+                            <input type="email" id="email" name="email" required
+                                class="w-full pl-12 pr-4 py-3.5 bg-white/5 border-white/10 text-white placeholder-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 rounded-xl border focus:outline-none focus:ring-2 transition-all"
+                                placeholder="admin@gmail.com">
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="password" class="block text-sm font-medium text-white/70 ml-1">Password</label>
+                        <div class="relative group">
+                            <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-white/30 group-focus-within:text-blue-500 transition-colors">
+                                <i data-lucide="lock" class="w-5 h-5"></i>
+                            </span>
+                            <input type="password" id="password" name="password" required
+                                class="w-full pl-12 pr-12 py-3.5 bg-white/5 border-white/10 text-white placeholder-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 rounded-xl border focus:outline-none focus:ring-2 transition-all"
+                                placeholder="••••••••">
+                            <button type="button" onclick="togglePassword()" class="absolute inset-y-0 right-0 pr-4 flex items-center text-white/30 hover:text-white transition-colors">
+                                <i id="eye-icon" data-lucide="eye" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-4 rounded-xl shadow-md transform transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-tech-dark">
+                        Sign In
+                    </button>
+                </form>
+
+                <div class="mt-8 text-center">
+                    <a href="/" class="text-sm text-white/40 hover:text-white transition-all flex items-center justify-center gap-2 group">
+                        <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i> Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.querySelector('#eye-icon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.setAttribute('data-lucide', 'eye-off');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.setAttribute('data-lucide', 'eye');
+            }
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

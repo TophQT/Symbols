@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'tech-dark': '#0b0e14',
+              'tech-blue': '#3b82f6',
+              'tech-accent': '#60a5fa',
+              'tech-red': '#ef4444',
+            }
+          }
+        }
+      }
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+      
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #0b0e14;
+        color: #ffffff;
+      }
+      
+      .font-grotesk {
+        font-family: 'Space Grotesk', sans-serif;
+      }
+
+      .glass {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .glass-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: all 0.3s ease;
+      }
+
+      .glass-card:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(59, 130, 246, 0.3);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.2);
+      }
+    </style>
+</head>
+<body class="bg-tech-dark text-white">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 glass border-r border-white/5 hidden md:flex flex-col fixed h-screen z-40">
+            <div class="p-6">
+                <a href="/" class="flex items-center group mb-8">
+                    <% if (locals.settings && locals.settings.logo) { %>
+                        <img src="<%= settings.logo %>" alt="Logo" class="h-10 w-auto object-contain transform group-hover:scale-110 transition-transform duration-300">
+                    <% } else if (locals.settings && locals.settings.defaultLogo) { %>
+                        <img src="<%= settings.defaultLogo %>" alt="Default Logo" class="h-10 w-auto object-contain transform group-hover:scale-110 transition-transform duration-300">
+                    <% } else { %>
+                        <div class="h-10 w-auto flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                            <i data-lucide="scan-barcode" class="text-tech-blue w-7 h-7"></i>
+                        </div>
+                    <% } %>
+                </a>
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-tech-blue/10 border border-tech-blue/20 text-tech-blue text-[10px] font-bold uppercase tracking-widest mb-4">
+                    <span class="w-2 h-2 rounded-full bg-tech-blue"></span>
+                    <span>System Online</span>
+                </div>
+            </div>
+            <nav class="flex-grow space-y-1 px-4">
+                <a href="/admin/dashboard" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5 group-hover:text-tech-blue transition-colors"></i>
+                    <span class="font-medium">Dashboard</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
+                    <i data-lucide="users" class="w-5 h-5 group-hover:text-tech-blue transition-colors"></i>
+                    <span class="font-medium">User Management</span>
+                </a>
+                <a href="/admin/settings" class="flex items-center gap-3 px-4 py-3 bg-tech-blue/10 text-tech-blue border border-tech-blue/20 rounded-xl transition-all">
+                    <i data-lucide="settings" class="w-5 h-5"></i>
+                    <span class="font-medium">Settings</span>
+                </a>
+            </nav>
+            <div class="p-4 mt-auto">
+                <a href="/admin/logout" class="flex items-center gap-3 px-4 py-3 text-tech-red hover:bg-tech-red/10 rounded-xl transition-all group">
+                    <i data-lucide="log-out" class="w-5 h-5"></i>
+                    <span class="font-medium">Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow md:ml-64 p-6 lg:p-10">
+            <!-- Settings Header -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
+                <div class="space-y-1">
+                    <h1 class="text-3xl font-bold font-grotesk text-white">Website Settings</h1>
+                    <p class="text-white/40 text-sm">Manage your website logo and global settings.</p>
+                </div>
+                <div class="flex items-center gap-3 bg-white/5 border border-white/10 p-2 rounded-2xl pr-6">
+                    <div class="w-12 h-12 rounded-xl bg-tech-blue/20 flex items-center justify-center text-tech-blue font-bold border border-tech-blue/30 shadow-lg shadow-tech-blue/10">
+                        A
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold text-white leading-none">Admin User</p>
+                        <p class="text-[10px] text-white/40 uppercase tracking-widest mt-1">Super Admin</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success/Error Messages -->
+            <% if (success) { %>
+                <div class="mb-6 p-4 bg-green-500/10 border border-green-500/30 rounded-xl flex items-center gap-3">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-green-500"></i>
+                    <span class="text-green-500 font-medium"><%= success %></span>
+                </div>
+            <% } %>
+
+            <% if (error) { %>
+                <div class="mb-6 p-4 bg-tech-red/10 border border-tech-red/30 rounded-xl flex items-center gap-3">
+                    <i data-lucide="alert-circle" class="w-5 h-5 text-tech-red"></i>
+                    <span class="text-tech-red font-medium"><%= error %></span>
+                </div>
+            <% } %>
+
+            <!-- Settings Card -->
+            <div class="glass-card rounded-3xl p-8 border border-white/5">
+                <form action="/admin/settings" method="POST" enctype="multipart/form-data" class="space-y-8">
+                    <!-- Logo Management Section -->
+                    <div class="space-y-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h2 class="text-xl font-bold font-grotesk text-white mb-2">Logo Management</h2>
+                                <p class="text-white/40 text-sm">Upload a custom logo to display across your website. Recommended size: 200x60px, maximum file size: 2MB.</p>
+                            </div>
+                            <div class="flex items-center space-x-2 px-3 py-1.5 rounded-full bg-tech-blue/10 border border-tech-blue/20">
+                                <i data-lucide="image" class="w-4 h-4 text-tech-blue"></i>
+                                <span class="text-tech-blue text-xs font-medium">Media</span>
+                            </div>
+                        </div>
+
+                        <!-- Current Logo Display -->
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-semibold text-white/80 flex items-center gap-2">
+                                    <i data-lucide="eye" class="w-5 h-5 text-tech-blue"></i>
+                                    Current Logo
+                                </h3>
+                                <div class="glass-card rounded-xl p-6 border border-white/5">
+                                    <div class="flex items-center justify-center h-24 bg-white/5 rounded-lg border-2 border-dashed border-white/10">
+                                        <% if (locals.settings && locals.settings.logo) { %>
+                                            <img src="<%= settings.logo %>" alt="Current Logo" class="h-16 w-auto object-contain">
+                                        <% } else if (locals.settings && locals.settings.defaultLogo) { %>
+                                            <img src="<%= settings.defaultLogo %>" alt="Default Logo" class="h-16 w-auto object-contain">
+                                        <% } else { %>
+                                            <div class="text-center">
+                                                <i data-lucide="image-off" class="w-8 h-8 text-white/30 mx-auto mb-2"></i>
+                                                <p class="text-white/40 text-xs">No logo set</p>
+                                            </div>
+                                        <% } %>
+                                    </div>
+                                    <% if (locals.settings && locals.settings.logo) { %>
+                                        <div class="mt-3 flex items-center justify-between">
+                                            <p class="text-white/50 text-xs truncate"><%= settings.logo %></p>
+                                            <button type="button" onclick="confirmRemoveLogo()" class="text-tech-red hover:text-tech-red/80 text-xs font-medium flex items-center gap-1">
+                                                <i data-lucide="trash-2" class="w-3 h-3"></i>
+                                                Remove
+                                            </button>
+                                        </div>
+                                    <% } %>
+                                </div>
+                            </div>
+
+                            <!-- Upload New Logo -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-semibold text-white/80 flex items-center gap-2">
+                                    <i data-lucide="upload" class="w-5 h-5 text-tech-blue"></i>
+                                    Upload New Logo
+                                </h3>
+                                <div class="space-y-4">
+                                    <div class="relative">
+                                        <input type="file" id="logo-upload" name="logo" accept="image/*" class="hidden">
+                                        <label for="logo-upload" class="block cursor-pointer">
+                                            <div class="glass-card rounded-xl p-8 border-2 border-dashed border-white/10 hover:border-tech-blue/30 transition-all duration-300 group">
+                                                <div class="text-center">
+                                                    <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-tech-blue/10 flex items-center justify-center group-hover:bg-tech-blue/20 transition-colors">
+                                                        <i data-lucide="upload-cloud" class="w-8 h-8 text-tech-blue"></i>
+                                                    </div>
+                                                    <p class="text-white/80 font-medium mb-2">Click to upload or drag and drop</p>
+                                                    <p class="text-white/50 text-sm">PNG, JPG, GIF up to 5MB</p>
+                                                    <div class="mt-3 flex items-center justify-center space-x-4 text-xs text-white/40">
+                                                        <span class="flex items-center gap-1">
+                                                            <i data-lucide="check-circle" class="w-3 h-3"></i>
+                                                            Transparent BG
+                                                        </span>
+                                                        <span class="flex items-center gap-1">
+                                                            <i data-lucide="maximize-2" class="w-3 h-3"></i>
+                                                            Scalable
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    
+                                    <!-- Preview Container -->
+                                    <div id="preview-container" class="hidden">
+                                        <p class="text-white/60 text-sm mb-3 flex items-center gap-2">
+                                            <i data-lucide="preview" class="w-4 h-4"></i>
+                                            Preview:
+                                        </p>
+                                        <div class="glass-card rounded-xl p-4 border border-white/5">
+                                            <div class="flex items-center justify-center h-20 bg-white/5 rounded-lg">
+                                                <img id="logo-preview" src="" alt="Logo Preview" class="h-16 w-auto object-contain">
+                                            </div>
+                                            <div class="mt-3 flex items-center justify-between">
+                                                <p id="file-name" class="text-white/50 text-xs truncate"></p>
+                                                <button type="button" onclick="clearPreview()" class="text-tech-red hover:text-tech-red/80 text-xs font-medium flex items-center gap-1">
+                                                    <i data-lucide="x" class="w-3 h-3"></i>
+                                                    Clear
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Settings Section -->
+                    <div class="border-t border-white/5 pt-8">
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h2 class="text-xl font-bold font-grotesk text-white mb-2">General Settings</h2>
+                                <p class="text-white/40 text-sm">Configure your website's basic information and preferences.</p>
+                            </div>
+                            <div class="flex items-center space-x-2 px-3 py-1.5 rounded-full bg-tech-accent/10 border border-tech-accent/20">
+                                <i data-lucide="settings" class="w-4 h-4 text-tech-accent"></i>
+                                <span class="text-tech-accent text-xs font-medium">General</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <!-- Site Name -->
+                            <div class="space-y-3">
+                                <label for="site-name" class="block text-sm font-medium text-white/80 flex items-center gap-2">
+                                    <i data-lucide="globe" class="w-4 h-4 text-tech-blue"></i>
+                                    Site Name
+                                </label>
+                                <input type="text" id="site-name" name="siteName" value="<%= locals.settings && locals.settings.siteName ? settings.siteName : 'Symbol Sciences' %>" 
+                                    class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-tech-blue/50 focus:bg-white/8 transition-all">
+                            </div>
+
+                            <!-- Contact Email -->
+                            <div class="space-y-3">
+                                <label for="contact-email" class="block text-sm font-medium text-white/80 flex items-center gap-2">
+                                    <i data-lucide="mail" class="w-4 h-4 text-tech-blue"></i>
+                                    Contact Email
+                                </label>
+                                <input type="email" id="contact-email" name="contactEmail" value="<%= locals.settings && locals.settings.contactEmail ? settings.contactEmail : '' %>" 
+                                    class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-tech-blue/50 focus:bg-white/8 transition-all">
+                            </div>
+
+                            <!-- Phone Number -->
+                            <div class="space-y-3">
+                                <label for="phone" class="block text-sm font-medium text-white/80 flex items-center gap-2">
+                                    <i data-lucide="phone" class="w-4 h-4 text-tech-blue"></i>
+                                    Phone Number
+                                </label>
+                                <input type="tel" id="phone" name="phone" value="<%= locals.settings && locals.settings.phone ? settings.phone : '' %>" 
+                                    class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-tech-blue/50 focus:bg-white/8 transition-all">
+                            </div>
+
+                            <!-- Address -->
+                            <div class="space-y-3">
+                                <label for="address" class="block text-sm font-medium text-white/80 flex items-center gap-2">
+                                    <i data-lucide="map-pin" class="w-4 h-4 text-tech-blue"></i>
+                                    Address
+                                </label>
+                                <input type="text" id="address" name="address" value="<%= locals.settings && locals.settings.address ? settings.address : '' %>" 
+                                    class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-tech-blue/50 focus:bg-white/8 transition-all">
+                            </div>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mt-6 space-y-3">
+                            <label for="description" class="block text-sm font-medium text-white/80 flex items-center gap-2">
+                                <i data-lucide="file-text" class="w-4 h-4 text-tech-blue"></i>
+                                Site Description
+                            </label>
+                            <textarea id="description" name="description" rows="4" 
+                                class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-tech-blue/50 focus:bg-white/8 transition-all resize-none"><%= locals.settings && locals.settings.description ? settings.description : '' %></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="flex items-center justify-between pt-6 border-t border-white/5">
+                        <div class="flex items-center space-x-2 text-white/40 text-sm">
+                            <i data-lucide="info" class="w-4 h-4"></i>
+                            <span>Changes will be applied immediately after saving</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <button type="button" onclick="location.reload()" class="px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium rounded-xl transition-all duration-300">
+                                Cancel
+                            </button>
+                            <button type="submit" class="px-8 py-3 bg-tech-blue hover:bg-tech-blue/600 text-white font-semibold rounded-xl shadow-lg shadow-tech-blue/20 transform transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2">
+                                <i data-lucide="save" class="w-4 h-4"></i>
+                                Save Settings
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+    <script>
+        lucide.createIcons();
+        
+        // Logo preview functionality
+        document.getElementById('logo-upload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('logo-preview');
+            const container = document.getElementById('preview-container');
+            const fileName = document.getElementById('file-name');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    fileName.textContent = file.name;
+                    container.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                container.classList.add('hidden');
+            }
+        });
+
+        // Clear preview function
+        function clearPreview() {
+            const fileInput = document.getElementById('logo-upload');
+            const container = document.getElementById('preview-container');
+            
+            fileInput.value = '';
+            container.classList.add('hidden');
+        }
+
+        // Confirm remove logo function
+        function confirmRemoveLogo() {
+            if (confirm('Are you sure you want to remove the current logo? This will revert to the default logo.')) {
+                // Create a hidden input to signal logo removal
+                const form = document.querySelector('form');
+                const removeInput = document.createElement('input');
+                removeInput.type = 'hidden';
+                removeInput.name = 'removeLogo';
+                removeInput.value = 'true';
+                form.appendChild(removeInput);
+                form.submit();
+            }
+        }
+
+        // Drag and drop functionality
+        const uploadArea = document.querySelector('label[for="logo-upload"] .glass-card');
+        
+        if (uploadArea) {
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, () => {
+                    uploadArea.classList.add('border-tech-blue/50', 'bg-tech-blue/5');
+                });
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, () => {
+                    uploadArea.classList.remove('border-tech-blue/50', 'bg-tech-blue/5');
+                });
+            });
+            
+            uploadArea.addEventListener('drop', function(e) {
+                const files = e.dataTransfer.files;
+                const fileInput = document.getElementById('logo-upload');
+                
+                if (files.length > 0) {
+                    fileInput.files = files;
+                    const event = new Event('change', { bubbles: true });
+                    fileInput.dispatchEvent(event);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -63,7 +63,7 @@
         font-family: 'Space Grotesk', sans-serif;
       }
 
-      /* Glassmorphism */
+      /* Glassmorphism - Dark Mode */
       .glass {
         background: rgba(255, 255, 255, 0.03);
         backdrop-filter: blur(12px);
@@ -96,7 +96,7 @@
         height: 2px;
         bottom: -4px;
         left: 0;
-        background-color: #3b82f6;
+        background-color: #2563EB;
         transition: width 0.3s ease;
       }
       .nav-link:hover::after {
@@ -115,12 +115,7 @@
         border-radius: 4px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #3b82f6;
-      }
-
-      /* Hero Gradient */
-      .hero-gradient {
-        background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.15) 0%, rgba(11, 14, 20, 1) 70%);
+        background: #2563EB;
       }
 
       /* Barcode Scanner Laser */
@@ -139,7 +134,7 @@
       }
     </style>
 </head>
-<body class="bg-tech-dark text-white selection:bg-tech-blue selection:text-white">
+<body class="bg-tech-dark text-white">
     <!-- Loading Screen -->
     <div id="loading-screen" class="fixed inset-0 z-[100] flex items-center justify-center bg-tech-dark transition-opacity duration-700">
         <div class="relative">
@@ -154,21 +149,31 @@
     <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300" id="main-header">
         <nav class="container mx-auto px-6 py-4 flex items-center justify-between">
             <!-- Logo -->
-            <a href="/" class="flex items-center space-x-3 group">
-                <div class="w-10 h-10 bg-tech-blue rounded-lg flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300 shadow-lg shadow-tech-blue/20">
-                    <i data-lucide="scan-barcode" class="text-white w-6 h-6"></i>
-                </div>
-                <span class="text-xl font-bold font-grotesk tracking-tight text-white group-hover:text-tech-blue transition-colors">Symbol Sciences</span>
+            <a href="/" class="flex items-center group">
+                <% if (locals.settings && locals.settings.logo) { %>
+                    <img src="<%= settings.logo %>" alt="Logo" class="h-12 w-auto object-contain transform group-hover:scale-110 transition-transform duration-300">
+                <% } else if (locals.settings && locals.settings.defaultLogo) { %>
+                    <img src="<%= settings.defaultLogo %>" alt="Default Logo" class="h-12 w-auto object-contain transform group-hover:scale-110 transition-transform duration-300">
+                <% } else { %>
+                    <div class="h-12 w-auto flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                        <i data-lucide="scan-barcode" class="text-tech-blue w-8 h-8"></i>
+                    </div>
+                <% } %>
             </a>
 
             <!-- Desktop Menu -->
             <div class="hidden lg:flex items-center space-x-8">
-                <a href="/" class="nav-link text-sm font-medium hover:text-tech-blue transition-colors">Home</a>
-                <a href="/products" class="nav-link text-sm font-medium hover:text-tech-blue transition-colors">Products</a>
-                <a href="/services" class="nav-link text-sm font-medium hover:text-tech-blue transition-colors">Services & Solutions</a>
-                <a href="/updates" class="nav-link text-sm font-medium hover:text-tech-blue transition-colors">Updates</a>
-                <a href="/about" class="nav-link text-sm font-medium hover:text-tech-blue transition-colors">About Us</a>
-                <a href="/contact" class="px-5 py-2 bg-tech-blue hover:bg-tech-accent text-white rounded-full text-sm font-semibold transition-all shadow-lg shadow-tech-blue/20 transform hover:scale-105 active:scale-95">Contact Us</a>
+                <a href="/" class="nav-link text-sm font-medium text-white hover:text-blue-600 transition-colors">Home</a>
+                <a href="/products" class="nav-link text-sm font-medium text-white hover:text-blue-600 transition-colors">Products</a>
+                <a href="/services" class="nav-link text-sm font-medium text-white hover:text-blue-600 transition-colors">Services & Solutions</a>
+                <a href="/updates" class="nav-link text-sm font-medium text-white hover:text-blue-600 transition-colors">Updates</a>
+                <a href="/about" class="nav-link text-sm font-medium text-white hover:text-blue-600 transition-colors">About Us</a>
+                <div class="flex items-center space-x-4">
+                    <a href="/login" class="text-sm font-medium text-white/70 hover:text-white transition-colors flex items-center gap-2">
+                        <i data-lucide="user" class="w-4 h-4"></i> Login
+                    </a>
+                    <a href="/contact" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-semibold transition-all shadow-md transform hover:scale-105 active:scale-95">Contact Us</a>
+                </div>
             </div>
 
             <!-- Mobile Menu Toggle -->
@@ -182,11 +187,12 @@
             <button class="absolute top-6 right-6 text-white" id="close-menu-btn">
                 <i data-lucide="x" class="w-8 h-8"></i>
             </button>
-            <a href="/" class="text-2xl font-bold hover:text-tech-blue">Home</a>
-            <a href="/products" class="text-2xl font-bold hover:text-tech-blue">Products</a>
-            <a href="/services" class="text-2xl font-bold hover:text-tech-blue">Services & Solutions</a>
-            <a href="/updates" class="text-2xl font-bold hover:text-tech-blue">Updates</a>
-            <a href="/about" class="text-2xl font-bold hover:text-tech-blue">About Us</a>
-            <a href="/contact" class="px-8 py-3 bg-tech-blue text-white rounded-full text-lg font-semibold">Contact Us</a>
+            <a href="/" class="text-2xl font-bold text-white hover:text-blue-600">Home</a>
+            <a href="/products" class="text-2xl font-bold text-white hover:text-blue-600">Products</a>
+            <a href="/services" class="text-2xl font-bold text-white hover:text-blue-600">Services & Solutions</a>
+            <a href="/updates" class="text-2xl font-bold text-white hover:text-blue-600">Updates</a>
+            <a href="/about" class="text-2xl font-bold text-white hover:text-blue-600">About Us</a>
+            <a href="/login" class="text-2xl font-bold text-white hover:text-blue-600">Login</a>
+            <a href="/contact" class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-lg font-semibold">Contact Us</a>
         </div>
     </header>

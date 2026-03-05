@@ -1,35 +1,86 @@
 const express = require('express');
 const router = express.Router();
 const Message = require('../models/Message');
+const Settings = require('../models/Settings');
+const authMiddleware = require('../middleware/auth');
+const upload = require('../middleware/upload');
+const path = require('path');
+
+// Helper to get site settings
+const getSettings = async () => {
+    try {
+        return await Settings.getSettings();
+    } catch (error) {
+        console.error('Error fetching settings:', error);
+        return { siteName: 'Symbol Sciences', logo: null, defaultLogo: '/images/default-logo.png' };
+    }
+};
+
+// Admin Dashboard
+router.get('/admin/dashboard', authMiddleware, async (req, res) => {
+    const settings = await getSettings();
+    res.render('dashboard', { title: 'Admin Dashboard', settings });
+});
+
+// Login Page
+router.get('/login', (req, res) => {
+    if (req.session.admin) {
+        return res.redirect('/admin/dashboard');
+    }
+    res.render('login', { title: 'Login - Admin Dashboard', error: null });
+});
+
+// Login Logic
+router.post('/login', (req, res) => {
+    const { email, password } = req.body;
+    const adminEmail = 'admin@gmail.com';
+    const adminPassword = 'admin@123';
+
+    if (email === adminEmail && password === adminPassword) {
+        req.session.admin = true;
+        res.redirect('/admin/dashboard');
+    } else {
+        res.render('login', { 
+            title: 'Login - Admin Dashboard', 
+            error: 'Invalid email or password' 
+        });
+    }
+});
 
 // Home Page
-router.get('/', (req, res) => {
-    res.render('index', { title: 'Symbol Sciences - Empowering Innovation' });
+router.get('/', async (req, res) => {
+    const settings = await getSettings();
+    res.render('index', { title: 'Symbol Sciences - Empowering Innovation', settings });
 });
 
 // Products Page
-router.get('/products', (req, res) => {
-    res.render('products', { title: 'Our Products - Symbol Sciences' });
+router.get('/products', async (req, res) => {
+    const settings = await getSettings();
+    res.render('products', { title: 'Our Products - Symbol Sciences', settings });
 });
 
 // Services & Solutions Page
-router.get('/services', (req, res) => {
-    res.render('services', { title: 'Services & Solutions - Symbol Sciences' });
+router.get('/services', async (req, res) => {
+    const settings = await getSettings();
+    res.render('services', { title: 'Services & Solutions - Symbol Sciences', settings });
 });
 
 // Updates Page
-router.get('/updates', (req, res) => {
-    res.render('updates', { title: 'Latest Updates - Symbol Sciences' });
+router.get('/updates', async (req, res) => {
+    const settings = await getSettings();
+    res.render('updates', { title: 'Latest Updates - Symbol Sciences', settings });
 });
 
 // About Us Page
-router.get('/about', (req, res) => {
-    res.render('about', { title: 'About Us - Symbol Sciences' });
+router.get('/about', async (req, res) => {
+    const settings = await getSettings();
+    res.render('about', { title: 'About Us - Symbol Sciences', settings });
 });
 
 // Contact Us Page
-router.get('/contact', (req, res) => {
-    res.render('contact', { title: 'Contact Us - Symbol Sciences' });
+router.get('/contact', async (req, res) => {
+    const settings = await getSettings();
+    res.render('contact', { title: 'Contact Us - Symbol Sciences', settings });
 });
 
 // Contact Form Submission
@@ -56,6 +107,67 @@ router.post('/contact', async (req, res) => {
     } catch (err) {
         console.error('Database Error:', err);
         res.status(500).json({ success: false, message: 'Internal system error. Please try again later.' });
+    }
+});
+
+// Logout
+router.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Session destroy error:', err);
+        }
+        res.redirect('/login');
+    });
+});
+
+// Admin Logout (for dashboard)
+router.get('/admin/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Session destroy error:', err);
+        }
+        res.redirect('/login');
+    });
+});
+
+// Admin Settings Page
+router.get('/admin/settings', authMiddleware, async (req, res) => {
+    try {
+        const settings = await getSettings();
+        res.render('admin-settings', { 
+            title: 'Website Settings - Admin Dashboard', 
+            settings,
+            success: req.session.success || null,
+            error: req.session.error || null
+        });
+        // Clear session messages after displaying
+        delete req.session.success;
+        delete req.session.error;
+    } catch (error) {
+        console.error('Error loading settings:', error);
+        res.status(500).render('500', { title: 'Server Error' });
+    }
+});
+
+// Update Settings (Logo Upload)
+router.post('/admin/settings', authMiddleware, upload.single('logo'), async (req, res) => {
+    try {
+        const settings = await Settings.getSettings();
+        
+        if (req.file) {
+            // Update logo path
+            settings.logo = '/uploads/' + req.file.filename;
+            await settings.save();
+            req.session.success = 'Logo updated successfully!';
+        } else {
+            req.session.error = 'Please select a valid image file.';
+        }
+        
+        res.redirect('/admin/settings');
+    } catch (error) {
+        console.error('Error updating settings:', error);
+        req.session.error = 'Failed to update logo. Please try again.';
+        res.redirect('/admin/settings');
     }
 });
 

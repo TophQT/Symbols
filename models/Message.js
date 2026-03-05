@@ -1,17 +1,16 @@
 const mongoose = require('mongoose');
 
-const MessageSchema = new mongoose.Schema({
+const messageSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: [true, 'Name is required'],
+        required: true,
         trim: true
     },
     email: {
         type: String,
-        required: [true, 'Email is required'],
+        required: true,
         trim: true,
-        lowercase: true,
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
+        lowercase: true
     },
     company: {
         type: String,
@@ -23,7 +22,7 @@ const MessageSchema = new mongoose.Schema({
     },
     message: {
         type: String,
-        required: [true, 'Message is required'],
+        required: true,
         trim: true
     },
     createdAt: {
@@ -32,4 +31,4 @@ const MessageSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Message', MessageSchema);
+module.exports = mongoose.model('Message', messageSchema);
