@@ -140,24 +140,23 @@
         transform: translateY(-5px);
         box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.2);
       }
-
-      .image-preview {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-        border-radius: 12px;
-      }
     </style>
 </head>
-<body class="bg-tech-dark text-white">
+<body class="<%= dashboardTheme === 'light' ? 'light' : '' %> bg-tech-dark text-white">
     <div class="flex min-h-screen">
         <!-- Sidebar -->
         <aside class="w-64 glass border-r border-white/5 hidden md:flex flex-col fixed h-screen z-40">
             <div class="p-6">
                 <a href="/" class="flex items-center group mb-8">
-                    <div class="h-10 w-auto flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                        <i data-lucide="scan-barcode" class="text-tech-blue w-7 h-7"></i>
-                    </div>
+                    <% if (locals.settings && locals.settings.logo) { %>
+                        <img src="<%= settings.logo %>" alt="Logo" class="h-10 w-auto object-contain transform group-hover:scale-110 transition-transform duration-300">
+                    <% } else if (locals.settings && locals.settings.defaultLogo) { %>
+                        <img src="<%= settings.defaultLogo %>" alt="Default Logo" class="h-10 w-auto object-contain transform group-hover:scale-110 transition-transform duration-300">
+                    <% } else { %>
+                        <div class="h-10 w-auto flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                            <i data-lucide="scan-barcode" class="text-tech-blue w-7 h-7"></i>
+                        </div>
+                    <% } %>
                 </a>
                 <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-tech-blue/10 border border-tech-blue/20 text-tech-blue text-[10px] font-bold uppercase tracking-widest mb-4">
                     <span class="w-2 h-2 rounded-full bg-tech-blue"></span>
@@ -170,11 +169,6 @@
                     <span class="font-medium">Dashboard</span>
                 </a>
                 <div class="space-y-1">
-                    <div class="px-4 py-2 text-xs font-bold text-white/40 uppercase tracking-wider">Products</div>
-                    <a href="/admin/products" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
-                        <i data-lucide="package" class="w-5 h-5 group-hover:text-tech-blue transition-colors"></i>
-                        <span class="font-medium">Products</span>
-                    </a>
                     <a href="/admin/products/brands" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
                         <i data-lucide="bookmark" class="w-5 h-5 group-hover:text-tech-blue transition-colors"></i>
                         <span class="font-medium">Brands</span>
@@ -182,6 +176,10 @@
                     <a href="/admin/products/categories" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
                         <i data-lucide="folder" class="w-5 h-5 group-hover:text-tech-blue transition-colors"></i>
                         <span class="font-medium">Categories</span>
+                    </a>
+                    <a href="/admin/products" class="flex items-center gap-3 px-4 py-3 bg-tech-blue/10 text-tech-blue border border-tech-blue/20 rounded-xl transition-all">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                        <span class="font-medium">Products</span>
                     </a>
                 </div>
                 <a href="/admin/settings" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
@@ -202,163 +200,141 @@
             <!-- Header -->
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
                 <div class="space-y-1">
-                    <h1 class="text-3xl font-bold font-grotesk text-white">Create Product</h1>
-                    <p class="text-white/40 text-sm">Add a new product to your inventory</p>
+                    <h1 class="text-3xl font-bold font-grotesk text-white dark:text-white">Product Management</h1>
+                    <p class="text-white/40 text-sm dark:text-white/40">Create and manage your system products.</p>
                 </div>
                 <div class="flex items-center gap-3">
                     <!-- Theme Toggle -->
-                    <button id="theme-toggle" class="relative w-14 h-7 bg-white/10 border border-white/20 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-tech-blue/50">
+                    <a href="/admin/dashboard-theme/<%= dashboardTheme === 'dark' ? 'light' : 'dark' %>" id="theme-toggle" class="relative w-14 h-7 bg-white/10 border border-white/20 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-tech-blue/50 <%= dashboardTheme === 'light' ? 'active' : '' %>">
                         <div class="absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full shadow-md transform transition-transform duration-300 flex items-center justify-center">
                             <i data-lucide="sun" class="w-3 h-3 text-tech-blue dark:hidden"></i>
                             <i data-lucide="moon" class="w-3 h-3 text-tech-blue hidden dark:block"></i>
                         </div>
-                    </button>
+                    </a>
+                    <div class="flex items-center gap-3 bg-white/5 border border-white/10 p-2 rounded-2xl pr-6">
+                        <div class="w-12 h-12 rounded-xl bg-tech-blue/20 flex items-center justify-center text-tech-blue font-bold border border-tech-blue/30 shadow-lg shadow-tech-blue/10">
+                            A
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-white leading-none">Admin User</p>
+                            <p class="text-[10px] text-white/40 uppercase tracking-widest mt-1">Super Admin</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Success/Error Messages -->
             <% if (success) { %>
-                <div class="mb-6 p-4 bg-green-500/10 border border-green-500/20 rounded-xl text-green-400 flex items-center gap-3">
-                    <i data-lucide="check-circle" class="w-5 h-5"></i>
-                    <span><%= success %></span>
-                </div>
-            <% } %>
-            <% if (error) { %>
-                <div class="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 flex items-center gap-3">
-                    <i data-lucide="alert-circle" class="w-5 h-5"></i>
-                    <span><%= error %></span>
+                <div class="mb-6 p-4 bg-green-500/10 border border-green-500/30 rounded-xl flex items-center gap-3">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-green-500"></i>
+                    <span class="text-green-500 font-medium"><%= success %></span>
                 </div>
             <% } %>
 
-            <!-- Create Product Form -->
-            <div class="glass-card rounded-3xl p-8 border border-white/5">
-                <form action="/admin/products/create" method="POST" enctype="multipart/form-data" class="space-y-8">
-                    <div class="grid lg:grid-cols-2 gap-8">
-                        <!-- Left Column -->
+            <% if (error) { %>
+                <div class="mb-6 p-4 bg-tech-red/10 border border-tech-red/30 rounded-xl flex items-center gap-3">
+                    <i data-lucide="alert-circle" class="w-5 h-5 text-tech-red"></i>
+                    <span class="text-tech-red font-medium"><%= error %></span>
+                </div>
+            <% } %>
+
+            <!-- Product Creation Form Card -->
+            <div class="glass-card rounded-3xl p-8 border border-white/5 shadow-soft">
+                <form action="/admin/products" method="POST" enctype="multipart/form-data" class="space-y-8">
+                    <div class="flex items-center justify-between mb-2">
+                        <div>
+                            <h2 class="text-xl font-bold font-grotesk text-white">Create New Product</h2>
+                            <p class="text-white/40 text-sm">Add a new product to your catalog with image and details.</p>
+                        </div>
+                        <div class="flex items-center space-x-2 px-3 py-1.5 rounded-full bg-tech-blue/10 border border-tech-blue/20">
+                            <i data-lucide="plus-circle" class="w-4 h-4 text-tech-blue"></i>
+                            <span class="text-tech-blue text-xs font-medium">New Entry</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Left Side: Basic Info -->
                         <div class="space-y-6">
                             <div>
-                                <label class="block text-sm font-medium text-white/80 mb-2">Product Image</label>
-                                <div class="space-y-4">
-                                    <div class="relative">
-                                        <input type="file" name="image" accept="image/*" required class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-tech-blue/10 file:text-tech-blue hover:file:bg-tech-blue/20 transition-all">
-                                    </div>
-                                    <p class="text-xs text-white/40">Upload a product image (required)</p>
-                                </div>
+                                <label for="name" class="block text-sm font-medium text-white/60 mb-2">Product Name</label>
+                                <input type="text" name="name" id="name" required placeholder="Enter product name" 
+                                    class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-tech-blue/50 focus:border-tech-blue/50 transition-all">
                             </div>
-                            
+
                             <div>
-                                <label class="block text-sm font-medium text-white/80 mb-2">Product Name</label>
-                                <input type="text" name="name" required class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-tech-blue/50 focus:bg-white/10 transition-all" placeholder="Enter product name...">
+                                <label for="brand" class="block text-sm font-medium text-white/60 mb-2">Select Brand</label>
+                                <select name="brand" id="brand" required
+                                    class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-tech-blue/50 focus:border-tech-blue/50 transition-all appearance-none">
+                                    <option value="" disabled selected>-- Choose Brand --</option>
+                                    <% brands.forEach(brand => { %>
+                                        <option value="<%= brand._id %>" class="bg-tech-dark"><%= brand.name %></option>
+                                    <% }) %>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="category" class="block text-sm font-medium text-white/60 mb-2">Select Category</label>
+                                <select name="category" id="category" required
+                                    class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-tech-blue/50 focus:border-tech-blue/50 transition-all appearance-none">
+                                    <option value="" disabled selected>-- Choose Category --</option>
+                                    <% categories.forEach(category => { %>
+                                        <option value="<%= category._id %>" class="bg-tech-dark"><%= category.name %></option>
+                                    <% }) %>
+                                </select>
                             </div>
                         </div>
 
-                        <!-- Right Column -->
+                        <!-- Right Side: Image Upload -->
                         <div class="space-y-6">
                             <div>
-                                <label class="block text-sm font-medium text-white/80 mb-2">Brand</label>
-                                <select name="brand" id="brandSelect" required class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-tech-blue/50 focus:bg-white/10 transition-all mb-4">
-                                    <option value="">Select a brand</option>
-                                    <% brands.forEach(brand => { %>
-                                        <option value="<%= brand._id %>" <%= selectedBrand && selectedBrand._id.toString() === brand._id.toString() ? 'selected' : '' %>><%= brand.name %></option>
-                                    <% }); %>
-                                </select>
-                                <% if (brands.length === 0) { %>
-                                    <p class="text-yellow-400 text-sm flex items-center gap-2">
-                                        <i data-lucide="alert-triangle" class="w-4 h-4"></i>
-                                        No brands available. <a href="/admin/products/brands" class="underline">Create a brand first</a>
-                                    </p>
-                                <% } %>
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-white/80 mb-2">Category</label>
-                                <select name="category" required class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-tech-blue/50 focus:bg-white/10 transition-all">
-                                    <option value="">Select a category</option>
-                                    <% categories.forEach(category => { %>
-                                        <option value="<%= category._id %>"><%= category.name %></option>
-                                    <% }); %>
-                                </select>
-                                <% if (categories.length === 0) { %>
-                                    <p class="text-yellow-400 text-sm flex items-center gap-2">
-                                        <i data-lucide="alert-triangle" class="w-4 h-4"></i>
-                                        No categories available. <a href="/admin/products/categories" class="underline">Create categories first</a>
-                                    </p>
-                                <% } %>
-                            </div>
-
-                            <div class="glass-card p-6 rounded-2xl border border-white/5">
-                                <h3 class="text-white font-semibold mb-4 flex items-center gap-2">
-                                    <i data-lucide="info" class="w-5 h-5 text-tech-blue"></i>
-                                    Product Information
-                                </h3>
-                                <div class="space-y-3 text-sm text-white/60">
-                                    <p>• Product name is required</p>
-                                    <p>• Product image is required</p>
-                                    <p>• Brand selection is required</p>
-                                    <p>• Category selection is required</p>
-                                    <p>• Categories will be filtered by selected brand</p>
+                                <label class="block text-sm font-medium text-white/60 mb-2">Product Image</label>
+                                <div class="relative group h-full min-h-[200px]">
+                                    <input type="file" name="image" id="image-upload" accept="image/*" required class="hidden">
+                                    <label for="image-upload" class="cursor-pointer block h-full min-h-[200px] border-2 border-dashed border-white/10 rounded-2xl hover:border-tech-blue/50 transition-all group overflow-hidden bg-white/2">
+                                        <div id="image-preview-container" class="flex flex-col items-center justify-center h-full p-6 text-center">
+                                            <i data-lucide="upload-cloud" class="w-12 h-12 text-white/20 group-hover:text-tech-blue transition-colors mb-4"></i>
+                                            <p class="text-white/40 group-hover:text-white transition-colors font-medium">Click to upload product image</p>
+                                            <p class="text-[10px] text-white/20 mt-2 uppercase tracking-widest">Supports JPG, PNG, WebP (Max 5MB)</p>
+                                        </div>
+                                        <img id="image-preview" src="#" alt="Preview" class="hidden w-full h-full object-contain p-4">
+                                    </label>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex justify-between items-center pt-6 border-t border-white/5">
-                        <a href="/admin/products" class="px-6 py-3 bg-white/5 hover:bg-white/10 text-white font-medium rounded-xl transition-all flex items-center gap-2">
-                            <i data-lucide="arrow-left" class="w-4 h-4"></i>
-                            Back to Products
-                        </a>
-                        <button type="submit" class="px-6 py-3 bg-tech-blue hover:bg-tech-blue/80 text-white font-medium rounded-xl transition-all transform hover:scale-105 flex items-center gap-2">
-                            <i data-lucide="plus" class="w-4 h-4"></i>
-                            Create Product
+                    <div class="flex justify-end pt-4">
+                        <button type="submit" class="px-8 py-3 bg-tech-blue hover:bg-tech-accent text-white font-bold rounded-xl transition-all shadow-lg shadow-tech-blue/20 transform hover:-translate-y-1 active:translate-y-0 flex items-center gap-2">
+                            <i data-lucide="save" class="w-5 h-5"></i>
+                            Save Product
                         </button>
                     </div>
                 </form>
             </div>
         </main>
     </div>
+
     <script>
+        // Initialize Lucide icons
         lucide.createIcons();
-        
-        // Brand Selection and Category Filtering
-        const brandSelect = document.getElementById('brandSelect');
-        
-        brandSelect.addEventListener('change', function() {
-            const selectedBrandId = this.value;
-            if (selectedBrandId) {
-                // Redirect to reload page with selected brand
-                window.location.href = `/admin/products/create?brand=${selectedBrandId}`;
+
+        // Image preview logic
+        const imageUpload = document.getElementById('image-upload');
+        const imagePreview = document.getElementById('image-preview');
+        const previewContainer = document.getElementById('image-preview-container');
+
+        imageUpload.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.classList.remove('hidden');
+                    previewContainer.classList.add('hidden');
+                }
+                reader.readAsDataURL(file);
             }
         });
-        
-        // Theme Toggle Functionality
-        const themeToggle = document.getElementById('theme-toggle');
-        const body = document.body;
-        
-        // Check for saved theme preference or default to dark mode
-        const savedTheme = localStorage.getItem('dashboard-theme') || 'dark';
-        body.classList.toggle('light', savedTheme === 'light');
-        themeToggle.classList.toggle('active', savedTheme === 'light');
-        
-        // Theme toggle event listener
-        themeToggle.addEventListener('click', () => {
-            const isLight = body.classList.toggle('light');
-            themeToggle.classList.toggle('active', isLight);
-            
-            // Save theme preference
-            localStorage.setItem('dashboard-theme', isLight ? 'light' : 'dark');
-            
-            // Re-initialize Lucide icons for theme change
-            setTimeout(() => {
-                lucide.createIcons();
-            }, 100);
-        });
-        
-        // Apply theme on page load
-        if (savedTheme === 'light') {
-            setTimeout(() => {
-                lucide.createIcons();
-            }, 100);
-        }
     </script>
 </body>
 </html>

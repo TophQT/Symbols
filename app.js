@@ -38,8 +38,7 @@ app.use('/', indexRouter);
 const dashboardRouter = require('./routes/dashboard');
 app.use('/admin', dashboardRouter);
 
-const productsRouter = require('./routes/products');
-app.use('/admin/products', productsRouter);
+
 
 // 404 handler
 app.use((req, res, next) => {

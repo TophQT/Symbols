@@ -9,7 +9,7 @@ const storage = multer.diskStorage({
     filename: function (req, file, cb) {
         // Create unique filename with timestamp
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, 'logo-' + uniqueSuffix + path.extname(file.originalname));
+        cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
     }
 });
 

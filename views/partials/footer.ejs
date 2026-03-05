@@ -123,10 +123,20 @@
         });
 
         // Loading Screen Fade Out
-        window.addEventListener('load', () => {
+        const hideLoader = () => {
             const loader = document.getElementById('loading-screen');
-            loader.classList.add('opacity-0', 'pointer-events-none');
-        });
+            if (loader) {
+                loader.classList.add('opacity-0', 'pointer-events-none');
+                // Optional: remove from DOM after fade animation
+                setTimeout(() => loader.remove(), 700);
+            }
+        };
+
+        // Hide when everything is loaded
+        window.addEventListener('load', hideLoader);
+
+        // Safety timeout: hide after 3 seconds even if not fully loaded
+        setTimeout(hideLoader, 3000);
     </script>
 </body>
 </html>
