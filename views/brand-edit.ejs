@@ -140,6 +140,51 @@
         transform: translateY(-5px);
         box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.2);
       }
+
+      /* Light mode input styles */
+      body.light input,
+      body.light textarea,
+      body.light select {
+        color: #1f2937;
+        background-color: rgba(31, 41, 55, 0.05);
+        border-color: rgba(31, 41, 55, 0.1);
+      }
+
+      body.light input::placeholder,
+      body.light textarea::placeholder {
+        color: rgba(31, 41, 55, 0.4);
+      }
+
+      body.light input:focus,
+      body.light textarea:focus,
+      body.light select:focus {
+        background-color: rgba(31, 41, 55, 0.1);
+        border-color: #3b82f6;
+      }
+
+      body.light .glass-card.border-white\/5 {
+        border-color: rgba(31, 41, 55, 0.1);
+      }
+
+      body.light .border-white\/5 {
+        border-color: rgba(31, 41, 55, 0.1);
+      }
+
+      body.light .border-white\/10 {
+        border-color: rgba(31, 41, 55, 0.15);
+      }
+
+      body.light .text-tech-blue {
+        color: #3b82f6;
+      }
+
+      body.light .bg-tech-blue\/10 {
+        background-color: rgba(59, 130, 246, 0.1);
+      }
+
+      body.light .bg-tech-blue\/20 {
+        background-color: rgba(59, 130, 246, 0.2);
+      }
     </style>
 </head>
 <body class="bg-tech-dark text-white">
@@ -163,11 +208,6 @@
                     <span class="font-medium">Dashboard</span>
                 </a>
                 <div class="space-y-1">
-                    <div class="px-4 py-2 text-xs font-bold text-white/40 uppercase tracking-wider">Products</div>
-                    <a href="/admin/products" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
-                        <i data-lucide="package" class="w-5 h-5 group-hover:text-tech-blue transition-colors"></i>
-                        <span class="font-medium">Products</span>
-                    </a>
                     <a href="/admin/products/brands" class="flex items-center gap-3 px-4 py-3 bg-tech-blue/10 text-tech-blue border border-tech-blue/20 rounded-xl transition-all">
                         <i data-lucide="bookmark" class="w-5 h-5"></i>
                         <span class="font-medium">Brands</span>
@@ -203,11 +243,11 @@
                     <p class="text-white/40 text-sm">Manage brand details and associated categories</p>
                 </div>
                 <div class="flex items-center gap-3">
-                    <!-- Theme Toggle -->
+                    <!-- Theme Toggle - Fixed icon display -->
                     <button id="theme-toggle" class="relative w-14 h-7 bg-white/10 border border-white/20 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-tech-blue/50">
                         <div class="absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full shadow-md transform transition-transform duration-300 flex items-center justify-center">
-                            <i data-lucide="sun" class="w-3 h-3 text-tech-blue dark:hidden"></i>
-                            <i data-lucide="moon" class="w-3 h-3 text-tech-blue hidden dark:block"></i>
+                            <i data-lucide="sun" class="w-3 h-3 text-tech-blue"></i>
+                            <i data-lucide="moon" class="w-3 h-3 text-tech-blue hidden"></i>
                         </div>
                     </button>
                 </div>
@@ -281,6 +321,26 @@
         body.classList.toggle('light', savedTheme === 'light');
         themeToggle.classList.toggle('active', savedTheme === 'light');
         
+        // Update icon visibility based on theme
+        const updateIcons = () => {
+            const sunIcon = document.querySelector('#theme-toggle [data-lucide="sun"]');
+            const moonIcon = document.querySelector('#theme-toggle [data-lucide="moon"]');
+            if (sunIcon && moonIcon) {
+                if (body.classList.contains('light')) {
+                    // Light mode - show sun, hide moon
+                    sunIcon.classList.remove('hidden');
+                    moonIcon.classList.add('hidden');
+                } else {
+                    // Dark mode - show moon, hide sun
+                    sunIcon.classList.add('hidden');
+                    moonIcon.classList.remove('hidden');
+                }
+            }
+        };
+        
+        // Initial icon update
+        updateIcons();
+        
         // Theme toggle event listener
         themeToggle.addEventListener('click', () => {
             const isLight = body.classList.toggle('light');
@@ -289,18 +349,14 @@
             // Save theme preference
             localStorage.setItem('dashboard-theme', isLight ? 'light' : 'dark');
             
+            // Update icons
+            updateIcons();
+            
             // Re-initialize Lucide icons for theme change
             setTimeout(() => {
                 lucide.createIcons();
             }, 100);
         });
-        
-        // Apply theme on page load
-        if (savedTheme === 'light') {
-            setTimeout(() => {
-                lucide.createIcons();
-            }, 100);
-        }
     </script>
 </body>
 </html>

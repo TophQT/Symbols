@@ -176,8 +176,105 @@ router.post('/settings', authMiddleware, upload.single('logo'), async (req, res)
 });
 
 
-// Product Creation Page
+// Product Management Page (List View)
 router.get('/products', authMiddleware, async (req, res) => {
+    try {
+        const settings = await getSettings();
+        const brands = await Brand.find().sort({ name: 1 });
+        const selectedBrandId = req.query.brand;
+        
+        let query = {};
+        if (selectedBrandId && selectedBrandId !== 'all') {
+            query.brand = selectedBrandId;
+        }
+        
+        const products = await Product.find(query)
+            .populate('brand')
+            .populate('category')
+            .sort({ createdAt: -1 });
+            
+        res.render('product', { 
+            title: 'Manage Products - Admin Dashboard', 
+            settings,
+            products,
+            brands,
+            selectedBrandId: selectedBrandId || 'all',
+            dashboardTheme: req.session.dashboardTheme || 'dark',
+            success: req.session.success || null,
+            error: req.session.error || null
+        });
+        
+        delete req.session.success;
+        delete req.session.error;
+    } catch (error) {
+        console.error('Error loading products page:', error);
+        res.status(500).render('500', { title: 'Server Error' });
+    }
+});
+
+// Edit Product Page
+router.get('/products/:id/edit', authMiddleware, async (req, res) => {
+    try {
+        const settings = await getSettings();
+        const product = await Product.findById(req.params.id).populate('brand').populate('category');
+        const brands = await Brand.find().sort({ name: 1 });
+        const categories = await Category.find().sort({ name: 1 });
+        
+        if (!product) {
+            req.session.error = 'Product not found.';
+            return res.redirect('/admin/products');
+        }
+        
+        res.render('product-edit', { 
+            title: 'Edit Product - Admin Dashboard', 
+            settings,
+            product,
+            brands,
+            categories,
+            dashboardTheme: req.session.dashboardTheme || 'dark',
+            success: req.session.success || null,
+            error: req.session.error || null
+        });
+        
+        delete req.session.success;
+        delete req.session.error;
+    } catch (error) {
+        console.error('Error loading product edit page:', error);
+        res.status(500).render('500', { title: 'Server Error' });
+    }
+});
+
+// Update Product (POST)
+router.post('/products/:id/edit', authMiddleware, upload.single('image'), async (req, res) => {
+    try {
+        const { name, brand, category } = req.body;
+        const product = await Product.findById(req.params.id);
+        
+        if (!product) {
+            req.session.error = 'Product not found.';
+            return res.redirect('/admin/products');
+        }
+
+        product.name = name;
+        product.brand = brand;
+        product.category = category;
+        
+        if (req.file) {
+            product.image = '/uploads/' + req.file.filename;
+        }
+
+        await product.save();
+        req.session.success = 'Product updated successfully!';
+        res.redirect('/admin/products');
+    } catch (error) {
+        console.error('Error updating product:', error);
+        req.session.error = 'Failed to update product. Please try again.';
+        res.redirect(`/admin/products/${req.params.id}/edit`);
+    }
+});
+
+// Product Creation Page
+router.get('/products/create', authMiddleware, async (req, res) => {
     try {
         const settings = await getSettings();
         const brands = await Brand.find().sort({ name: 1 });
@@ -193,7 +290,6 @@ router.get('/products', authMiddleware, async (req, res) => {
             error: req.session.error || null
         });
         
-        // Clear session messages after displaying
         delete req.session.success;
         delete req.session.error;
     } catch (error) {
@@ -383,10 +479,10 @@ router.post('/products', authMiddleware, upload.single('image'), async (req, res
         
         if (!name || !brand || !category || !req.file) {
             req.session.error = 'All fields are required, including an image.';
-            return res.redirect('/admin/products');
+            return res.redirect('/admin/products/create');
         }
 
-        const newProduct = new Product({
+        const newProduct = new Product({ 
             name,
             brand,
             category,
@@ -399,6 +495,19 @@ router.post('/products', authMiddleware, upload.single('image'), async (req, res
     } catch (error) {
         console.error('Error creating product:', error);
         req.session.error = 'Failed to create product. Please try again.';
+        res.redirect('/admin/products/create');
+    }
+});
+
+// Delete Product (POST)
+router.post('/products/:id/delete', authMiddleware, async (req, res) => {
+    try {
+        await Product.findByIdAndDelete(req.params.id);
+        req.session.success = 'Product deleted successfully!';
+        res.redirect('/admin/products');
+    } catch (error) {
+        console.error('Error deleting product:', error);
+        req.session.error = 'Failed to delete product.';
         res.redirect('/admin/products');
     }
 });
