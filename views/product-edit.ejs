@@ -347,6 +347,46 @@
             }, 100);
         });
 
+        // Dynamic category filtering
+        const brandSelect = document.getElementById('brand');
+        const categorySelect = document.getElementById('category');
+
+        brandSelect.addEventListener('change', async function() {
+            const brandId = this.value;
+            if (!brandId) {
+                categorySelect.disabled = true;
+                categorySelect.innerHTML = '<option value="" disabled selected>-- Select a Brand First --</option>';
+                return;
+            }
+
+            // Enable and show loading
+            categorySelect.disabled = false;
+            categorySelect.innerHTML = '<option value="" disabled selected>Loading categories...</option>';
+
+            try {
+                const response = await fetch(`/admin/api/categories/${brandId}`);
+                const categories = await response.json();
+
+                // Clear and populate category dropdown
+                categorySelect.innerHTML = '<option value="" disabled selected>-- Choose Category --</option>';
+                
+                if (categories.length > 0) {
+                    categories.forEach(category => {
+                        const option = document.createElement('option');
+                        option.value = category._id;
+                        option.textContent = category.name;
+                        option.className = 'bg-tech-dark';
+                        categorySelect.appendChild(option);
+                    });
+                } else {
+                    categorySelect.innerHTML = '<option value="" disabled selected>No categories for this brand</option>';
+                }
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+                categorySelect.innerHTML = '<option value="" disabled selected>Error loading categories</option>';
+            }
+        });
+
         // Image preview logic
         const imageUpload = document.getElementById('image-upload');
         const imagePreview = document.getElementById('image-preview');

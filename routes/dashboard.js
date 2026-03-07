@@ -176,6 +176,17 @@ router.post('/settings', authMiddleware, upload.single('logo'), async (req, res)
 });
 
 
+// API to get categories by brand
+router.get('/api/categories/:brandId', authMiddleware, async (req, res) => {
+    try {
+        const categories = await Category.find({ brand: req.params.brandId }).sort({ name: 1 });
+        res.json(categories);
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+        res.status(500).json({ error: 'Failed to fetch categories' });
+    }
+});
+
 // Product Management Page (List View)
 router.get('/products', authMiddleware, async (req, res) => {
     try {
@@ -218,12 +229,14 @@ router.get('/products/:id/edit', authMiddleware, async (req, res) => {
         const settings = await getSettings();
         const product = await Product.findById(req.params.id).populate('brand').populate('category');
         const brands = await Brand.find().sort({ name: 1 });
-        const categories = await Category.find().sort({ name: 1 });
         
         if (!product) {
             req.session.error = 'Product not found.';
             return res.redirect('/admin/products');
         }
+
+        // Fetch only categories belonging to the product's brand
+        const categories = await Category.find({ brand: product.brand._id }).sort({ name: 1 });
         
         res.render('product-edit', { 
             title: 'Edit Product - Admin Dashboard', 
@@ -278,7 +291,8 @@ router.get('/products/create', authMiddleware, async (req, res) => {
     try {
         const settings = await getSettings();
         const brands = await Brand.find().sort({ name: 1 });
-        const categories = await Category.find().sort({ name: 1 });
+        // Initially no categories, client-side will fetch them based on brand selection
+        const categories = []; 
         
         res.render('product-create', { 
             title: 'Create Product - Admin Dashboard', 
