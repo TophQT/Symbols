@@ -6,6 +6,10 @@ const authMiddleware = require('../middleware/auth');
 const upload = require('../middleware/upload');
 const path = require('path');
 
+const Product = require('../models/Product');
+const Brand = require('../models/Brand');
+const Category = require('../models/Category');
+
 // Helper to get site settings
 const getSettings = async () => {
     try {
@@ -55,8 +59,47 @@ router.get('/', async (req, res) => {
 
 // Products Page
 router.get('/products', async (req, res) => {
-    const settings = await getSettings();
-    res.render('products', { title: 'Our Products - Symbol Sciences', settings });
+    try {
+        const settings = await getSettings();
+        const { brand, category } = req.query;
+        
+        // Build query
+        let query = {};
+        if (brand && brand !== 'all') {
+            query.brand = brand;
+        }
+        if (category && category !== 'all') {
+            query.category = category;
+        }
+
+        // Fetch products, brands, and categories
+        const products = await Product.find(query)
+            .populate('brand')
+            .populate('category')
+            .sort({ createdAt: -1 });
+        
+        const brands = await Brand.find().sort({ name: 1 });
+        
+        // Fetch categories (optionally filter by brand if selected)
+        let categoryQuery = {};
+        if (brand && brand !== 'all') {
+            categoryQuery.brand = brand;
+        }
+        const categories = await Category.find(categoryQuery).sort({ name: 1 });
+
+        res.render('products', { 
+            title: 'Our Products - Symbol Sciences', 
+            settings,
+            products,
+            brands,
+            categories,
+            selectedBrand: brand || 'all',
+            selectedCategory: category || 'all'
+        });
+    } catch (error) {
+        console.error('Error loading products page:', error);
+        res.status(500).render('500', { title: 'Server Error', settings: await getSettings() });
+    }
 });
 
 // Services & Solutions Page
