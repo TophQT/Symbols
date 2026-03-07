@@ -80,6 +80,9 @@ router.get('/products', async (req, res) => {
         
         const brands = await Brand.find().sort({ name: 1 });
         
+        // Find the selected brand object for logo display
+        const selectedBrandObject = brand && brand !== 'all' ? brands.find(b => b._id.toString() === brand) : null;
+        
         // Fetch categories (optionally filter by brand if selected)
         let categoryQuery = {};
         if (brand && brand !== 'all') {
@@ -94,7 +97,8 @@ router.get('/products', async (req, res) => {
             brands,
             categories,
             selectedBrand: brand || 'all',
-            selectedCategory: category || 'all'
+            selectedCategory: category || 'all',
+            selectedBrandObject
         });
     } catch (error) {
         console.error('Error loading products page:', error);

@@ -52,42 +52,82 @@
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
       
+      :root {
+        --tech-bg: #0b0e14;
+        --tech-text: #ffffff;
+        --tech-glass: rgba(255, 255, 255, 0.03);
+        --tech-glass-border: rgba(255, 255, 255, 0.05);
+        --tech-card-bg: rgba(255, 255, 255, 0.03);
+        --tech-card-border: rgba(255, 255, 255, 0.08);
+        --tech-muted: rgba(255, 255, 255, 0.6);
+        --tech-subtle: rgba(255, 255, 255, 0.4);
+      }
+
+      body.light {
+        --tech-bg: #f8fafc;
+        --tech-text: #0f172a;
+        --tech-glass: rgba(15, 23, 42, 0.03);
+        --tech-glass-border: rgba(15, 23, 42, 0.08);
+        --tech-card-bg: #ffffff;
+        --tech-card-border: rgba(15, 23, 42, 0.1);
+        --tech-muted: #475569;
+        --tech-subtle: #94a3b8;
+      }
+
       body {
         font-family: 'Inter', sans-serif;
-        background-color: #0b0e14;
-        color: #ffffff;
+        background-color: var(--tech-bg);
+        color: var(--tech-text);
         overflow-x: hidden;
+        transition: background-color 0.5s ease, color 0.5s ease;
       }
       
       .font-grotesk {
         font-family: 'Space Grotesk', sans-serif;
       }
 
-      /* Glassmorphism - Dark Mode */
+      /* Glassmorphism */
       .glass {
-        background: rgba(255, 255, 255, 0.03);
+        background: var(--tech-glass);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--tech-glass-border);
+        transition: all 0.5s ease;
       }
 
       .glass-card {
-        background: rgba(255, 255, 255, 0.03);
+        background: var(--tech-card-bg);
         backdrop-filter: blur(8px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        transition: all 0.3s ease;
+        border: 1px solid var(--tech-card-border);
+        transition: all 0.5s ease, transform 0.3s ease;
+      }
+
+      body.light .glass-card {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
       }
 
       .glass-card:hover {
-        background: rgba(255, 255, 255, 0.05);
+        background: var(--tech-glass);
         border-color: rgba(59, 130, 246, 0.3);
         transform: translateY(-5px);
         box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.2);
       }
 
+      /* Theme Specific Text & BG Colors */
+      .text-white { color: var(--tech-text) !important; transition: color 0.5s ease; }
+      .text-white\/60 { color: var(--tech-muted) !important; transition: color 0.5s ease; }
+      .text-white\/40 { color: var(--tech-subtle) !important; transition: color 0.5s ease; }
+      .bg-tech-dark { background-color: var(--tech-bg) !important; transition: background-color 0.5s ease; }
+      .bg-white\/5 { background: var(--tech-glass) !important; transition: background-color 0.5s ease; }
+      .bg-white\/10 { background: var(--tech-glass-border) !important; transition: background-color 0.5s ease; }
+      .border-white\/10 { border-color: var(--tech-glass-border) !important; transition: border-color 0.5s ease; }
+      .border-white\/5 { border-color: var(--tech-glass) !important; transition: border-color 0.5s ease; }
+
       /* Animated Underline */
       .nav-link {
         position: relative;
+        color: var(--tech-text);
+        transition: color 0.5s ease;
       }
       .nav-link::after {
         content: '';
@@ -96,11 +136,45 @@
         height: 2px;
         bottom: -4px;
         left: 0;
-        background-color: #2563EB;
+        background-color: #3b82f6;
         transition: width 0.3s ease;
       }
       .nav-link:hover::after {
         width: 100%;
+      }
+
+      /* Theme Toggle Styles */
+      #theme-toggle-btn, #theme-toggle-btn-mobile {
+        /* Base styles for the toggle track */
+        background: var(--tech-glass);
+        border: 1px solid var(--tech-glass-border);
+        transition: all 0.3s ease;
+      }
+      
+      #theme-toggle-btn .bg-white, #theme-toggle-btn-mobile .bg-white {
+        /* Styles for the sliding circle */
+        background-color: #ffffff; /* Default white for dark mode */
+        transition: all 0.3s ease;
+      }
+
+      body.light #theme-toggle-btn, body.light #theme-toggle-btn-mobile {
+        background: var(--tech-glass);
+        border-color: var(--tech-glass-border);
+      }
+
+      body.light #theme-toggle-btn .bg-white, body.light #theme-toggle-btn-mobile .bg-white {
+        background-color: #f3f4f6; /* Light gray for light mode */
+      }
+      
+      /* Active state (light mode) for the toggle track */
+      body.light #theme-toggle-btn, body.light #theme-toggle-btn-mobile {
+        background-color: rgba(59, 130, 246, 0.2); /* Tech blue for light mode */
+        border-color: rgba(59, 130, 246, 0.3);
+      }
+
+      /* Active state (light mode) for the sliding circle */
+      body.light #theme-toggle-btn .bg-white, body.light #theme-toggle-btn-mobile .bg-white {
+        transform: translateX(28px); /* Move to the right */
       }
 
       /* Custom Scrollbar */
@@ -108,14 +182,14 @@
         width: 8px;
       }
       ::-webkit-scrollbar-track {
-        background: #0b0e14;
+        background: var(--tech-bg);
       }
       ::-webkit-scrollbar-thumb {
-        background: #1e293b;
+        background: var(--tech-card-border);
         border-radius: 4px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #2563EB;
+        background: #3b82f6;
       }
 
       /* Barcode Scanner Laser */
@@ -133,6 +207,18 @@
         50% { top: 100%; }
       }
     </style>
+    <script>
+      // Immediate theme check to prevent flash
+      (function() {
+        const theme = localStorage.getItem('site-theme') || 'dark';
+        if (theme === 'light') {
+          document.documentElement.classList.add('light');
+          document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('light');
+          });
+        }
+      })();
+    </script>
 </head>
 <body class="bg-tech-dark text-white">
     <!-- Loading Screen -->
@@ -163,23 +249,37 @@
 
             <!-- Desktop Menu -->
             <div class="hidden lg:flex items-center space-x-8">
-                <a href="/" class="nav-link text-sm font-medium text-white hover:text-blue-600 transition-colors">Home</a>
-                <a href="/products" class="nav-link text-sm font-medium text-white hover:text-blue-600 transition-colors">Products</a>
-                <a href="/services" class="nav-link text-sm font-medium text-white hover:text-blue-600 transition-colors">Services & Solutions</a>
-                <a href="/updates" class="nav-link text-sm font-medium text-white hover:text-blue-600 transition-colors">Updates</a>
-                <a href="/#about-us" class="nav-link text-sm font-medium text-white hover:text-blue-600 transition-colors">About Us</a>
+                <a href="/" class="nav-link text-sm font-medium hover:text-blue-600 transition-colors">Home</a>
+                <a href="/products" class="nav-link text-sm font-medium hover:text-blue-600 transition-colors">Products</a>
+                <a href="/services" class="nav-link text-sm font-medium hover:text-blue-600 transition-colors">Services & Solutions</a>
+                <a href="/updates" class="nav-link text-sm font-medium hover:text-blue-600 transition-colors">Updates</a>
+                <a href="/#about-us" class="nav-link text-sm font-medium hover:text-blue-600 transition-colors">About Us</a>
                 <div class="flex items-center space-x-4">
-                    <a href="/login" class="text-sm font-medium text-white/70 hover:text-white transition-colors flex items-center gap-2">
-                        <i data-lucide="user" class="w-4 h-4"></i> Login
-                    </a>
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle-btn" title="Toggle Light/Dark Mode" class="relative w-14 h-7 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[var(--tech-bg)] focus:ring-tech-blue/50 glass mr-2">
+                        <div class="absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full shadow-md transform transition-transform duration-300 flex items-center justify-center">
+                            <i data-lucide="sun" class="w-4 h-4 text-tech-blue light-icon hidden"></i>
+                            <i data-lucide="moon" class="w-4 h-4 text-tech-blue dark-icon"></i>
+                        </div>
+                    </button>
+      
                     <a href="/contact" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-semibold transition-all shadow-md transform hover:scale-105 active:scale-95">Contact Us</a>
                 </div>
             </div>
 
             <!-- Mobile Menu Toggle -->
-            <button class="lg:hidden text-white focus:outline-none" id="mobile-menu-btn">
-                <i data-lucide="menu" class="w-7 h-7"></i>
-            </button>
+            <div class="flex items-center space-x-4 lg:hidden">
+                <!-- Mobile Theme Toggle -->
+                <button id="theme-toggle-btn-mobile" title="Toggle Light/Dark Mode" class="relative w-14 h-7 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[var(--tech-bg)] focus:ring-tech-blue/50 glass">
+                    <div class="absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full shadow-md transform transition-transform duration-300 flex items-center justify-center">
+                        <i data-lucide="moon" class="w-4 h-4 text-tech-blue dark-icon"></i>
+                        <i data-lucide="sun" class="w-4 h-4 text-tech-blue light-icon hidden"></i>
+                    </div>
+                </button>
+                <button class="text-white focus:outline-none" id="mobile-menu-btn">
+                    <i data-lucide="menu" class="w-7 h-7"></i>
+                </button>
+            </div>
         </nav>
 
         <!-- Mobile Menu Overlay -->
@@ -197,11 +297,69 @@
         </div>
     </header>
 
-    <!-- Smooth Scroll Script -->
+    <!-- Theme and Smooth Scroll Script -->
     <script>
-        // Smooth scroll for anchor links
         document.addEventListener('DOMContentLoaded', function() {
-            // Handle anchor links
+            // Theme Toggle Logic
+            const themeBtn = document.getElementById('theme-toggle-btn');
+            const themeBtnMobile = document.getElementById('theme-toggle-btn-mobile');
+            const body = document.body;
+            
+            const setupToggle = (btn) => {
+                if (!btn) return;
+                const darkIcon = btn.querySelector('.dark-icon');
+                const lightIcon = btn.querySelector('.light-icon');
+                
+                btn.addEventListener('click', () => {
+                    if (body.classList.contains('light')) {
+                        applyDarkTheme();
+                    } else {
+                        applyLightTheme();
+                    }
+                });
+                
+                return { darkIcon, lightIcon };
+            };
+
+            const desktopIcons = setupToggle(themeBtn);
+            const mobileIcons = setupToggle(themeBtnMobile);
+
+            // Initialize theme from localStorage
+            const savedTheme = localStorage.getItem('site-theme') || 'dark';
+            if (savedTheme === 'light') {
+                applyLightTheme();
+            }
+
+            function applyLightTheme() {
+                body.classList.add('light');
+                document.documentElement.classList.add('light');
+                updateIcons(true);
+                localStorage.setItem('site-theme', 'light');
+                if (window.lucide) lucide.createIcons();
+            }
+
+            function applyDarkTheme() {
+                body.classList.remove('light');
+                document.documentElement.classList.remove('light');
+                updateIcons(false);
+                localStorage.setItem('site-theme', 'dark');
+                if (window.lucide) lucide.createIcons();
+            }
+
+            function updateIcons(isLight) {
+                [desktopIcons, mobileIcons].forEach(icons => {
+                    if (!icons) return;
+                    if (isLight) {
+                        icons.darkIcon.classList.add('hidden');
+                        icons.lightIcon.classList.remove('hidden');
+                    } else {
+                        icons.darkIcon.classList.remove('hidden');
+                        icons.lightIcon.classList.add('hidden');
+                    }
+                });
+            }
+
+            // Smooth scroll for anchor links
             document.querySelectorAll('a[href^="/#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
