@@ -39,6 +39,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <!-- Three.js -->
     <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
     <script type="importmap">
@@ -70,8 +72,8 @@
         --tech-glass-border: rgba(15, 23, 42, 0.08);
         --tech-card-bg: #ffffff;
         --tech-card-border: rgba(15, 23, 42, 0.1);
-        --tech-muted: #475569;
-        --tech-subtle: #94a3b8;
+        --tech-muted: #334155; /* slate-700 */
+        --tech-subtle: #475569; /* slate-600 */
       }
 
       body {
@@ -115,13 +117,33 @@
 
       /* Theme Specific Text & BG Colors */
       .text-white { color: var(--tech-text) !important; transition: color 0.5s ease; }
-      .text-white\/60 { color: var(--tech-muted) !important; transition: color 0.5s ease; }
-      .text-white\/40 { color: var(--tech-subtle) !important; transition: color 0.5s ease; }
+      .text-white\/80 { color: var(--tech-muted) !important; transition: color 0.5s ease; }
+      .text-white\/70 { color: var(--tech-muted) !important; transition: color 0.5s ease; }
+      .text-white\/60 { color: var(--tech-subtle) !important; transition: color 0.5s ease; }
+      .text-white\/40 { color: var(--tech-subtle) !important; opacity: 0.8; transition: color 0.5s ease; }
       .bg-tech-dark { background-color: var(--tech-bg) !important; transition: background-color 0.5s ease; }
       .bg-white\/5 { background: var(--tech-glass) !important; transition: background-color 0.5s ease; }
       .bg-white\/10 { background: var(--tech-glass-border) !important; transition: background-color 0.5s ease; }
       .border-white\/10 { border-color: var(--tech-glass-border) !important; transition: border-color 0.5s ease; }
       .border-white\/5 { border-color: var(--tech-glass) !important; transition: border-color 0.5s ease; }
+
+      /* Brands Section BG for Light Mode */
+      .brands-section-bg {
+        background-color: rgba(255, 255, 255, 0.03);
+        transition: background-color 0.5s ease;
+      }
+      body.light .brands-section-bg {
+        background-color: #ffffff !important;
+      }
+
+      /* Subtle Section BG */
+      .section-bg-subtle {
+        background-color: rgba(255, 255, 255, 0.02);
+        transition: background-color 0.5s ease;
+      }
+      body.light .section-bg-subtle {
+        background-color: #f1f5f9 !important; /* slate-100 */
+      }
 
       /* Animated Underline */
       .nav-link {

@@ -38,34 +38,6 @@
         </div>
     </section>
 
-    <!-- Brands Section -->
-    <section class="py-24 bg-tech-dark/30">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16 space-y-4 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold font-grotesk">Brands We Carry</h2>
-                <div class="w-20 h-1 bg-tech-blue mx-auto rounded-full"></div>
-                <p class="text-white/60 max-w-2xl mx-auto">We partner with industry leaders to provide you with the most reliable and advanced technology solutions.</p>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-10 items-center justify-items-center">
-                <% if (brandsWeCarry && brandsWeCarry.length > 0) { %>
-                    <% brandsWeCarry.forEach((brand, index) => { %>
-                        <div class="group reveal flex items-center justify-center w-full" style="transition-delay: <%= index * 100 %>ms">
-                            <div class="relative group-hover:scale-110 transition-all duration-500 ease-out">
-                                <img src="<%= brand.logo %>" alt="<%= brand.name %>" title="<%= brand.name %>" class="max-h-16 w-auto object-contain filter grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500">
-                            </div>
-                        </div>
-                    <% }); %>
-                <% } else { %>
-                    <!-- Fallback if no brands are uploaded -->
-                    <div class="col-span-full text-center py-12 glass-card rounded-2xl border-dashed">
-                        <p class="text-white/40">Our partner network is growing. Check back soon!</p>
-                    </div>
-                <% } %>
-            </div>
-        </div>
-    </section>
-
     <!-- Consulting Section -->
     <section class="py-24 relative overflow-hidden">
         <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
@@ -77,15 +49,15 @@
                 </div>
             </div>
             <div class="space-y-8 reveal">
-                <h2 class="text-4xl font-bold font-grotesk">Technology Consulting</h2>
+                <h2 class="text-4xl font-bold font-grotesk text-white">Technology Consulting</h2>
                 <div class="space-y-6">
                     <div class="flex items-start space-x-4">
                         <div class="w-12 h-12 shrink-0 bg-tech-blue/10 rounded-lg flex items-center justify-center text-tech-blue">
                             <i data-lucide="scan" class="w-6 h-6"></i>
                         </div>
                         <div>
-                            <h4 class="text-xl font-bold font-grotesk">Barcode Systems</h4>
-                            <p class="text-white/60">Optimizing inventory tracking and data accuracy with precision scanning tech.</p>
+                            <h4 class="text-xl font-bold font-grotesk text-white">Barcode Systems</h4>
+                            <p class="text-white/70">Optimizing inventory tracking and data accuracy with precision scanning tech.</p>
                         </div>
                     </div>
                     <div class="flex items-start space-x-4">
@@ -93,8 +65,8 @@
                             <i data-lucide="workflow" class="w-6 h-6"></i>
                         </div>
                         <div>
-                            <h4 class="text-xl font-bold font-grotesk">Automation</h4>
-                            <p class="text-white/60">Streamlining operations through intelligent robotic and software workflows.</p>
+                            <h4 class="text-xl font-bold font-grotesk text-white">Automation</h4>
+                            <p class="text-white/70">Streamlining operations through intelligent robotic and software workflows.</p>
                         </div>
                     </div>
                     <div class="flex items-start space-x-4">
@@ -102,8 +74,8 @@
                             <i data-lucide="warehouse" class="w-6 h-6"></i>
                         </div>
                         <div>
-                            <h4 class="text-xl font-bold font-grotesk">Warehouse Solutions</h4>
-                            <p class="text-white/60">Designing smart storage and distribution networks for maximum efficiency.</p>
+                            <h4 class="text-xl font-bold font-grotesk text-white">Warehouse Solutions</h4>
+                            <p class="text-white/70">Designing smart storage and distribution networks for maximum efficiency.</p>
                         </div>
                     </div>
                 </div>
@@ -116,12 +88,12 @@
     </section>
 
     <!-- About Us Section -->
-    <section id="about-us" class="py-24 bg-tech-dark/30">
+    <section id="about-us" class="py-24 section-bg-subtle">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16 space-y-4 reveal">
-                <h2 class="text-4xl md:text-5xl font-bold font-grotesk">About Symbol Sciences</h2>
+                <h2 class="text-4xl md:text-5xl font-bold font-grotesk text-white">About Symbol Sciences</h2>
                 <div class="w-20 h-1 bg-tech-blue mx-auto rounded-full"></div>
-                <p class="text-white/60 max-w-3xl mx-auto text-lg">
+                <p class="text-white/70 max-w-3xl mx-auto text-lg">
                     Pioneering the future of enterprise technology through innovation, precision, and unwavering commitment to excellence.
                 </p>
             </div>
@@ -166,7 +138,7 @@
                 
                 <div class="relative grid lg:grid-cols-2 gap-16 items-center">
                     <div class="space-y-8">
-                        <h3 class="text-3xl font-bold font-grotesk">Our Story</h3>
+                        <h3 class="text-3xl font-bold font-grotesk text-white">Our Story</h3>
                         <p class="text-white/70 leading-relaxed text-lg">
                             Founded on the principles of precision and innovation, Symbol Sciences has been at the forefront of technological evolution for over a decade. We began as a specialized barcode solutions provider and have grown into a comprehensive enterprise technology partner.
                         </p>
@@ -176,15 +148,15 @@
                         <div class="grid grid-cols-3 gap-6 pt-6">
                             <div class="text-center">
                                 <div class="text-3xl font-bold text-tech-blue mb-2">500+</div>
-                                <div class="text-sm text-white/60">Enterprise Clients</div>
+                                <div class="text-sm text-white/70">Enterprise Clients</div>
                             </div>
                             <div class="text-center">
                                 <div class="text-3xl font-bold text-tech-accent mb-2">15+</div>
-                                <div class="text-sm text-white/60">Years Experience</div>
+                                <div class="text-sm text-white/70">Years Experience</div>
                             </div>
                             <div class="text-center">
                                 <div class="text-3xl font-bold text-purple-400 mb-2">99.9%</div>
-                                <div class="text-sm text-white/60">Uptime Guarantee</div>
+                                <div class="text-sm text-white/70">Uptime Guarantee</div>
                             </div>
                         </div>
                     </div>
@@ -197,43 +169,42 @@
                 </div>
             </div>
 
-            <!-- Team Section -->
-            <div class="mt-16 text-center reveal">
-                <h3 class="text-3xl font-bold font-grotesk mb-8">Our Expert Team</h3>
-                <p class="text-white/60 max-w-2xl mx-auto mb-12 text-lg">
-                    Our diverse team of engineers, consultants, and technology experts brings decades of combined experience to every project.
-                </p>
-                <div class="grid md:grid-cols-4 gap-8">
-                    <div class="space-y-4">
-                        <div class="w-24 h-24 bg-gradient-to-br from-tech-blue to-tech-accent rounded-2xl mx-auto flex items-center justify-center">
-                            <i data-lucide="users" class="text-white w-12 h-12"></i>
-                        </div>
-                        <h4 class="font-bold">Expert Engineers</h4>
-                        <p class="text-sm text-white/60">Leading technical talent</p>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="w-24 h-24 bg-gradient-to-br from-tech-accent to-purple-500 rounded-2xl mx-auto flex items-center justify-center">
-                            <i data-lucide="lightbulb" class="text-white w-12 h-12"></i>
-                        </div>
-                        <h4 class="font-bold">Innovation Leaders</h4>
-                        <p class="text-sm text-white/60">Creative problem solvers</p>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl mx-auto flex items-center justify-center">
-                            <i data-lucide="shield" class="text-white w-12 h-12"></i>
-                        </div>
-                        <h4 class="font-bold">Support Heroes</h4>
-                        <p class="text-sm text-white/60">24/7 assistance</p>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="w-24 h-24 bg-gradient-to-br from-pink-500 to-tech-blue rounded-2xl mx-auto flex items-center justify-center">
-                            <i data-lucide="trending-up" class="text-white w-12 h-12"></i>
-                        </div>
-                        <h4 class="font-bold">Growth Partners</h4>
-                        <p class="text-sm text-white/60">Your success is ours</p>
-                    </div>
-                </div>
+        </section>
+
+        <!-- Brands Section -->
+    <section class="py-24 brands-section-bg">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 space-y-4 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold font-grotesk">Brands We Carry</h2>
+                <div class="w-20 h-1 bg-tech-blue mx-auto rounded-full"></div>
+                <p class="text-white/60 max-w-2xl mx-auto">We partner with industry leaders to provide you with the most reliable and advanced technology solutions.</p>
             </div>
+
+            <!-- Brands Carousel Slider -->
+            <div class="swiper brands-carousel reveal">
+                <div class="swiper-wrapper items-center">
+                    <% if (brandsWeCarry && brandsWeCarry.length > 0) { %>
+                        <% brandsWeCarry.forEach((brand) => { %>
+                            <div class="swiper-slide flex items-center justify-center px-4">
+                                <div class="flex items-center justify-center w-full">
+                                    <div class="relative">
+                                        <img src="<%= brand.logo %>" alt="<%= brand.name %>" title="<%= brand.name %>" class="max-h-12 md:max-h-16 w-auto object-contain">
+                                    </div>
+                                </div>
+                            </div>
+                        <% }); %>
+                    <% } %>
+                </div>
+                <!-- Optional Navigation/Pagination (Hidden for cleaner look) -->
+                <!-- <div class="swiper-pagination"></div> -->
+            </div>
+
+            <% if (!brandsWeCarry || brandsWeCarry.length === 0) { %>
+                <!-- Fallback if no brands are uploaded -->
+                <div class="text-center py-12 glass-card rounded-2xl border-dashed reveal">
+                    <p class="text-white/40">Our partner network is growing. Check back soon!</p>
+                </div>
+            <% } %>
         </div>
     </section>
 
@@ -393,6 +364,31 @@
 
 <!-- GSAP & Form Logic -->
 <script>
+    // Initialize Brands Carousel
+    const brandsSwiper = new Swiper('.brands-carousel', {
+        slidesPerView: 2,
+        spaceBetween: 30,
+        loop: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        breakpoints: {
+            640: {
+                slidesPerView: 3,
+            },
+            768: {
+                slidesPerView: 4,
+            },
+            1024: {
+                slidesPerView: 6,
+            },
+        },
+    });
+
+    // Initialize Lucide icons
+    lucide.createIcons();
+
     // GSAP Scroll Reveal
     gsap.registerPlugin(ScrollTrigger);
     
