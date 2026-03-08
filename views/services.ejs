@@ -2,68 +2,155 @@
 
 <main class="pt-32 pb-24">
     <div class="container mx-auto px-6">
+        <!-- Page Title / Intro -->
         <div class="text-center mb-20 space-y-4 reveal">
-            <h1 class="text-5xl md:text-6xl font-bold font-grotesk">Services & Solutions</h1>
-            <p class="text-white/60 max-w-2xl mx-auto">Expertise that drives digital transformation across industries.</p>
+            <h1 class="text-5xl md:text-7xl font-bold font-grotesk leading-tight">Services & Solutions</h1>
+            <p class="text-white/60 max-w-2xl mx-auto text-lg">Expertise that drives digital transformation across industries.</p>
+            <div class="w-24 h-1 bg-tech-blue mx-auto rounded-full mt-8 opacity-50"></div>
         </div>
 
-        <div class="space-y-32">
-            <!-- Service 1: Barcode Systems -->
-            <div class="grid lg:grid-cols-2 gap-16 items-center reveal">
-                <div class="relative group">
-                    <div class="absolute -inset-4 bg-tech-blue/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                    <div class="relative glass-card aspect-video rounded-3xl overflow-hidden flex items-center justify-center bg-tech-blue/5">
-                        <i data-lucide="scan-barcode" class="w-32 h-32 text-tech-blue/20 group-hover:scale-110 transition-transform duration-700"></i>
-                    </div>
-                </div>
-                <div class="space-y-8">
-                    <h2 class="text-4xl font-bold font-grotesk">Advanced Barcode Systems</h2>
-                    <p class="text-white/60 leading-relaxed text-lg">We design and implement custom barcode tracking systems that reduce human error and increase throughput. From hardware selection to backend integration, we handle the entire ecosystem.</p>
-                    <ul class="space-y-4">
-                        <li class="flex items-center space-x-3 text-white/80">
-                            <i data-lucide="check-circle" class="text-tech-blue w-5 h-5"></i>
-                            <span>Real-time inventory visibility</span>
-                        </li>
-                        <li class="flex items-center space-x-3 text-white/80">
-                            <i data-lucide="check-circle" class="text-tech-blue w-5 h-5"></i>
-                            <span>Custom barcode labeling strategies</span>
-                        </li>
-                        <li class="flex items-center space-x-3 text-white/80">
-                            <i data-lucide="check-circle" class="text-tech-blue w-5 h-5"></i>
-                            <span>Seamless ERP integration</span>
-                        </li>
-                    </ul>
-                </div>
+        <!-- Services Section -->
+        <section class="mb-32">
+            <div class="flex items-center space-x-4 mb-12 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold font-grotesk">Our Services</h2>
+                <div class="h-px flex-grow bg-white/10"></div>
             </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Card 1: Consulting and System Integration -->
+                <div class="glass-card group p-8 rounded-3xl reveal hover:shadow-2xl hover:shadow-tech-blue/10 transition-all duration-500 border border-white/5 hover:border-tech-blue/30 relative overflow-hidden" style="transition-delay: 100ms">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-tech-blue/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-tech-blue/10 transition-colors"></div>
+                    <div class="w-16 h-16 bg-tech-blue/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                        <i data-lucide="users" class="text-tech-blue w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold font-grotesk mb-4">Consulting and System Integration</h3>
+                    <p class="text-white/60 leading-relaxed">Expert guidance to bridge the gap between complex hardware and your existing enterprise software for seamless operations.</p>
+                </div>
 
-            <!-- Service 2: Automation -->
-            <div class="grid lg:grid-cols-2 gap-16 items-center reveal flex-row-reverse lg:flex-row-reverse">
-                <div class="relative group">
-                    <div class="absolute -inset-4 bg-tech-accent/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                    <div class="relative glass-card aspect-video rounded-3xl overflow-hidden flex items-center justify-center bg-tech-accent/5">
-                        <i data-lucide="cpu" class="w-32 h-32 text-tech-accent/20 group-hover:scale-110 transition-transform duration-700"></i>
+                <!-- Service Card 2: Project Management -->
+                <div class="glass-card group p-8 rounded-3xl reveal hover:shadow-2xl hover:shadow-tech-accent/10 transition-all duration-500 border border-white/5 hover:border-tech-accent/30 relative overflow-hidden" style="transition-delay: 200ms">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-tech-accent/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-tech-accent/10 transition-colors"></div>
+                    <div class="w-16 h-16 bg-tech-accent/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                        <i data-lucide="clipboard-list" class="text-tech-accent w-8 h-8"></i>
                     </div>
+                    <h3 class="text-2xl font-bold font-grotesk mb-4">Project Management</h3>
+                    <p class="text-white/60 leading-relaxed">End-to-end management of technology deployments, ensuring projects are delivered on time, within scope, and on budget.</p>
                 </div>
-                <div class="space-y-8 lg:text-right">
-                    <h2 class="text-4xl font-bold font-grotesk">Enterprise Automation</h2>
-                    <p class="text-white/60 leading-relaxed text-lg">Automate repetitive tasks with our intelligent workflow solutions. We combine robotics and software to create highly efficient, autonomous operational environments.</p>
-                    <ul class="space-y-4 inline-block text-left">
-                        <li class="flex items-center space-x-3 text-white/80">
-                            <i data-lucide="check-circle" class="text-tech-accent w-5 h-5"></i>
-                            <span>Robotic Process Automation (RPA)</span>
-                        </li>
-                        <li class="flex items-center space-x-3 text-white/80">
-                            <i data-lucide="check-circle" class="text-tech-accent w-5 h-5"></i>
-                            <span>Automated Material Handling</span>
-                        </li>
-                        <li class="flex items-center space-x-3 text-white/80">
-                            <i data-lucide="check-circle" class="text-tech-accent w-5 h-5"></i>
-                            <span>Smart sorting and distribution</span>
-                        </li>
-                    </ul>
+
+                <!-- Service Card 3: Event Data-Process Service -->
+                <div class="glass-card group p-8 rounded-3xl reveal hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-500 border border-white/5 hover:border-purple-500/30 relative overflow-hidden" style="transition-delay: 300ms">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-purple-500/10 transition-colors"></div>
+                    <div class="w-16 h-16 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                        <i data-lucide="database" class="text-purple-400 w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold font-grotesk mb-4">Event Data-Process Service</h3>
+                    <p class="text-white/60 leading-relaxed">Real-time data capture and processing services for large-scale events, ensuring accuracy and immediate insights.</p>
+                </div>
+
+                <!-- Service Card 4: Software Development and Programming -->
+                <div class="glass-card group p-8 rounded-3xl reveal hover:shadow-2xl hover:shadow-tech-blue/10 transition-all duration-500 border border-white/5 hover:border-tech-blue/30 relative overflow-hidden" style="transition-delay: 400ms">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-tech-blue/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-tech-blue/10 transition-colors"></div>
+                    <div class="w-16 h-16 bg-tech-blue/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                        <i data-lucide="code-2" class="text-tech-blue w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold font-grotesk mb-4">Software Development and Programming</h3>
+                    <p class="text-white/60 leading-relaxed">Custom software solutions tailored to your unique business logic, from mobile applications to backend systems.</p>
+                </div>
+
+                <!-- Service Card 5: Maintenance Contracts and Service Calls -->
+                <div class="glass-card group p-8 rounded-3xl reveal hover:shadow-2xl hover:shadow-tech-accent/10 transition-all duration-500 border border-white/5 hover:border-tech-accent/30 relative overflow-hidden" style="transition-delay: 500ms">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-tech-accent/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-tech-accent/10 transition-colors"></div>
+                    <div class="w-16 h-16 bg-tech-accent/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                        <i data-lucide="wrench" class="text-tech-accent w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold font-grotesk mb-4">Maintenance Contracts and Service Calls</h3>
+                    <p class="text-white/60 leading-relaxed">Comprehensive support and maintenance to ensure your critical systems remain operational with minimal downtime.</p>
+                </div>
+
+                <!-- Service Card 6: Printing and Verification Service -->
+                <div class="glass-card group p-8 rounded-3xl reveal hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-500 border border-white/5 hover:border-purple-500/30 relative overflow-hidden" style="transition-delay: 600ms">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-purple-500/10 transition-colors"></div>
+                    <div class="w-16 h-16 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                        <i data-lucide="printer" class="text-purple-400 w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold font-grotesk mb-4">Printing and Verification Service</h3>
+                    <p class="text-white/60 leading-relaxed">High-quality industrial printing and barcode verification services to ensure 100% scannability across your supply chain.</p>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <!-- Solutions Section -->
+        <section class="mb-12">
+            <div class="flex items-center space-x-4 mb-12 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold font-grotesk">Industry Solutions</h2>
+                <div class="h-px flex-grow bg-white/10"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Solution Card 1: Enterprise -->
+                <div class="glass-card group p-6 rounded-[2rem] reveal hover:bg-white/5 transition-all duration-300 border border-white/5 hover:border-tech-blue/20" style="transition-delay: 100ms">
+                    <div class="w-12 h-12 bg-tech-blue/10 rounded-xl flex items-center justify-center mb-4 group-hover:rotate-6 transition-transform">
+                        <i data-lucide="building-2" class="text-tech-blue w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-xl font-bold font-grotesk mb-2">Enterprise</h4>
+                    <p class="text-white/60 text-sm leading-relaxed">Scalable technology architectures designed to unify complex corporate operations and data management.</p>
+                </div>
+
+                <!-- Solution Card 2: Government -->
+                <div class="glass-card group p-6 rounded-[2rem] reveal hover:bg-white/5 transition-all duration-300 border border-white/5 hover:border-tech-blue/20" style="transition-delay: 200ms">
+                    <div class="w-12 h-12 bg-tech-blue/10 rounded-xl flex items-center justify-center mb-4 group-hover:rotate-6 transition-transform">
+                        <i data-lucide="landmark" class="text-tech-blue w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-xl font-bold font-grotesk mb-2">Government</h4>
+                    <p class="text-white/60 text-sm leading-relaxed">Secure and reliable data processing solutions meeting the stringent requirements of public sector agencies.</p>
+                </div>
+
+                <!-- Solution Card 3: Retail -->
+                <div class="glass-card group p-6 rounded-[2rem] reveal hover:bg-white/5 transition-all duration-300 border border-white/5 hover:border-tech-blue/20" style="transition-delay: 300ms">
+                    <div class="w-12 h-12 bg-tech-blue/10 rounded-xl flex items-center justify-center mb-4 group-hover:rotate-6 transition-transform">
+                        <i data-lucide="shopping-cart" class="text-tech-blue w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-xl font-bold font-grotesk mb-2">Retail</h4>
+                    <p class="text-white/60 text-sm leading-relaxed">Smart inventory and point-of-sale integrations that enhance customer experience and operational efficiency.</p>
+                </div>
+
+                <!-- Solution Card 4: Wholesale Distribution -->
+                <div class="glass-card group p-6 rounded-[2rem] reveal hover:bg-white/5 transition-all duration-300 border border-white/5 hover:border-tech-blue/20" style="transition-delay: 400ms">
+                    <div class="w-12 h-12 bg-tech-blue/10 rounded-xl flex items-center justify-center mb-4 group-hover:rotate-6 transition-transform">
+                        <i data-lucide="boxes" class="text-tech-blue w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-xl font-bold font-grotesk mb-2">Wholesale Distribution</h4>
+                    <p class="text-white/60 text-sm leading-relaxed">Advanced tracking and logistics systems to optimize high-volume movement and warehouse management.</p>
+                </div>
+
+                <!-- Solution Card 5: Transportation -->
+                <div class="glass-card group p-6 rounded-[2rem] reveal hover:bg-white/5 transition-all duration-300 border border-white/5 hover:border-tech-blue/20" style="transition-delay: 500ms">
+                    <div class="w-12 h-12 bg-tech-blue/10 rounded-xl flex items-center justify-center mb-4 group-hover:rotate-6 transition-transform">
+                        <i data-lucide="truck" class="text-tech-blue w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-xl font-bold font-grotesk mb-2">Transportation</h4>
+                    <p class="text-white/60 text-sm leading-relaxed">Real-time fleet tracking and logistics data solutions for efficient transit and delivery networks.</p>
+                </div>
+
+                <!-- Solution Card 6: Manufacturing and Production -->
+                <div class="glass-card group p-6 rounded-[2rem] reveal hover:bg-white/5 transition-all duration-300 border border-white/5 hover:border-tech-blue/20" style="transition-delay: 600ms">
+                    <div class="w-12 h-12 bg-tech-blue/10 rounded-xl flex items-center justify-center mb-4 group-hover:rotate-6 transition-transform">
+                        <i data-lucide="factory" class="text-tech-blue w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-xl font-bold font-grotesk mb-2">Manufacturing and Production</h4>
+                    <p class="text-white/60 text-sm leading-relaxed">Automation and quality control systems that streamline production lines and monitor asset performance.</p>
+                </div>
+
+                <!-- Solution Card 7: Healthcare -->
+                <div class="glass-card group p-6 rounded-[2rem] reveal hover:bg-white/5 transition-all duration-300 border border-white/5 hover:border-tech-blue/20" style="transition-delay: 700ms">
+                    <div class="w-12 h-12 bg-tech-blue/10 rounded-xl flex items-center justify-center mb-4 group-hover:rotate-6 transition-transform">
+                        <i data-lucide="heart-pulse" class="text-tech-blue w-6 h-6"></i>
+                    </div>
+                    <h4 class="text-xl font-bold font-grotesk mb-2">Healthcare</h4>
+                    <p class="text-white/60 text-sm leading-relaxed">Precision tracking for medical assets and patient data systems focused on accuracy and security.</p>
+                </div>
+            </div>
+        </section>
     </div>
 </main>
 

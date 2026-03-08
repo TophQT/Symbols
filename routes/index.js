@@ -72,7 +72,7 @@ router.get('/', async (req, res) => {
 router.get('/products', async (req, res) => {
     try {
         const settings = await getSettings();
-        const { brand, category } = req.query;
+        const { brand, category, search } = req.query;
         
         // Build query
         let query = {};
@@ -81,6 +81,11 @@ router.get('/products', async (req, res) => {
         }
         if (category && category !== 'all') {
             query.category = category;
+        }
+        
+        // Add search query if present
+        if (search) {
+            query.name = { $regex: search, $options: 'i' };
         }
 
         // Fetch products, brands, and categories
@@ -109,6 +114,7 @@ router.get('/products', async (req, res) => {
             categories,
             selectedBrand: brand || 'all',
             selectedCategory: category || 'all',
+            search: search || '',
             selectedBrandObject
         });
     } catch (error) {
