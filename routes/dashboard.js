@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Settings = require('../models/Settings');
 const Brand = require('../models/Brand');
+const BrandWeCarry = require('../models/BrandWeCarry');
 const Category = require('../models/Category');
 const Product = require('../models/Product');
 const authMiddleware = require('../middleware/auth');
@@ -523,6 +524,125 @@ router.post('/products/:id/delete', authMiddleware, async (req, res) => {
         console.error('Error deleting product:', error);
         req.session.error = 'Failed to delete product.';
         res.redirect('/admin/products');
+    }
+});
+
+// Brands We Carry Management (GET)
+router.get('/brandswecarry', authMiddleware, async (req, res) => {
+    try {
+        const settings = await getSettings();
+        const brands = await BrandWeCarry.find().sort({ createdAt: -1 });
+        
+        res.render('brandswecarry', { 
+            title: 'Manage Brands We Carry - Admin Dashboard', 
+            settings,
+            brands,
+            dashboardTheme: req.session.dashboardTheme || 'dark',
+            success: req.session.success || null,
+            error: req.session.error || null
+        });
+        delete req.session.success;
+        delete req.session.error;
+    } catch (error) {
+        console.error('Error loading brands we carry page:', error);
+        res.status(500).render('500', { title: 'Server Error' });
+    }
+});
+
+// Add Brand We Carry (POST)
+router.post('/brandswecarry', authMiddleware, upload.single('logo'), async (req, res) => {
+    try {
+        const { name, description } = req.body;
+        if (!name || !req.file) {
+            req.session.error = 'Brand name and logo are required.';
+            return res.redirect('/admin/brandswecarry');
+        }
+
+        const newBrand = new BrandWeCarry({
+            name,
+            logo: '/uploads/' + req.file.filename,
+            description: description || ''
+        });
+
+        await newBrand.save();
+        req.session.success = 'Brand logo uploaded successfully!';
+        res.redirect('/admin/brandswecarry');
+    } catch (error) {
+        console.error('Error adding brand logo:', error);
+        req.session.error = 'Failed to upload brand logo.';
+        res.redirect('/admin/brandswecarry');
+    }
+});
+
+// Edit Brand We Carry Page (GET)
+router.get('/brandswecarry/:id/edit', authMiddleware, async (req, res) => {
+    try {
+        const settings = await getSettings();
+        const brand = await BrandWeCarry.findById(req.params.id);
+        
+        if (!brand) {
+            req.session.error = 'Brand not found.';
+            return res.redirect('/admin/brandswecarry');
+        }
+
+        res.render('brandswecarry-edit', { 
+            title: 'Edit Brand We Carry - Admin Dashboard', 
+            settings,
+            brand,
+            dashboardTheme: req.session.dashboardTheme || 'dark',
+            success: req.session.success || null,
+            error: req.session.error || null
+        });
+        delete req.session.success;
+        delete req.session.error;
+    } catch (error) {
+        console.error('Error loading edit brand we carry page:', error);
+        res.status(500).render('500', { title: 'Server Error' });
+    }
+});
+
+// Update Brand We Carry (POST)
+router.post('/brandswecarry/:id', authMiddleware, upload.single('logo'), async (req, res) => {
+    try {
+        const { name, description } = req.body;
+        const brand = await BrandWeCarry.findById(req.params.id);
+
+        if (!brand) {
+            req.session.error = 'Brand not found.';
+            return res.redirect('/admin/brandswecarry');
+        }
+
+        const updateData = {
+            name,
+            description: description || ''
+        };
+
+        if (req.file) {
+            // Delete old logo file if necessary (optional, but good practice)
+            // For now, just update the path
+            updateData.logo = '/uploads/' + req.file.filename;
+        }
+
+        await BrandWeCarry.findByIdAndUpdate(req.params.id, updateData);
+        req.session.success = 'Brand logo updated successfully!';
+        res.redirect('/admin/brandswecarry');
+    } catch (error) {
+        console.error('Error updating brand logo:', error);
+        req.session.error = 'Failed to update brand logo.';
+        res.redirect(`/admin/brandswecarry/${req.params.id}/edit`);
+    }
+});
+
+// Delete Brand We Carry (POST)
+router.post('/brandswecarry/:id/delete', authMiddleware, async (req, res) => {
+    try {
+        await BrandWeCarry.findByIdAndDelete(req.params.id);
+        req.session.success = 'Brand logo deleted successfully!';
+        res.redirect('/admin/brandswecarry');
+    } catch (error) {
+        console.error('Error deleting brand logo:', error);
+        req.session.error = 'Failed to delete brand logo.';
+        res.redirect('/admin/brandswecarry');
     }
 });
 

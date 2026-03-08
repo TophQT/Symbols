@@ -9,6 +9,7 @@ const path = require('path');
 const Product = require('../models/Product');
 const Brand = require('../models/Brand');
 const Category = require('../models/Category');
+const BrandWeCarry = require('../models/BrandWeCarry');
 
 // Helper to get site settings
 const getSettings = async () => {
@@ -53,8 +54,18 @@ router.post('/login', (req, res) => {
 
 // Home Page
 router.get('/', async (req, res) => {
-    const settings = await getSettings();
-    res.render('index', { title: 'Symbol Sciences - Empowering Innovation', settings });
+    try {
+        const settings = await getSettings();
+        const brandsWeCarry = await BrandWeCarry.find().sort({ createdAt: -1 });
+        res.render('index', { 
+            title: 'Symbol Sciences - Empowering Innovation', 
+            settings,
+            brandsWeCarry
+        });
+    } catch (error) {
+        console.error('Error loading home page:', error);
+        res.status(500).render('500', { title: 'Server Error' });
+    }
 });
 
 // Products Page
