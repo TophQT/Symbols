@@ -1,0 +1,183 @@
+<%- include('partials/header') %>
+
+<main class="pt-32 pb-24 min-h-screen bg-tech-dark relative overflow-hidden">
+    <!-- Decorative Background Elements -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-tech-blue/5 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-tech-accent/5 rounded-full blur-[150px]"></div>
+        <div class="absolute top-1/2 left-0 w-64 h-64 bg-purple-500/5 rounded-full blur-[100px]"></div>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        <!-- Page Header -->
+        <div class="text-center mb-20 space-y-8">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-tech-blue/10 border border-tech-blue/20 text-tech-blue text-xs font-bold uppercase tracking-widest reveal">
+                <span class="w-2 h-2 rounded-full bg-tech-blue animate-pulse"></span>
+                <span>Software Solutions</span>
+            </div>
+            
+            <div class="space-y-4 reveal">
+                <h1 class="text-5xl md:text-8xl font-bold font-grotesk tracking-tight leading-tight">
+                    Advanced <span class="text-transparent bg-clip-text bg-gradient-to-r from-tech-blue to-tech-accent">Software</span><br>
+                    <span class="text-white">Catalog</span>
+                </h1>
+            </div>
+            
+            <p class="text-white/60 max-w-2xl mx-auto text-lg md:text-xl leading-relaxed reveal">
+                Discover our comprehensive suite of enterprise software solutions designed to streamline operations, enhance productivity, and drive digital transformation.
+            </p>
+        </div>
+
+        <!-- Software Grid -->
+        <% if (software.length === 0) { %>
+            <div class="text-center py-20 reveal">
+                <div class="w-24 h-24 bg-white/5 rounded-3xl flex items-center justify-center mx-auto mb-8">
+                    <i data-lucide="package" class="w-12 h-12 text-white/40"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-4">No Software Available</h3>
+                <p class="text-white/60 max-w-md mx-auto">
+                    Our software catalog is currently being updated. Check back soon for the latest software solutions.
+                </p>
+            </div>
+        <% } else { %>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <% software.forEach((item, index) => { %>
+                    <div class="glass-card rounded-3xl overflow-hidden border border-white/5 hover:border-tech-blue/30 transition-all duration-500 reveal" data-delay="<%= index * 100 %>">
+                        <!-- Software Image -->
+                        <div class="relative aspect-video bg-gradient-to-br from-tech-blue/10 to-tech-accent/10 overflow-hidden">
+                            <img src="<%= item.image %>" alt="<%= item.name %>" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                            
+                            <!-- Video Indicator -->
+                            <% if (item.video || item.youtubeUrl) { %>
+                                <div class="absolute top-4 right-4">
+                                    <div class="w-10 h-10 bg-tech-blue/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-tech-blue/30">
+                                        <i data-lucide="play" class="w-4 h-4 text-tech-blue"></i>
+                                    </div>
+                                </div>
+                            <% } %>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="p-8 space-y-6">
+                            <!-- Software Name -->
+                            <div>
+                                <h3 class="text-xl font-bold font-grotesk text-white mb-2"><%= item.name %></h3>
+                                <div class="text-xs text-white/40 uppercase tracking-widest">
+                                        <%= new Date(item.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) %>
+                                    </div>
+                            </div>
+
+                            <!-- Description -->
+                            <p class="text-white/70 leading-relaxed line-clamp-3">
+                                <%= item.description %>
+                            </p>
+
+                            <!-- Video Section -->
+                            <% if (item.video || item.youtubeUrl) { %>
+                                <div class="space-y-3">
+                                    <% if (item.youtubeUrl) { %>
+                                        <!-- Embedded YouTube Video -->
+                                        <div class="relative aspect-video rounded-xl overflow-hidden bg-black/20">
+                                            <iframe 
+                                                src="https://www.youtube.com/embed/<%= item.youtubeUrl.split('v=')[1]?.split('&')[0] || item.youtubeUrl.split('/').pop() %>"
+                                                class="w-full h-full"
+                                                frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowfullscreen>
+                                            </iframe>
+                                        </div>
+                                    <% } else if (item.video) { %>
+                                        <!-- Uploaded Video -->
+                                        <div class="relative aspect-video rounded-xl overflow-hidden bg-black/20">
+                                            <video controls class="w-full h-full">
+                                                <source src="<%= item.video %>" type="video/mp4">
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        </div>
+                                    <% } %>
+                                </div>
+                            <% } %>
+
+                            <!-- Action Button -->
+                            <div class="pt-4">
+                                <a href="<%= item.websiteLink %>" 
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   class="w-full inline-flex items-center justify-center gap-3 px-6 py-3 bg-tech-blue hover:bg-tech-blue/80 text-white font-bold rounded-xl transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-tech-blue/20">
+                                    <i data-lucide="external-link" class="w-4 h-4"></i>
+                                    Visit Website
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } %>
+    </div>
+</main>
+
+<%- include('partials/footer') %>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Reveal animations
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        // Initial setup
+        revealElements.forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+            element.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+            
+            // Set transition delay from data attribute
+            const delay = element.getAttribute('data-delay');
+            if (delay) {
+                element.style.transitionDelay = delay + 'ms';
+            }
+        });
+        
+        // Check on scroll
+        window.addEventListener('scroll', revealOnScroll);
+        
+        // Initial check
+        revealOnScroll();
+        
+        // Add hover effects to cards
+        const cards = document.querySelectorAll('.glass-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    });
+</script>
+
+<style>
+    .line-clamp-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>

@@ -10,6 +10,7 @@ const Product = require('../models/Product');
 const Brand = require('../models/Brand');
 const Category = require('../models/Category');
 const BrandWeCarry = require('../models/BrandWeCarry');
+const Software = require('../models/Software');
 
 // Helper to get site settings
 const getSettings = async () => {
@@ -133,6 +134,23 @@ router.get('/services', async (req, res) => {
 router.get('/updates', async (req, res) => {
     const settings = await getSettings();
     res.render('updates', { title: 'Latest Updates - Symbol Sciences', settings });
+});
+
+// Software List Page
+router.get('/software-list', async (req, res) => {
+    try {
+        const settings = await getSettings();
+        const software = await Software.find().sort({ createdAt: -1 });
+        
+        res.render('software-list', { 
+            title: 'Software Solutions - Symbol Sciences', 
+            settings,
+            software
+        });
+    } catch (error) {
+        console.error('Error loading software list page:', error);
+        res.status(500).render('500', { title: 'Server Error', settings: await getSettings() });
+    }
 });
 
 // About Us Page

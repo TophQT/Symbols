@@ -5,6 +5,7 @@ const Brand = require('../models/Brand');
 const BrandWeCarry = require('../models/BrandWeCarry');
 const Category = require('../models/Category');
 const Product = require('../models/Product');
+const Software = require('../models/Software');
 const authMiddleware = require('../middleware/auth');
 const upload = require('../middleware/upload');
 const path = require('path');
@@ -643,6 +644,146 @@ router.post('/brandswecarry/:id/delete', authMiddleware, async (req, res) => {
         console.error('Error deleting brand logo:', error);
         req.session.error = 'Failed to delete brand logo.';
         res.redirect('/admin/brandswecarry');
+    }
+});
+
+// Software Management Page (GET)
+router.get('/software', authMiddleware, async (req, res) => {
+    try {
+        const settings = await getSettings();
+        const software = await Software.find().sort({ createdAt: -1 });
+        
+        res.render('software', { 
+            title: 'Manage Software - Admin Dashboard', 
+            settings,
+            software,
+            dashboardTheme: req.session.dashboardTheme || 'dark',
+            success: req.session.success || null,
+            error: req.session.error || null
+        });
+        
+        delete req.session.success;
+        delete req.session.error;
+    } catch (error) {
+        console.error('Error loading software page:', error);
+        res.status(500).render('500', { title: 'Server Error' });
+    }
+});
+
+// Add Software (POST)
+router.post('/software', authMiddleware, upload.fields([
+    { name: 'image', maxCount: 1 },
+    { name: 'video', maxCount: 1 }
+]), async (req, res) => {
+    try {
+        const { name, description, youtubeUrl, websiteLink } = req.body;
+        
+        if (!name || !description || !websiteLink) {
+            req.session.error = 'Name, description, and website link are required.';
+            return res.redirect('/admin/software');
+        }
+
+        if (!req.files.image) {
+            req.session.error = 'Software image is required.';
+            return res.redirect('/admin/software');
+        }
+
+        const newSoftware = new Software({
+            name,
+            description,
+            image: '/uploads/' + req.files.image[0].filename,
+            video: req.files.video ? '/uploads/' + req.files.video[0].filename : null,
+            youtubeUrl: youtubeUrl || null,
+            websiteLink
+        });
+
+        await newSoftware.save();
+        req.session.success = 'Software added successfully!';
+        res.redirect('/admin/software');
+    } catch (error) {
+        console.error('Error adding software:', error);
+        req.session.error = 'Failed to add software. Please try again.';
+        res.redirect('/admin/software');
+    }
+});
+
+// Edit Software Page (GET)
+router.get('/software/:id/edit', authMiddleware, async (req, res) => {
+    try {
+        const settings = await getSettings();
+        const software = await Software.findById(req.params.id);
+        
+        if (!software) {
+            req.session.error = 'Software not found.';
+            return res.redirect('/admin/software');
+        }
+
+        res.render('software-edit', { 
+            title: 'Edit Software - Admin Dashboard', 
+            settings,
+            software,
+            dashboardTheme: req.session.dashboardTheme || 'dark',
+            success: req.session.success || null,
+            error: req.session.error || null
+        });
+        
+        delete req.session.success;
+        delete req.session.error;
+    } catch (error) {
+        console.error('Error loading edit software page:', error);
+        res.status(500).render('500', { title: 'Server Error' });
+    }
+});
+
+// Update Software (POST)
+router.post('/software/:id/edit', authMiddleware, upload.fields([
+    { name: 'image', maxCount: 1 },
+    { name: 'video', maxCount: 1 }
+]), async (req, res) => {
+    try {
+        const { name, description, youtubeUrl, websiteLink } = req.body;
+        const software = await Software.findById(req.params.id);
+
+        if (!software) {
+            req.session.error = 'Software not found.';
+            return res.redirect('/admin/software');
+        }
+
+        const updateData = {
+            name,
+            description,
+            youtubeUrl: youtubeUrl || null,
+            websiteLink
+        };
+
+        if (req.files.image) {
+            updateData.image = '/uploads/' + req.files.image[0].filename;
+        }
+
+        if (req.files.video) {
+            updateData.video = '/uploads/' + req.files.video[0].filename;
+        }
+
+        await Software.findByIdAndUpdate(req.params.id, updateData);
+        req.session.success = 'Software updated successfully!';
+        res.redirect('/admin/software');
+    } catch (error) {
+        console.error('Error updating software:', error);
+        req.session.error = 'Failed to update software.';
+        res.redirect(`/admin/software/${req.params.id}/edit`);
+    }
+});
+
+// Delete Software (POST)
+router.post('/software/:id/delete', authMiddleware, async (req, res) => {
+    try {
+        await Software.findByIdAndDelete(req.params.id);
+        req.session.success = 'Software deleted successfully!';
+        res.redirect('/admin/software');
+    } catch (error) {
+        console.error('Error deleting software:', error);
+        req.session.error = 'Failed to delete software.';
+        res.redirect('/admin/software');
     }
 });
 
