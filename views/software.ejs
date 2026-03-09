@@ -108,6 +108,86 @@
         background-color: #f3f4f6;
       }
       
+      /* Form inputs in light mode */
+      body.light input[type="text"],
+      body.light input[type="url"],
+      body.light input[type="file"],
+      body.light textarea {
+        background-color: rgba(31, 41, 55, 0.05) !important;
+        border-color: rgba(31, 41, 55, 0.2) !important;
+        color: #1f2937 !important;
+      }
+      
+      body.light input::placeholder,
+      body.light textarea::placeholder {
+        color: rgba(31, 41, 55, 0.4) !important;
+      }
+      
+      /* File input styling in light mode */
+      body.light input[type="file"]::file-selector-button {
+        background-color: rgba(59, 130, 246, 0.1) !important;
+        color: #3b82f6 !important;
+        border-color: rgba(59, 130, 246, 0.2) !important;
+      }
+      
+      body.light input[type="file"]::file-selector-button:hover {
+        background-color: rgba(59, 130, 246, 0.2) !important;
+      }
+      
+      /* Success/Error messages in light mode */
+      body.light .bg-green-500\/10 {
+        background-color: rgba(34, 197, 94, 0.1) !important;
+        border-color: rgba(34, 197, 94, 0.3) !important;
+      }
+      
+      body.light .text-green-400 {
+        color: #16a34a !important;
+      }
+      
+      body.light .bg-tech-red\/10 {
+        background-color: rgba(239, 68, 68, 0.1) !important;
+        border-color: rgba(239, 68, 68, 0.3) !important;
+      }
+      
+      body.light .text-tech-red {
+        color: #dc2626 !important;
+      }
+      
+      /* Table elements in light mode */
+      body.light table {
+        color: #1f2937 !important;
+      }
+      
+      body.light .hover\:bg-white\/5:hover {
+        background-color: rgba(31, 41, 55, 0.05) !important;
+      }
+      
+      /* Status badges in light mode */
+      body.light .bg-green-500\/10 {
+        background-color: rgba(34, 197, 94, 0.1) !important;
+      }
+      
+      body.light .text-green-400 {
+        color: #16a34a !important;
+      }
+      
+      body.light .bg-blue-500\/10 {
+        background-color: rgba(59, 130, 246, 0.1) !important;
+      }
+      
+      body.light .text-blue-400 {
+        color: #2563eb !important;
+      }
+      
+      /* Links in light mode */
+      body.light .text-tech-blue {
+        color: #2563eb !important;
+      }
+      
+      body.light .text-tech-accent {
+        color: #3b82f6 !important;
+      }
+      
       /* Theme toggle active state */
       #theme-toggle.active {
         background-color: rgba(59, 130, 246, 0.2);

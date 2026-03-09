@@ -140,10 +140,16 @@
         <!-- Sidebar -->
         <aside class="w-64 glass border-r border-white/5 hidden md:flex flex-col fixed h-screen z-40">
             <div class="p-6">
-                <a href="/" class="flex items-center group mb-8">
-                    <div class="h-10 w-auto flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                        <i data-lucide="scan-barcode" class="text-tech-blue w-7 h-7"></i>
-                    </div>
+               <a href="/" class="flex items-center group mb-8">
+                    <% if (locals.settings && locals.settings.logo) { %>
+                        <img src="<%= settings.logo %>" alt="Logo" class="h-10 w-auto object-contain transform group-hover:scale-110 transition-transform duration-300">
+                    <% } else if (locals.settings && locals.settings.defaultLogo) { %>
+                        <img src="<%= settings.defaultLogo %>" alt="Default Logo" class="h-10 w-auto object-contain transform group-hover:scale-110 transition-transform duration-300">
+                    <% } else { %>
+                        <div class="h-10 w-auto flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                            <i data-lucide="scan-barcode" class="text-tech-blue w-7 h-7"></i>
+                        </div>
+                    <% } %>
                 </a>
                 <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-tech-blue/10 border border-tech-blue/20 text-tech-blue text-[10px] font-bold uppercase tracking-widest mb-4">
                     <span class="w-2 h-2 rounded-full bg-tech-blue"></span>
@@ -172,6 +178,10 @@
                         <i data-lucide="image" class="w-5 h-5"></i>
                         <span class="font-medium">Brands We Carry</span>
                     </a>
+                    <a href="/admin/software" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
+                        <i data-lucide="package" class="w-5 h-5 group-hover:text-tech-blue transition-colors"></i>
+                        <span class="font-medium">Software</span>
+                    </a>                    
                 </div>
                 <a href="/admin/settings" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
                     <i data-lucide="settings" class="w-5 h-5 group-hover:text-tech-blue transition-colors"></i>
