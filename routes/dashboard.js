@@ -6,9 +6,50 @@ const BrandWeCarry = require('../models/BrandWeCarry');
 const Category = require('../models/Category');
 const Product = require('../models/Product');
 const Software = require('../models/Software');
+const Update = require('../models/Update');
 const authMiddleware = require('../middleware/auth');
 const upload = require('../middleware/upload');
+const { uploadVideo } = require('../middleware/upload');
 const path = require('path');
+const multer = require('multer');
+
+// Custom upload configuration for product creation with multiple destinations
+const productUpload = multer({
+    storage: multer.diskStorage({
+        destination: function (req, file, cb) {
+            if (file.fieldname === 'detailsFile') {
+                cb(null, path.join(__dirname, '../public/uploads/product-details'));
+            } else {
+                cb(null, path.join(__dirname, '../public/uploads'));
+            }
+        },
+        filename: function (req, file, cb) {
+            const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+            cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+        }
+    }),
+    limits: {
+        fileSize: 10 * 1024 * 1024 // 10MB limit
+    },
+    fileFilter: (req, file, cb) => {
+        const allowedImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+        const allowedDocumentTypes = [
+            'application/pdf',
+            'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'application/vnd.ms-excel',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'text/plain'
+        ];
+        const allowedTypes = [...allowedImageTypes, ...allowedDocumentTypes];
+        
+        if (allowedTypes.includes(file.mimetype)) {
+            cb(null, true);
+        } else {
+            cb(new Error('Invalid file type. Only images and documents (PDF, DOC, DOCX) are allowed.'), false);
+        }
+    }
+});
 
 // Helper to get site settings
 const getSettings = async () => {
@@ -260,9 +301,12 @@ router.get('/products/:id/edit', authMiddleware, async (req, res) => {
 });
 
 // Update Product (POST)
-router.post('/products/:id/edit', authMiddleware, upload.single('image'), async (req, res) => {
+router.post('/products/:id/edit', authMiddleware, productUpload.fields([
+    { name: 'images', maxCount: 5 },
+    { name: 'detailsFile', maxCount: 1 }
+]), async (req, res) => {
     try {
-        const { name, brand, category } = req.body;
+        const { name, brand, category, description } = req.body;
         const product = await Product.findById(req.params.id);
         
         if (!product) {
@@ -271,11 +315,20 @@ router.post('/products/:id/edit', authMiddleware, upload.single('image'), async 
         }
 
         product.name = name;
+        product.description = description || '';
         product.brand = brand;
         product.category = category;
         
-        if (req.file) {
-            product.image = '/uploads/' + req.file.filename;
+        // Handle multiple images
+        if (req.files.images && req.files.images.length > 0) {
+            // Add new images to existing images array
+            const newImagePaths = req.files.images.map(file => '/uploads/' + file.filename);
+            product.images = [...product.images, ...newImagePaths];
+        }
+
+        // Handle details file
+        if (req.files.detailsFile) {
+            product.detailsFile = '/uploads/product-details/' + req.files.detailsFile[0].filename;
         }
 
         await product.save();
@@ -489,20 +542,28 @@ router.post('/products/categories/:id/delete', authMiddleware, async (req, res) 
 });
 
 // Create Product (POST)
-router.post('/products', authMiddleware, upload.single('image'), async (req, res) => {
+router.post('/products', authMiddleware, productUpload.fields([
+    { name: 'images', maxCount: 5 },
+    { name: 'detailsFile', maxCount: 1 }
+]), async (req, res) => {
     try {
-        const { name, brand, category } = req.body;
+        const { name, brand, category, description } = req.body;
         
-        if (!name || !brand || !category || !req.file) {
-            req.session.error = 'All fields are required, including an image.';
+        if (!name || !brand || !category || !req.files.images || req.files.images.length === 0) {
+            req.session.error = 'All required fields must be filled, including at least one image.';
             return res.redirect('/admin/products/create');
         }
 
+        // Process uploaded images
+        const imagePaths = req.files.images.map(file => '/uploads/' + file.filename);
+
         const newProduct = new Product({ 
             name,
+            description: description || '',
             brand,
             category,
-            image: '/uploads/' + req.file.filename
+            images: imagePaths,
+            detailsFile: req.files.detailsFile ? '/uploads/product-details/' + req.files.detailsFile[0].filename : null
         });
 
         await newProduct.save();
@@ -784,6 +845,96 @@ router.post('/software/:id/delete', authMiddleware, async (req, res) => {
         console.error('Error deleting software:', error);
         req.session.error = 'Failed to delete software.';
         res.redirect('/admin/software');
+    }
+});
+
+// Updates Management Routes
+
+// GET /updates - Display updates management page
+router.get('/updates', authMiddleware, async (req, res) => {
+    try {
+        const settings = await getSettings();
+        const updates = await Update.find().sort({ createdAt: -1 });
+        res.render('update', { 
+            title: 'Updates Management - Admin Dashboard',
+            settings,
+            updates,
+            dashboardTheme: req.session.dashboardTheme || 'dark',
+            success: req.session.success || null,
+            error: req.session.error || null
+        });
+        // Clear session messages after displaying
+        delete req.session.success;
+        delete req.session.error;
+    } catch (error) {
+        console.error('Error loading updates page:', error);
+        res.status(500).render('500', { title: 'Server Error' });
+    }
+});
+
+// POST /updates - Create new update
+router.post('/updates', authMiddleware, uploadVideo.single('videoFile'), async (req, res) => {
+    try {
+        const { facebookEmbed, youtubeUrl } = req.body;
+        
+        const newUpdate = new Update({
+            facebookEmbed: facebookEmbed || '',
+            videoFile: req.file ? '/uploads/videos/' + req.file.filename : null,
+            youtubeUrl: youtubeUrl || ''
+        });
+
+        await newUpdate.save();
+        req.session.success = 'Update created successfully!';
+        res.redirect('/admin/updates');
+    } catch (error) {
+        console.error('Error creating update:', error);
+        req.session.error = 'Failed to create update. Please try again.';
+        res.redirect('/admin/updates');
+    }
+});
+
+// PUT /updates/:id - Update existing update
+router.put('/updates/:id', authMiddleware, uploadVideo.single('videoFile'), async (req, res) => {
+    try {
+        const { facebookEmbed, youtubeUrl } = req.body;
+        const update = await Update.findById(req.params.id);
+        
+        if (!update) {
+            return res.status(404).json({ success: false, message: 'Update not found' });
+        }
+
+        const updateData = {
+            facebookEmbed: facebookEmbed || '',
+            youtubeUrl: youtubeUrl || ''
+        };
+
+        // Update video file if new one is uploaded
+        if (req.file) {
+            updateData.videoFile = '/uploads/videos/' + req.file.filename;
+        }
+
+        await Update.findByIdAndUpdate(req.params.id, updateData);
+        res.json({ success: true, message: 'Update updated successfully!' });
+    } catch (error) {
+        console.error('Error updating update:', error);
+        res.status(500).json({ success: false, message: 'Failed to update update' });
+    }
+});
+
+// DELETE /updates/:id - Delete update
+router.delete('/updates/:id', authMiddleware, async (req, res) => {
+    try {
+        const update = await Update.findById(req.params.id);
+        
+        if (!update) {
+            return res.status(404).json({ success: false, message: 'Update not found' });
+        }
+
+        await Update.findByIdAndDelete(req.params.id);
+        res.json({ success: true, message: 'Update deleted successfully!' });
+    } catch (error) {
+        console.error('Error deleting update:', error);
+        res.status(500).json({ success: false, message: 'Failed to delete update' });
     }
 });
 

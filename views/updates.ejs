@@ -7,32 +7,244 @@
             <p class="text-white/60 max-w-2xl mx-auto">News, insights, and technological breakthroughs from the world of Symbol Sciences.</p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
-            <% const updates = [
-                { date: 'March 1, 2026', title: 'Next-Gen Scanning Technology', desc: 'Symbol Sciences unveils revolutionary 3D scanning technology for enterprise logistics.', tag: 'News' },
-                { date: 'February 24, 2026', title: 'AI in the Warehouse', desc: 'How artificial intelligence is reshaping warehouse management systems in 2026.', tag: 'Insight' },
-                { date: 'February 15, 2026', title: 'Strategic Partnership with Zebra', desc: 'Expanding our collaborative efforts to bring better RFID solutions to the market.', tag: 'Company' },
-                { date: 'February 2, 2026', title: 'Sustainable Automation', desc: 'New energy-efficient robotics designed for green-focused manufacturing plants.', tag: 'Technology' },
-                { date: 'January 28, 2026', title: 'The Future of RFID', desc: 'Exploring long-range passive RFID tags and their applications in global supply chains.', tag: 'Insight' },
-                { date: 'January 12, 2026', title: 'Symbol Sciences Q1 Roadmap', desc: 'A look at our upcoming product launches and technological milestones.', tag: 'Company' }
-            ]; %>
-            <% updates.forEach((update, index) => { %>
-                <article class="glass-card group rounded-3xl overflow-hidden reveal" style="transition-delay: <%= index * 100 %>ms">
-                    <div class="h-48 bg-tech-blue/5 flex items-center justify-center relative">
-                        <i data-lucide="newspaper" class="w-16 h-16 text-tech-blue/20 group-hover:scale-110 transition-transform duration-500"></i>
-                        <span class="absolute top-4 left-4 bg-tech-blue/20 text-tech-blue text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider"><%= update.tag %></span>
+        <!-- Video Updates Section -->
+        <div class="mb-32">
+            <div class="text-center mb-16 space-y-4 reveal">
+                <div class="inline-flex items-center space-x-3 px-4 py-2 rounded-full bg-tech-blue/10 border border-tech-blue/20 text-tech-blue text-sm font-bold uppercase tracking-widest mb-4">
+                    <i data-lucide="video" class="w-4 h-4"></i>
+                    <span>Video Content</span>
+                </div>
+                <h2 class="text-4xl font-bold font-grotesk text-white">Video Updates</h2>
+                <p class="text-white/60 max-w-2xl mx-auto text-lg">Latest video content and updates from Symbol Sciences</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <% const videoUpdates = updates ? updates.filter(u => u.videoFile || u.youtubeUrl) : []; %>
+                <% if (videoUpdates.length > 0) { %>
+                    <% videoUpdates.forEach((update, index) => { %>
+                        <div class="glass-card group rounded-2xl overflow-hidden reveal hover:shadow-2xl hover:shadow-tech-blue/20 transition-all duration-500 transform hover:-translate-y-2" style="transition-delay: <%= index * 100 %>ms">
+                            <!-- Video Container -->
+                            <div class="relative bg-black aspect-video">
+                                <% if (update.videoFile) { %>
+                                    <video controls class="w-full h-full object-cover" preload="metadata" poster="/images/default-logo.png">
+                                        <source src="<%= update.videoFile %>" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center space-x-1">
+                                        <i data-lucide="play-circle" class="w-3 h-3"></i>
+                                        <span>Video</span>
+                                    </div>
+                                <% } else if (update.youtubeUrl) { %>
+                                    <% 
+                                    let embedUrl = update.youtubeUrl;
+                                    if (embedUrl.includes('youtube.com/watch?v=')) {
+                                        embedUrl = embedUrl.replace('youtube.com/watch?v=', 'youtube.com/embed/');
+                                    } else if (embedUrl.includes('youtu.be/')) {
+                                        const videoId = embedUrl.split('youtu.be/')[1].split('?')[0];
+                                        embedUrl = `https://www.youtube.com/embed/${videoId}`;
+                                    }
+                                    %>
+                                    <iframe src="<%= embedUrl %>" 
+                                            class="w-full h-full" 
+                                            frameborder="0" 
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                            allowfullscreen>
+                                    </iframe>
+                                <% } %>
+                            </div>
+                            
+                            <!-- Content -->
+                            <div class="p-6 space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <time class="text-xs text-white/50 font-medium uppercase tracking-wider">
+                                        <% if (update.createdAt) { %>
+                                            <%= new Date(update.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %>
+                                        <% } else { %>
+                                            Recent
+                                        <% } %>
+                                    </time>
+                                    <div class="flex items-center space-x-1">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                        <span class="text-xs text-white/40">Live</span>
+                                    </div>
+                                </div>
+                                
+                                <h3 class="text-xl font-bold font-grotesk text-white group-hover:text-tech-blue transition-colors">
+                                    <% if (update.youtubeUrl) { %>
+                                        YouTube Video Update
+                                    <% } else if (update.videoFile) { %>
+                                        Exclusive Video Content
+                                    <% } %>
+                                </h3>
+                                
+                                <p class="text-sm text-white/60 leading-relaxed">
+                                    <% if (update.youtubeUrl) { %>
+                                        Watch our latest video update on YouTube and stay connected with our latest content and insights.
+                                    <% } else if (update.videoFile) { %>
+                                        Check out our exclusive video content available only on Symbol Sciences.
+                                    <% } %>
+                                </p>
+                                
+                                <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                                    <% if (update.youtubeUrl) { %>
+                                        <a href="<%= update.youtubeUrl %>" target="_blank" class="inline-flex items-center space-x-2 text-tech-blue text-sm font-bold hover:text-tech-accent transition-colors">
+                                            <span>Watch on YouTube</span>
+                                            <i data-lucide="external-link" class="w-4 h-4"></i>
+                                        </a>
+                                    <% } else if (update.videoFile) { %>
+                                        <button onclick="this.closest('.glass-card').querySelector('video').play()" class="inline-flex items-center space-x-2 text-tech-blue text-sm font-bold hover:text-tech-accent transition-colors">
+                                            <i data-lucide="play" class="w-4 h-4"></i>
+                                            <span>Play Video</span>
+                                        </button>
+                                    <% } %>
+                                    
+                                    <div class="flex items-center space-x-2">
+                                        <button class="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/60 hover:text-white transition-all">
+                                            <i data-lucide="share-2" class="w-4 h-4"></i>
+                                        </button>
+                                        <button class="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/60 hover:text-white transition-all">
+                                            <i data-lucide="bookmark" class="w-4 h-4"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <div class="col-span-full text-center py-20">
+                        <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-tech-blue/10 mb-6">
+                            <i data-lucide="video-off" class="w-10 h-10 text-tech-blue/40"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white/60 mb-3">No Video Updates Yet</h3>
+                        <p class="text-white/40 max-w-md mx-auto">Check back soon for the latest video content and updates from Symbol Sciences.</p>
                     </div>
-                    <div class="p-8 space-y-4">
-                        <p class="text-xs text-white/40"><%= update.date %></p>
-                        <h3 class="text-xl font-bold font-grotesk group-hover:text-tech-blue transition-colors leading-tight"><%= update.title %></h3>
-                        <p class="text-sm text-white/60 leading-relaxed"><%= update.desc %></p>
-                        <a href="#" class="inline-flex items-center space-x-2 text-tech-blue text-sm font-bold mt-4">
-                            <span>Read Article</span>
-                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </a>
+                <% } %>
+            </div>
+        </div>
+
+        <!-- Facebook Updates Section -->
+        <div class="mb-32">
+            <div class="text-center mb-16 space-y-4 reveal">
+                <div class="inline-flex items-center space-x-3 px-4 py-2 rounded-full bg-blue-600/10 border border-blue-600/20 text-blue-400 text-sm font-bold uppercase tracking-widest mb-4">
+                    <i data-lucide="facebook" class="w-4 h-4"></i>
+                    <span>Social Media</span>
+                </div>
+                <h2 class="text-4xl font-bold font-grotesk text-white">Facebook Updates</h2>
+                <p class="text-white/60 max-w-2xl mx-auto text-lg">Latest posts and updates from our Facebook page</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <% const facebookUpdates = updates ? updates.filter(u => u.facebookEmbed) : []; %>
+                <% if (facebookUpdates.length > 0) { %>
+                    <% facebookUpdates.forEach((update, index) => { %>
+                        <div class="glass-card group rounded-2xl overflow-hidden reveal hover:shadow-2xl hover:shadow-blue-600/20 transition-all duration-500 transform hover:-translate-y-2" style="transition-delay: <%= index * 100 %>ms">
+                            <!-- Facebook Container -->
+                            <div class="relative bg-gray-900 h-[400px] overflow-hidden">
+                                <div class="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
+                                    <% 
+                                    let embedContent = '';
+                                    if (update.facebookEmbed) {
+                                        if (update.facebookEmbed.includes('iframe')) {
+                                            // Direct embed code - use as-is with proper sizing
+                                            embedContent = update.facebookEmbed.replace(/width="\d+"/g, 'width="100%"').replace(/height="\d+"/g, 'height="600" style="min-height:600px"');
+                                        } else if (update.facebookEmbed.includes('facebook.com')) {
+                                            // URL fallback - convert to embed
+                                            embedContent = `<iframe src="https://www.facebook.com/plugins/post.php?href=${encodeURIComponent(update.facebookEmbed)}&show_text=true&width=500" width="100%" height="600" style="border:none;overflow:hidden;min-height:600px" scrolling="yes" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`;
+                                        } else {
+                                            // Generic embed code - try to make it responsive
+                                            embedContent = update.facebookEmbed.replace(/width="\d+"/g, 'width="100%"').replace(/height="\d+"/g, 'height="600" style="min-height:600px"');
+                                        }
+                                    } else {
+                                        // No content - show fallback
+                                        embedContent = `
+                                            <div class="h-full flex items-center justify-center p-8 text-center min-h-[400px]">
+                                                <div class="space-y-6">
+                                                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-600/20">
+                                                        <i data-lucide="facebook" class="w-8 h-8 text-blue-400"></i>
+                                                    </div>
+                                                    <div>
+                                                        <p class="text-white/60 text-sm mb-4">Facebook Post</p>
+                                                        <p class="text-white/40 text-xs mb-4">Add Facebook embed code in admin panel</p>
+                                                        <div class="text-xs text-white/50 bg-black/20 rounded p-3 mb-4">
+                                                            <p class="mb-2">Get embed code from Facebook:</p>
+                                                            <p class="text-gray-400">1. Go to Facebook post</p>
+                                                            <p class="text-gray-400">2. Click "Embed"</p>
+                                                            <p class="text-gray-400">3. Copy iframe code</p>
+                                                            <p class="text-gray-400">4. Paste in admin panel</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        `;
+                                    }
+                                    %>
+                                    <div class="w-full">
+                                        <% if (embedContent.includes('iframe')) { %>
+                                            <%- embedContent %>
+                                        <% } else { %>
+                                            <%= embedContent %>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <!-- Scroll indicator -->
+                                <div class="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full opacity-0 hover:opacity-100 transition-opacity z-10">
+                                    <i data-lucide="chevron-down" class="w-3 h-3 animate-bounce"></i>
+                                    <span class="ml-1">Scroll</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Content -->
+                            <div class="p-6 space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <time class="text-xs text-white/50 font-medium uppercase tracking-wider">
+                                        <% if (update.createdAt) { %>
+                                            <%= new Date(update.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %>
+                                        <% } else { %>
+                                            Recent
+                                        <% } %>
+                                    </time>
+                                    <div class="flex items-center space-x-1">
+                                        <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                                        <span class="text-xs text-white/40">New</span>
+                                    </div>
+                                </div>
+                                
+                                <h3 class="text-xl font-bold font-grotesk text-white group-hover:text-blue-400 transition-colors">
+                                    Facebook Post Update
+                                </h3>
+                                
+                                <p class="text-sm text-white/60 leading-relaxed">
+                                    View our latest Facebook post and stay connected with our community updates and announcements.
+                                </p>
+                                
+                                <div class="flex items-center justify-between pt-4 border-t border-white/10">
+                                    <a href="<%= update.facebookEmbed %>" target="_blank" class="inline-flex items-center space-x-2 text-blue-400 text-sm font-bold hover:text-blue-300 transition-colors">
+                                        <span>View on Facebook</span>
+                                        <i data-lucide="external-link" class="w-4 h-4"></i>
+                                    </a>
+                                    
+                                    <div class="flex items-center space-x-2">
+                                        <button class="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/60 hover:text-white transition-all">
+                                            <i data-lucide="share-2" class="w-4 h-4"></i>
+                                        </button>
+                                        <button class="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/60 hover:text-white transition-all">
+                                            <i data-lucide="bookmark" class="w-4 h-4"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <div class="col-span-full text-center py-20">
+                        <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-blue-600/10 mb-6">
+                            <i data-lucide="facebook" class="w-10 h-10 text-blue-400/40"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white/60 mb-3">No Facebook Updates Yet</h3>
+                        <p class="text-white/40 max-w-md mx-auto">Check back soon for the latest Facebook posts and updates from Symbol Sciences.</p>
                     </div>
-                </article>
-            <% }); %>
+                <% } %>
+            </div>
         </div>
     </div>
 </main>

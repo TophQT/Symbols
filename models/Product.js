@@ -6,9 +6,17 @@ const productSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    image: {
+    description: {
+        type: String,
+        trim: true
+    },
+    images: [{
         type: String,
         required: true
+    }],
+    detailsFile: {
+        type: String,
+        trim: true
     },
     brand: {
         type: mongoose.Schema.Types.ObjectId,

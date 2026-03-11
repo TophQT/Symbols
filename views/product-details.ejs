@@ -1,0 +1,272 @@
+<%- include('partials/header') %>
+
+<main class="pt-32 pb-24 min-h-screen bg-tech-dark relative overflow-hidden">
+    <!-- Decorative Background Elements -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-tech-blue/5 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-tech-accent/5 rounded-full blur-[150px]"></div>
+        <div class="absolute top-1/2 left-0 w-64 h-64 bg-purple-500/5 rounded-full blur-[100px]"></div>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        <!-- Breadcrumb Navigation -->
+        <nav class="flex items-center space-x-2 text-sm text-white/40 mb-8 reveal">
+            <a href="/products" class="hover:text-tech-blue transition-colors">Products</a>
+            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            <span class="text-white/60"><%= product.name %></span>
+        </nav>
+
+        <!-- Product Details Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+            <!-- Product Image Section -->
+            <div class="space-y-8 reveal">
+                <!-- Main Image Display -->
+                <div class="relative group">
+                    <!-- Advanced Card Glow -->
+                    <div class="absolute -inset-4 bg-gradient-to-br from-tech-blue/30 via-tech-accent/20 to-purple-500/30 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+                    
+                    <!-- Main Image Container -->
+                    <div class="relative bg-white/2 border border-white/10 rounded-[3rem] overflow-hidden glass hover:border-tech-blue/40 transition-all duration-500 shadow-2xl">
+                        <div class="aspect-[4/3] relative overflow-hidden flex items-center justify-center p-8 bg-gradient-to-br from-white/5 via-tech-blue/5 to-transparent">
+                            <!-- Animated Background Pattern -->
+                            <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.2) 1px, transparent 0); background-size: 24px 24px;"></div>
+                            
+                            <!-- Main Product Image -->
+                            <img id="main-product-image" src="<%= product.images[0] %>" alt="<%= product.name %>" 
+                                 class="relative z-10 max-w-full max-h-full object-contain transform group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image Gallery -->
+                <% if (product.images && product.images.length > 1) { %>
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-bold font-grotesk text-white/80">Product Gallery</h3>
+                        <div class="grid grid-cols-4 sm:grid-cols-6 gap-3">
+                            <% product.images.forEach((image, index) => { %>
+                                <div class="relative group cursor-pointer" onclick="changeMainImage('<%= image %>')">
+                                    <div class="aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/10 hover:border-tech-blue/40 transition-all duration-300">
+                                        <img src="<%= image %>" alt="Product image <%= index + 1 %>" 
+                                             class="w-full h-full object-cover transform group-hover:scale-110 transition-all duration-300">
+                                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+                                            <i data-lucide="maximize-2" class="w-4 h-4 text-white opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                        </div>
+                                    </div>
+                                    <% if (index === 0) { %>
+                                        <div class="absolute -top-1 -right-1 w-3 h-3 bg-tech-blue rounded-full"></div>
+                                    <% } %>
+                                </div>
+                            <% }) %>
+                        </div>
+                    </div>
+                <% } %>
+
+                <!-- Brand Badge -->
+                <div class="flex items-center justify-center">
+                    <div class="inline-flex items-center space-x-3 px-6 py-3 rounded-2xl bg-tech-blue/10 border border-tech-blue/20">
+                        <div class="w-8 h-8 flex items-center justify-center">
+                            <img src="<%= product.brand.logo %>" alt="<%= product.brand.name %>" class="max-w-full max-h-full object-contain">
+                        </div>
+                        <span class="text-sm font-bold text-tech-blue uppercase tracking-widest">
+                            <%= product.brand.name %>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Information Section -->
+            <div class="space-y-8 reveal">
+                <!-- Product Header -->
+                <div class="space-y-6">
+                    <div class="flex items-center space-x-4">
+                        <span class="px-4 py-2 rounded-xl bg-tech-accent/10 border border-tech-accent/20 text-tech-accent text-xs font-bold uppercase tracking-widest">
+                            <%= product.category.name %>
+                        </span>
+                        <span class="text-white/20 text-xs uppercase tracking-widest">ID: SS-<%= product._id.toString().slice(-4).toUpperCase() %></span>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <h1 class="text-4xl md:text-5xl font-bold font-grotesk text-white leading-tight tracking-tight">
+                            <%= product.name %>
+                        </h1>
+                        
+                        <div class="w-24 h-1 bg-gradient-to-r from-tech-blue to-tech-accent rounded-full"></div>
+                    </div>
+                </div>
+
+                <!-- Product Description -->
+                <% if (product.description) { %>
+                    <div class="space-y-4">
+                        <h2 class="text-xl font-bold font-grotesk text-white/80 uppercase tracking-widest">Product Overview</h2>
+                        <div class="prose prose-invert max-w-none">
+                            <p class="text-white/70 text-lg leading-relaxed">
+                                <%= product.description %>
+                            </p>
+                        </div>
+                    </div>
+                <% } %>
+
+                <!-- Product Details File Download -->
+                <% if (product.detailsFile) { %>
+                    <div class="space-y-4">
+                        <h2 class="text-xl font-bold font-grotesk text-white/80 uppercase tracking-widest">Technical Documentation</h2>
+                        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 glass">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 rounded-xl bg-tech-blue/20 flex items-center justify-center">
+                                        <i data-lucide="file-text" class="w-6 h-6 text-tech-blue"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-white font-medium">Product Specifications</p>
+                                        <p class="text-white/40 text-sm">Download detailed technical information</p>
+                                    </div>
+                                </div>
+                                <a href="<%= product.detailsFile %>" 
+                                   target="_blank"
+                                   download
+                                   class="inline-flex items-center space-x-2 px-6 py-3 bg-tech-blue hover:bg-tech-accent text-white font-bold rounded-xl transition-all duration-300 shadow-lg shadow-tech-blue/30 hover:scale-105 active:scale-95">
+                                    <span>Download File</span>
+                                    <i data-lucide="download" class="w-4 h-4"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 pt-8">
+                    <a href="/contact?product=<%= encodeURIComponent(product.name) %>" 
+                       class="inline-flex items-center justify-center space-x-2 px-8 py-4 bg-tech-blue hover:bg-white hover:text-tech-dark text-white font-bold rounded-2xl transition-all duration-300 shadow-lg shadow-tech-blue/30 hover:scale-105 active:scale-95">
+                        <span>Inquire About This Product</span>
+                        <i data-lucide="send" class="w-5 h-5"></i>
+                    </a>
+                    
+                    <a href="/products" 
+                       class="inline-flex items-center justify-center space-x-2 px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold rounded-2xl transition-all duration-300 hover:scale-105 active:scale-95">
+                        <span>Back to Products</span>
+                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Information Section -->
+        <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
+            <!-- Brand Information -->
+            <div class="bg-white/2 border border-white/10 rounded-[2rem] p-8 glass hover:border-tech-blue/40 transition-all duration-500">
+                <div class="flex items-center space-x-4 mb-6">
+                    <div class="w-12 h-12 rounded-xl bg-tech-blue/20 flex items-center justify-center">
+                        <i data-lucide="award" class="w-6 h-6 text-tech-blue"></i>
+                    </div>
+                    <h3 class="text-lg font-bold font-grotesk text-white">Brand</h3>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <img src="<%= product.brand.logo %>" alt="<%= product.brand.name %>" class="w-10 h-10 object-contain">
+                        <span class="text-white/70"><%= product.brand.name %></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Information -->
+            <div class="bg-white/2 border border-white/10 rounded-[2rem] p-8 glass hover:border-tech-blue/40 transition-all duration-500">
+                <div class="flex items-center space-x-4 mb-6">
+                    <div class="w-12 h-12 rounded-xl bg-tech-accent/20 flex items-center justify-center">
+                        <i data-lucide="layers" class="w-6 h-6 text-tech-accent"></i>
+                    </div>
+                    <h3 class="text-lg font-bold font-grotesk text-white">Category</h3>
+                </div>
+                <div class="space-y-4">
+                    <span class="inline-block px-4 py-2 rounded-xl bg-tech-accent/10 border border-tech-accent/20 text-tech-accent text-sm font-bold uppercase tracking-widest">
+                        <%= product.category.name %>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Support Information -->
+            <div class="bg-white/2 border border-white/10 rounded-[2rem] p-8 glass hover:border-tech-blue/40 transition-all duration-500">
+                <div class="flex items-center space-x-4 mb-6">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center">
+                        <i data-lucide="headphones" class="w-6 h-6 text-purple-400"></i>
+                    </div>
+                    <h3 class="text-lg font-bold font-grotesk text-white">Need Support?</h3>
+                </div>
+                <div class="space-y-4">
+                    <p class="text-white/70 text-sm">Our technical team is ready to assist you with product specifications and implementation guidance.</p>
+                    <a href="/contact" class="inline-flex items-center space-x-2 text-tech-blue hover:text-tech-accent transition-colors font-medium">
+                        <span>Contact Support</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('partials/footer') %>
+
+<script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // GSAP Scroll Reveal
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // Default reveal
+    document.querySelectorAll('.reveal').forEach((el) => {
+        gsap.from(el, {
+            scrollTrigger: {
+                trigger: el,
+                start: "top 90%",
+                toggleActions: "play none none none"
+            },
+            y: 30,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out"
+        });
+    });
+
+    // Image hover effect
+    const imageContainer = document.querySelector('.group');
+    if (imageContainer) {
+        const glow = imageContainer.querySelector('.bg-gradient-to-br');
+        
+        imageContainer.addEventListener('mouseenter', () => {
+            gsap.to(glow, {
+                opacity: 1,
+                scale: 1.05,
+                duration: 0.6,
+                ease: "power2.out"
+            });
+        });
+        
+        imageContainer.addEventListener('mouseleave', () => {
+            gsap.to(glow, {
+                opacity: 0,
+                scale: 1,
+                duration: 0.6,
+                ease: "power2.inOut"
+            });
+        });
+    }
+
+    // Function to change main product image
+    function changeMainImage(imageSrc) {
+        const mainImage = document.getElementById('main-product-image');
+        if (mainImage) {
+            // Add fade effect
+            gsap.to(mainImage, {
+                opacity: 0,
+                duration: 0.2,
+                onComplete: () => {
+                    mainImage.src = imageSrc;
+                    gsap.to(mainImage, {
+                        opacity: 1,
+                        duration: 0.2
+                    });
+                }
+            });
+        }
+    }
+</script>

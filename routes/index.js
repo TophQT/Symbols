@@ -11,6 +11,7 @@ const Brand = require('../models/Brand');
 const Category = require('../models/Category');
 const BrandWeCarry = require('../models/BrandWeCarry');
 const Software = require('../models/Software');
+const Update = require('../models/Update');
 
 // Helper to get site settings
 const getSettings = async () => {
@@ -124,6 +125,29 @@ router.get('/products', async (req, res) => {
     }
 });
 
+// Product Details Page
+router.get('/products/:id', async (req, res) => {
+    try {
+        const settings = await getSettings();
+        const product = await Product.findById(req.params.id)
+            .populate('brand')
+            .populate('category');
+        
+        if (!product) {
+            return res.status(404).render('404', { title: 'Product Not Found', settings });
+        }
+
+        res.render('product-details', { 
+            title: `${product.name} - Symbol Sciences`, 
+            settings,
+            product
+        });
+    } catch (error) {
+        console.error('Error loading product details page:', error);
+        res.status(500).render('500', { title: 'Server Error', settings: await getSettings() });
+    }
+});
+
 // Services & Solutions Page
 router.get('/services', async (req, res) => {
     const settings = await getSettings();
@@ -132,8 +156,25 @@ router.get('/services', async (req, res) => {
 
 // Updates Page
 router.get('/updates', async (req, res) => {
-    const settings = await getSettings();
-    res.render('updates', { title: 'Latest Updates - Symbol Sciences', settings });
+    try {
+        const settings = await getSettings();
+        let updates = [];
+        try {
+            updates = await Update.find().sort({ createdAt: -1 });
+        } catch (dbError) {
+            console.error('Database query error:', dbError);
+            // Continue with empty updates array
+        }
+        console.log('Updates found:', updates.length);
+        res.render('updates', { 
+            title: 'Latest Updates - Symbol Sciences', 
+            settings,
+            updates: updates || []
+        });
+    } catch (error) {
+        console.error('Error loading updates page:', error);
+        res.status(500).render('500', { title: 'Server Error', settings: await getSettings() });
+    }
 });
 
 // Software List Page
