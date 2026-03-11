@@ -33,6 +33,15 @@ const settingsSchema = new mongoose.Schema({
         type: String,
         default: '',
         trim: true
+    },
+    banner: {
+        type: String,
+        default: null
+    },
+    mapLink: {
+        type: String,
+        default: '',
+        trim: true
     }
 }, {
     timestamps: true

@@ -1,5 +1,35 @@
 <%- include('partials/header') %>
 
+<style>
+    /* Light mode improvements for form inputs */
+    body.light input[type="text"],
+    body.light input[type="email"],
+    body.light input[type="tel"],
+    body.light select,
+    body.light textarea {
+        color: #1f2937 !important;
+        background-color: rgba(249, 250, 251, 0.95) !important;
+        border-color: rgba(156, 163, 175, 0.3) !important;
+    }
+    
+    body.light input::placeholder,
+    body.light textarea::placeholder {
+        color: #9ca3af !important;
+    }
+    
+    body.light select option {
+        background-color: #ffffff !important;
+        color: #1f2937 !important;
+    }
+    
+    body.light input:focus,
+    body.light select:focus,
+    body.light textarea:focus {
+        border-color: rgba(59, 130, 246, 0.5) !important;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+    }
+</style>
+
 <main class="pt-32 pb-24">
     <div class="container mx-auto px-6">
         <!-- Page Title / Intro -->
@@ -151,8 +181,238 @@
                 </div>
             </div>
         </section>
+
+        <!-- Inquiry Forms Section -->
+        <section class="mb-32 reveal">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold font-grotesk mb-4">Get In Touch</h2>
+                <p class="text-white/60 max-w-2xl mx-auto text-lg">Have questions about our services or industry solutions? We're here to help.</p>
+                <div class="w-24 h-1 bg-tech-blue mx-auto rounded-full mt-8 opacity-50"></div>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <!-- Toggle Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                    <button 
+                        id="services-inquiry-btn" 
+                        onclick="showServicesForm()" 
+                        class="px-8 py-4 bg-tech-blue text-white rounded-lg font-semibold transition-all duration-300 hover:bg-tech-blue/80 transform hover:scale-105 shadow-lg shadow-tech-blue/20">
+                        Our Services Inquiry
+                    </button>
+                    <button 
+                        id="industry-inquiry-btn" 
+                        onclick="showIndustryForm()" 
+                        class="px-8 py-4 bg-white/10 text-white rounded-lg font-semibold transition-all duration-300 hover:bg-white/20 transform hover:scale-105 border border-white/20">
+                        Industry Solutions Inquiry
+                    </button>
+                </div>
+
+                <!-- Forms Container -->
+                <div class="glass-card rounded-2xl shadow-xl p-8 border border-white/5">
+                    
+                    <!-- Form 1: Our Services Inquiry -->
+                    <div id="services-inquiry-form" class="space-y-6">
+                        <div class="text-center mb-8">
+                            <h3 class="text-2xl font-bold font-grotesk text-white mb-2">Our Services Inquiry</h3>
+                            <p class="text-white/60">Tell us about the service you're interested in</p>
+                        </div>
+
+                        <form action="/inquiry/services" method="POST" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="services-fullname" class="block text-sm font-medium text-white/60 mb-2">Full Name</label>
+                                    <input 
+                                        type="text" 
+                                        id="services-fullname" 
+                                        name="fullname" 
+                                        required
+                                        placeholder="Enter your full name"
+                                        class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-tech-blue/50 focus:border-tech-blue/50 transition-all">
+                                </div>
+                                <div>
+                                    <label for="services-email" class="block text-sm font-medium text-white/60 mb-2">Email Address</label>
+                                    <input 
+                                        type="email" 
+                                        id="services-email" 
+                                        name="email" 
+                                        required
+                                        placeholder="your.email@example.com"
+                                        class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-tech-blue/50 focus:border-tech-blue/50 transition-all">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="services-phone" class="block text-sm font-medium text-white/60 mb-2">Contact Number</label>
+                                    <input 
+                                        type="tel" 
+                                        id="services-phone" 
+                                        name="phone" 
+                                        required
+                                        placeholder="+1 (555) 123-4567"
+                                        class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-tech-blue/50 focus:border-tech-blue/50 transition-all">
+                                </div>
+                                <div>
+                                    <label for="services-service" class="block text-sm font-medium text-white/60 mb-2">What Service are you Interested in?</label>
+                                    <select 
+                                        id="services-service" 
+                                        name="service" 
+                                        required
+                                        class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-tech-blue/50 focus:border-tech-blue/50 transition-all">
+                                        <option value="">Select a service</option>
+                                        <option value="enterprise">Enterprise</option>
+                                        <option value="government">Government</option>
+                                        <option value="retail">Retail</option>
+                                        <option value="wholesale">Wholesale Distribution</option>
+                                        <option value="healthcare">Healthcare</option>
+                                        <option value="manufacturing">Manufacturing and Production</option>
+                                        <option value="transportation">Transportation</option>
+                                        <option value="others">Others</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="services-inquiry" class="block text-sm font-medium text-white/60 mb-2">Inquiry</label>
+                                <textarea 
+                                    id="services-inquiry" 
+                                    name="inquiry" 
+                                    rows="4" 
+                                    required
+                                    placeholder="Please describe your inquiry in detail..."
+                                    class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/20 focus:outline-none focus:border-tech-blue transition-colors"></textarea>
+                            </div>
+
+                            <div class="flex justify-center pt-4">
+                                <button 
+                                    type="submit" 
+                                    class="px-8 py-3 bg-tech-blue hover:bg-tech-accent text-white font-bold rounded-lg transition-all duration-300 shadow-lg shadow-tech-blue/20 transform hover:scale-105 hover:-translate-y-1 active:translate-y-0 flex items-center gap-2">
+                                    <i data-lucide="send" class="w-5 h-5"></i>
+                                    Submit Inquiry
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Form 2: Industry Solutions Inquiry -->
+                    <div id="industry-inquiry-form" class="space-y-6 hidden">
+                        <div class="text-center mb-8">
+                            <h3 class="text-2xl font-bold font-grotesk text-white mb-2">Industry Solutions Inquiry</h3>
+                            <p class="text-white/60">Let us know about your industry-specific needs</p>
+                        </div>
+
+                        <form action="/inquiry/industry" method="POST" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="industry-fullname" class="block text-sm font-medium text-white/60 mb-2">Full Name</label>
+                                    <input 
+                                        type="text" 
+                                        id="industry-fullname" 
+                                        name="fullname" 
+                                        required
+                                        placeholder="Enter your full name"
+                                        class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-tech-blue/50 focus:border-tech-blue/50 transition-all">
+                                </div>
+                                <div>
+                                    <label for="industry-email" class="block text-sm font-medium text-white/60 mb-2">Email Address</label>
+                                    <input 
+                                        type="email" 
+                                        id="industry-email" 
+                                        name="email" 
+                                        required
+                                        placeholder="your.email@example.com"
+                                        class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-tech-blue/50 focus:border-tech-blue/50 transition-all">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="industry-phone" class="block text-sm font-medium text-white/60 mb-2">Contact Number</label>
+                                    <input 
+                                        type="tel" 
+                                        id="industry-phone" 
+                                        name="phone" 
+                                        required
+                                        placeholder="+1 (555) 123-4567"
+                                        class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-tech-blue/50 focus:border-tech-blue/50 transition-all">
+                                </div>
+                                <div>
+                                    <label for="industry-solution" class="block text-sm font-medium text-white/60 mb-2">What Industry Solution are you interested in?</label>
+                                    <select 
+                                        id="industry-solution" 
+                                        name="solution" 
+                                        required
+                                        class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-tech-blue/50 focus:border-tech-blue/50 transition-all">
+                                        <option value="">Select an industry solution</option>
+                                        <option value="consulting">Consulting and System Integration</option>
+                                        <option value="project-management">Project Management</option>
+                                        <option value="event-data">Event Data-Process Service</option>
+                                        <option value="software-development">Software Development and Programming</option>
+                                        <option value="maintenance">Maintenance Contracts and Service Calls</option>
+                                        <option value="printing">Printing and Verification Service</option>
+                                        <option value="others">Others</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="industry-concern" class="block text-sm font-medium text-white/60 mb-2">Particular Concern</label>
+                                <textarea 
+                                    id="industry-concern" 
+                                    name="concern" 
+                                    rows="4" 
+                                    required
+                                    placeholder="Please describe your particular concerns or requirements..."
+                                    class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/20 focus:outline-none focus:border-tech-blue transition-colors"></textarea>
+                            </div>
+
+                            <div class="flex justify-center pt-4">
+                                <button 
+                                    type="submit" 
+                                    class="px-8 py-3 bg-tech-blue hover:bg-tech-accent text-white font-bold rounded-lg transition-all duration-300 shadow-lg shadow-tech-blue/20 transform hover:scale-105 hover:-translate-y-1 active:translate-y-0 flex items-center gap-2">
+                                    <i data-lucide="send" class="w-5 h-5"></i>
+                                    Submit Inquiry
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </main>
+
+<!-- Form Toggle JavaScript -->
+<script>
+    function showServicesForm() {
+        // Hide industry form
+        document.getElementById('industry-inquiry-form').classList.add('hidden');
+        
+        // Show services form
+        document.getElementById('services-inquiry-form').classList.remove('hidden');
+        
+        // Update button styles
+        document.getElementById('services-inquiry-btn').className = 'px-8 py-4 bg-tech-blue text-white rounded-lg font-semibold transition-all duration-300 hover:bg-tech-blue/80 transform hover:scale-105 shadow-lg shadow-tech-blue/20';
+        document.getElementById('industry-inquiry-btn').className = 'px-8 py-4 bg-white/10 text-white rounded-lg font-semibold transition-all duration-300 hover:bg-white/20 transform hover:scale-105 border border-white/20';
+    }
+
+    function showIndustryForm() {
+        // Hide services form
+        document.getElementById('services-inquiry-form').classList.add('hidden');
+        
+        // Show industry form
+        document.getElementById('industry-inquiry-form').classList.remove('hidden');
+        
+        // Update button styles
+        document.getElementById('industry-inquiry-btn').className = 'px-8 py-4 bg-tech-blue text-white rounded-lg font-semibold transition-all duration-300 hover:bg-tech-blue/80 transform hover:scale-105 shadow-lg shadow-tech-blue/20';
+        document.getElementById('services-inquiry-btn').className = 'px-8 py-4 bg-white/10 text-white rounded-lg font-semibold transition-all duration-300 hover:bg-white/20 transform hover:scale-105 border border-white/20';
+    }
+
+    // Initialize with services form visible
+    document.addEventListener('DOMContentLoaded', function() {
+        showServicesForm();
+    });
+</script>
 
 <script>
     gsap.registerPlugin(ScrollTrigger);
@@ -167,7 +427,7 @@
             duration: 1,
             ease: "power3.out"
         });
-    });
+    }); 
 </script>
 
 <%- include('partials/footer') %>

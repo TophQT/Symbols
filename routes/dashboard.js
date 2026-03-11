@@ -163,51 +163,50 @@ router.get('/settings', authMiddleware, async (req, res) => {
     }
 });
 
-// Update Settings (Logo Upload and General Settings)
-router.post('/settings', authMiddleware, upload.single('logo'), async (req, res) => {
+// Update Settings (Logo, Website Image and General Settings)
+router.post('/settings/update', authMiddleware, upload.fields([
+    { name: 'logo', maxCount: 1 },
+    { name: 'banner', maxCount: 1 }
+]), async (req, res) => {
     try {
         const settings = await Settings.getSettings();
         
         // Handle logo removal
         if (req.body.removeLogo === 'true') {
             settings.logo = null;
-            await settings.save();
             req.session.success = 'Logo removed successfully!';
-        } else if (req.file) {
+        } else if (req.files && req.files.logo) {
             // Update logo path
-            settings.logo = '/uploads/' + req.file.filename;
-            await settings.save();
+            settings.logo = '/uploads/' + req.files.logo[0].filename;
             req.session.success = 'Logo updated successfully!';
+        }
+
+        // Handle banner/website image removal
+        if (req.body.removeBanner === 'true') {
+            settings.banner = null;
+            req.session.success = 'Website image removed successfully!';
+        } else if (req.files && req.files.banner) {
+            // Update banner path
+            settings.banner = '/uploads/' + req.files.banner[0].filename;
+            req.session.success = 'Website image updated successfully!';
         }
         
         // Update general settings
-        if (req.body.siteName) {
-            settings.siteName = req.body.siteName;
-        }
-        if (req.body.contactEmail) {
-            settings.contactEmail = req.body.contactEmail;
-        }
-        if (req.body.phone) {
-            settings.phone = req.body.phone;
-        }
-        if (req.body.address) {
-            settings.address = req.body.address;
-        }
-        if (req.body.description) {
-            settings.description = req.body.description;
-        }
+        const fields = ['siteName', 'contactEmail', 'phone', 'address', 'description', 'mapLink'];
+        let updated = false;
+
+        fields.forEach(field => {
+            if (req.body[field] !== undefined) {
+                settings[field] = req.body[field];
+                updated = true;
+            }
+        });
         
-        // Save settings if any changes were made
-        if (req.body.siteName || req.body.contactEmail || req.body.phone || req.body.address || req.body.description) {
+        if (updated || (req.files && (req.files.logo || req.files.banner)) || req.body.removeLogo || req.body.removeBanner) {
             await settings.save();
             if (!req.session.success) {
                 req.session.success = 'Settings updated successfully!';
             }
-        }
-        
-        // Handle case where no file was uploaded but form was submitted
-        if (!req.file && !req.body.removeLogo && !req.session.success) {
-            req.session.error = 'Please select a valid image file or update other settings.';
         }
         
         res.redirect('/admin/settings');

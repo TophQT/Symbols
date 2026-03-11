@@ -1,161 +1,243 @@
 <%- include('partials/header') %>
 
 <main class="pt-32 pb-24">
-    <div class="container mx-auto px-6">
-        <div class="grid lg:grid-cols-2 gap-20 items-start">
-            <div class="space-y-12 reveal">
-                <div class="space-y-6">
-                    <h1 class="text-5xl md:text-6xl font-bold font-grotesk">Let's Connect</h1>
-                    <p class="text-white/60 text-lg leading-relaxed max-w-lg">Whether you have a question about our products, pricing, or need expert consulting, our team is ready to help you.</p>
-                </div>
+  <div class="container mx-auto px-6">
 
-                <div class="space-y-8">
-                    <div class="flex items-start space-x-6">
-                        <div class="w-14 h-14 bg-tech-blue/10 rounded-2xl flex items-center justify-center text-tech-blue shrink-0">
-                            <i data-lucide="map-pin" class="w-7 h-7"></i>
-                        </div>
-                        <div class="space-y-2">
-                            <h4 class="text-xl font-bold font-grotesk">Global Headquarters</h4>
-                            <p class="text-white/60">123 Innovation Drive, Silicon Valley, CA 94025, USA</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start space-x-6">
-                        <div class="w-14 h-14 bg-tech-blue/10 rounded-2xl flex items-center justify-center text-tech-blue shrink-0">
-                            <i data-lucide="phone" class="w-7 h-7"></i>
-                        </div>
-                        <div class="space-y-2">
-                            <h4 class="text-xl font-bold font-grotesk">Phone Support</h4>
-                            <p class="text-white/60">+1 (888) SYMBOL-SCI</p>
-                            <p class="text-white/40 text-sm">Mon - Fri, 9am - 6pm EST</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start space-x-6">
-                        <div class="w-14 h-14 bg-tech-blue/10 rounded-2xl flex items-center justify-center text-tech-blue shrink-0">
-                            <i data-lucide="mail" class="w-7 h-7"></i>
-                        </div>
-                        <div class="space-y-2">
-                            <h4 class="text-xl font-bold font-grotesk">Email Inquiry</h4>
-                            <p class="text-white/60">contact@symbolsciences.com</p>
-                            <p class="text-white/40 text-sm">Typical response time: 2 hours</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="pt-12 border-t border-white/5 space-y-6">
-                    <h4 class="text-xl font-bold font-grotesk">Follow Us</h4>
-                    <div class="flex items-center space-x-4">
-                        <a href="#" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-tech-blue hover:border-tech-blue hover:text-white transition-all duration-300">
-                            <i data-lucide="linkedin" class="w-6 h-6"></i>
-                        </a>
-                        <a href="#" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-tech-blue hover:border-tech-blue hover:text-white transition-all duration-300">
-                            <i data-lucide="twitter" class="w-6 h-6"></i>
-                        </a>
-                        <a href="#" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-tech-blue hover:border-tech-blue hover:text-white transition-all duration-300">
-                            <i data-lucide="instagram" class="w-6 h-6"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="reveal">
-                <form id="contact-form" class="glass-card p-10 md:p-12 rounded-[40px] space-y-8 relative overflow-hidden">
-                    <!-- Glow decoration -->
-                    <div class="absolute -top-32 -right-32 w-64 h-64 bg-tech-blue/10 rounded-full blur-[80px]"></div>
-                    
-                    <div class="space-y-4 text-center">
-                        <h3 class="text-3xl font-bold font-grotesk">Send a Message</h3>
-                        <p class="text-white/40 text-sm">Fields marked with * are required.</p>
-                    </div>
-
-                    <div class="space-y-6">
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div class="space-y-2">
-                                <label class="text-xs font-bold text-white/40 uppercase tracking-widest ml-1">Full Name *</label>
-                                <input type="text" name="name" required class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-tech-blue transition-colors text-white" placeholder="John Doe">
-                            </div>
-                            <div class="space-y-2">
-                                <label class="text-xs font-bold text-white/40 uppercase tracking-widest ml-1">Email Address *</label>
-                                <input type="email" name="email" required class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-tech-blue transition-colors text-white" placeholder="john@example.com">
-                            </div>
-                        </div>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div class="space-y-2">
-                                <label class="text-xs font-bold text-white/40 uppercase tracking-widest ml-1">Company</label>
-                                <input type="text" name="company" class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-tech-blue transition-colors text-white" placeholder="Symbol Sciences">
-                            </div>
-                            <div class="space-y-2">
-                                <label class="text-xs font-bold text-white/40 uppercase tracking-widest ml-1">Phone Number</label>
-                                <input type="tel" name="phone" class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-tech-blue transition-colors text-white" placeholder="+1 (234) 567-890">
-                            </div>
-                        </div>
-                        <div class="space-y-2">
-                            <label class="text-xs font-bold text-white/40 uppercase tracking-widest ml-1">Message *</label>
-                            <textarea name="message" required rows="6" class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-tech-blue transition-colors text-white" placeholder="Tell us about your project or inquiry..."></textarea>
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="w-full bg-tech-blue hover:bg-tech-accent text-white font-bold py-5 rounded-2xl transition-all shadow-xl shadow-tech-blue/30 flex items-center justify-center space-x-3 group/submit transform hover:-translate-y-1 active:translate-y-0">
-                        <span class="text-lg">Send Message</span>
-                        <i data-lucide="send" class="w-6 h-6 group-hover/submit:translate-x-1 group-hover/submit:-translate-y-1 transition-transform"></i>
-                    </button>
-                    <div id="form-status" class="hidden text-center p-5 rounded-2xl font-semibold"></div>
-                </form>
-            </div>
-        </div>
+    <!-- PAGE TITLE & DESCRIPTION -->
+    <div class="mb-16 reveal text-center">
+      <h1 class="text-5xl md:text-6xl font-bold font-grotesk mb-6">
+        <%= locals.settings && settings.siteName ? settings.siteName : "Let's Connect" %>
+      </h1>
     </div>
+
+    <!-- MAIN CONTACT CONTAINER -->
+    <div class="glass-card rounded-[40px] p-10 md:p-14">
+      <div class="grid lg:grid-cols-2 gap-12 items-start">
+
+        <!-- LEFT SIDE : WEBSITE IMAGE + CONTACT INFO BELOW -->
+        <div class="reveal flex flex-col gap-10">
+          <!-- WEBSITE IMAGE -->
+          <% if (locals.settings && settings.banner) { %>
+          <div class="rounded-[30px] overflow-hidden h-[500px]">
+            <img 
+              src="<%= settings.banner %>" 
+              alt="Website Banner"
+              class="w-full h-full object-cover"
+            >
+          </div>
+          <% } %>
+
+          <!-- CONTACT INFO MOVED BELOW THE IMAGE -->
+          <div class="grid md:grid-cols-1 gap-6">
+            <% if (locals.settings && settings.address) { %>
+            <div class="flex items-start gap-4 bg-white/5 p-6 rounded-2xl">
+              <div class="w-12 h-12 bg-tech-blue/10 rounded-xl flex items-center justify-center text-tech-blue">
+                <i data-lucide="map-pin"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-lg">Our Location</h4>
+                <p class="text-white/60"><%= settings.address %></p>
+              </div>
+            </div>
+            <% } %>
+
+            <% if (locals.settings && settings.phone) { %>
+            <div class="flex items-start gap-4 bg-white/5 p-6 rounded-2xl">
+              <div class="w-12 h-12 bg-tech-blue/10 rounded-xl flex items-center justify-center text-tech-blue">
+                <i data-lucide="phone"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-lg">Phone Support</h4>
+                <p class="text-white/60"><%= settings.phone %></p>
+              </div>
+            </div>
+            <% } %>
+
+            <% if (locals.settings && settings.contactEmail) { %>
+            <div class="flex items-start gap-4 bg-white/5 p-6 rounded-2xl">
+              <div class="w-12 h-12 bg-tech-blue/10 rounded-xl flex items-center justify-center text-tech-blue">
+                <i data-lucide="mail"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-lg">Email Inquiry</h4>
+                <p class="text-white/60"><%= settings.contactEmail %></p>
+              </div>
+            </div>
+            <% } %>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE : FORM + MAP -->
+        <div class="flex flex-col gap-10">
+          <!-- CONTACT FORM -->
+          <form id="contact-form" class="space-y-8 relative overflow-hidden reveal">
+            <div class="space-y-4">
+              <h3 class="text-3xl font-bold font-grotesk">Contact Us</h3>
+              <p class="text-white/40 text-sm">Fields marked with * are required.</p>
+            </div>
+
+            <div class="space-y-6">
+              <!-- NAME + EMAIL -->
+              <div class="grid md:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                  <label class="text-xs font-bold text-white/40 uppercase tracking-widest ml-1">
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-2 focus:outline-none focus:border-tech-blue transition-colors text-white">
+                </div>
+
+                <div class="space-y-2">
+                  <label class="text-xs font-bold text-white/40 uppercase tracking-widest ml-1">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-2 focus:outline-none focus:border-tech-blue transition-colors text-white">
+                </div>
+              </div>
+
+              <!-- SUBJECT + PHONE -->
+              <div class="grid md:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                  <label class="text-xs font-bold text-white/40 uppercase tracking-widest ml-1">
+                    Subject
+                  </label>
+                  <input
+                    type="text"
+                    name="company"
+                    class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-2 focus:outline-none focus:border-tech-blue transition-colors text-white">
+                </div>
+
+                <div class="space-y-2">
+                  <label class="text-xs font-bold text-white/40 uppercase tracking-widest ml-1">
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-2 focus:outline-none focus:border-tech-blue transition-colors text-white">
+                </div>
+              </div>
+
+              <!-- MESSAGE -->
+              <div class="space-y-2">
+                <label class="text-xs font-bold text-white/40 uppercase tracking-widest ml-1">
+                  Message *
+                </label>
+                <textarea
+                  name="message"
+                  required
+                  rows="5"
+                  class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-5 focus:outline-none focus:border-tech-blue transition-colors text-white"></textarea>
+              </div>
+            </div>
+
+            <!-- SUBMIT BUTTON -->
+            <button
+              type="submit"
+              class="w-full bg-tech-blue hover:bg-tech-accent text-white font-bold py-3 rounded-2xl transition-all shadow-xl shadow-tech-blue/30 flex items-center justify-center space-x-3 group/submit transform hover:-translate-y-1 active:translate-y-0">
+              <span class="text-lg">Send Message</span>
+              <i 
+                data-lucide="send"
+                class="w-6 h-6 group-hover/submit:translate-x-1 group-hover/submit:-translate-y-1 transition-transform">
+              </i>
+            </button>
+
+            <div id="form-status" class="hidden text-center p-5 rounded-2xl font-semibold"></div>
+          </form>
+
+          <!-- LOCATION MAP -->
+          <% if (locals.settings && settings.mapLink) { %>
+          <div class="h-72 rounded-[30px] overflow-hidden border border-white/10 reveal">
+            <iframe
+              src="<%= settings.mapLink %>"
+              width="100%"
+              height="100%"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+          <% } %>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
 </main>
 
 <script>
-    gsap.registerPlugin(ScrollTrigger);
-    document.querySelectorAll('.reveal').forEach((el) => {
-        gsap.from(el, {
-            scrollTrigger: {
-                trigger: el,
-                start: "top 85%",
-            },
-            y: 40,
-            opacity: 0,
-            duration: 1,
-            ease: "power3.out"
-        });
+gsap.registerPlugin(ScrollTrigger);
+
+document.querySelectorAll('.reveal').forEach((el) => {
+  gsap.from(el,{
+    scrollTrigger:{
+      trigger:el,
+      start:"top 85%",
+    },
+    y:40,
+    opacity:0,
+    duration:1,
+    ease:"power3.out"
+  });
+});
+
+// FORM SUBMISSION
+const contactForm = document.getElementById('contact-form');
+const formStatus = document.getElementById('form-status');
+
+contactForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(contactForm);
+  const data = Object.fromEntries(formData.entries());
+
+  formStatus.classList.remove(
+    'hidden',
+    'bg-red-500/20',
+    'text-red-400',
+    'bg-green-500/20',
+    'text-green-400'
+  );
+
+  formStatus.classList.add('block','bg-blue-500/20','text-blue-400');
+  formStatus.textContent = 'Sending message...';
+
+  try {
+    const response = await fetch('/contact',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(data)
     });
 
-    // Form Submission
-    const contactForm = document.getElementById('contact-form');
-    const formStatus = document.getElementById('form-status');
+    const result = await response.json();
 
-    contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const formData = new FormData(contactForm);
-        const data = Object.fromEntries(formData.entries());
-        
-        formStatus.classList.remove('hidden', 'bg-red-500/20', 'text-red-400', 'bg-green-500/20', 'text-green-400');
-        formStatus.classList.add('block', 'bg-blue-500/20', 'text-blue-400');
-        formStatus.textContent = 'Sending message...';
+    formStatus.classList.remove('bg-blue-500/20','text-blue-400');
 
-        try {
-            const response = await fetch('/contact', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-            const result = await response.json();
-            
-            formStatus.classList.remove('bg-blue-500/20', 'text-blue-400');
-            if (result.success) {
-                formStatus.classList.add('bg-green-500/20', 'text-green-400');
-                formStatus.textContent = result.message;
-                contactForm.reset();
-            } else {
-                formStatus.classList.add('bg-red-500/20', 'text-red-400');
-                formStatus.textContent = result.message;
-            }
-        } catch (error) {
-            formStatus.classList.remove('bg-blue-500/20', 'text-blue-400');
-            formStatus.classList.add('bg-red-500/20', 'text-red-400');
-            formStatus.textContent = 'An error occurred. Please try again later.';
-        }
-    });
+    if(result.success){
+      formStatus.classList.add('bg-green-500/20','text-green-400');
+      formStatus.textContent = result.message;
+      contactForm.reset();
+    } 
+    else {
+      formStatus.classList.add('bg-red-500/20','text-red-400');
+      formStatus.textContent = result.message;
+    }
+
+  } catch(error){
+    formStatus.classList.remove('bg-blue-500/20','text-blue-400');
+    formStatus.classList.add('bg-red-500/20','text-red-400');
+    formStatus.textContent = 'An error occurred. Please try again later.';
+  }
+});
 </script>
 
 <%- include('partials/footer') %>

@@ -92,36 +92,16 @@
                 </p>
             </div>
             
-            <div class="grid lg:grid-cols-3 gap-12 mb-16">
-                <div class="glass-card p-8 rounded-3xl text-center space-y-6 reveal" style="transition-delay: 100ms">
-                    <div class="w-20 h-20 bg-tech-blue/10 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-500">
-                        <i data-lucide="target" class="text-tech-blue w-10 h-10"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold font-grotesk text-tech-blue">Our Mission</h3>
-                    <p class="text-white/70 leading-relaxed">
-                        To empower businesses with intelligent technology solutions that transform complex data into strategic advantages, driving growth and operational excellence.
-                    </p>
+            <div class="glass-card p-8 rounded-3xl text-center space-y-6 reveal mb-16" style="transition-delay: 300ms">
+                <div class="w-20 h-20 bg-purple-500/10 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-500">
+                    <i data-lucide="award" class="text-purple-400 w-10 h-10"></i>
                 </div>
-                
-                <div class="glass-card p-8 rounded-3xl text-center space-y-6 reveal" style="transition-delay: 200ms">
-                    <div class="w-20 h-20 bg-tech-accent/10 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-500">
-                        <i data-lucide="eye" class="text-tech-accent w-10 h-10"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold font-grotesk text-tech-accent">Our Vision</h3>
-                    <p class="text-white/70 leading-relaxed">
-                        To be the global leader in enterprise automation and smart data capture solutions, setting new standards for innovation and reliability.
-                    </p>
-                </div>
-                
-                <div class="glass-card p-8 rounded-3xl text-center space-y-6 reveal" style="transition-delay: 300ms">
-                    <div class="w-20 h-20 bg-purple-500/10 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-500">
-                        <i data-lucide="award" class="text-purple-400 w-10 h-10"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold font-grotesk text-purple-400">Our Values</h3>
-                    <p class="text-white/70 leading-relaxed">
-                        Innovation, integrity, and customer success guide every solution we deliver, ensuring lasting partnerships and exceptional results.
-                    </p>
-                </div>
+                <h3 class="text-2xl font-bold font-grotesk text-purple-400">Our Core Values</h3>
+                <p class="text-white/70 leading-relaxed">
+                    We shall put God before and above all, love of country, the preservation of the environment, service above self and a harmonious family life in achieving our goals.
+                    We shall promote the well being of our employees both physically and spiritually through teamwork & camaraderie and the pursuit of excellence in everything we do. In fidelity, loyalty, honor, integrity, honesty and transparency, where our word is our bond.
+                    We believe profit is a result of and by product of these core values the we uphold.
+                </p>
             </div>
 
             <!-- Company Story -->
@@ -253,48 +233,14 @@
                     <p class="text-white/40">Our partner network is growing. Check back soon!</p>
                 </div>
             <% } %>
-        </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section class="py-24">
-        <div class="container mx-auto px-6 max-w-4xl">
-            <div class="text-center mb-16 space-y-4 reveal">
-                <h2 class="text-4xl font-bold font-grotesk">Get In Touch</h2>
-                <p class="text-white/60">Ready to transform your business? Let's discuss your next project.</p>
+            <!-- Learn More Button -->
+            <div class="text-center mt-12 reveal">
+                <a href="/ourbrands" class="inline-flex items-center space-x-2 px-8 py-4 bg-tech-blue hover:bg-tech-accent text-white font-bold rounded-lg transition-all duration-300 shadow-lg shadow-tech-blue/20 transform hover:scale-105 hover:-translate-y-1 active:translate-y-0">
+                    <span>Learn More</span>
+                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </a>
             </div>
-            
-            <form id="contact-form" class="glass-card p-8 md:p-12 rounded-3xl space-y-6 reveal">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="space-y-2">
-                        <label class="text-sm font-medium text-white/60 ml-1">Full Name</label>
-                        <input type="text" name="name" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-tech-blue transition-colors" placeholder="John Doe">
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-sm font-medium text-white/60 ml-1">Email Address</label>
-                        <input type="email" name="email" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-tech-blue transition-colors" placeholder="john@example.com">
-                    </div>
-                </div>
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="space-y-2">
-                        <label class="text-sm font-medium text-white/60 ml-1">Company</label>
-                        <input type="text" name="company" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-tech-blue transition-colors" placeholder="Symbol Sciences">
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-sm font-medium text-white/60 ml-1">Phone Number</label>
-                        <input type="tel" name="phone" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-tech-blue transition-colors" placeholder="+1 (234) 567-890">
-                    </div>
-                </div>
-                <div class="space-y-2">
-                    <label class="text-sm font-medium text-white/60 ml-1">Message</label>
-                    <textarea name="message" required rows="5" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-tech-blue transition-colors" placeholder="Tell us about your project..."></textarea>
-                </div>
-                <button type="submit" class="w-full bg-tech-blue hover:bg-tech-accent text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-tech-blue/20 flex items-center justify-center space-x-2">
-                    <span>Send Message</span>
-                    <i data-lucide="send" class="w-5 h-5"></i>
-                </button>
-                <div id="form-status" class="hidden text-center p-4 rounded-xl"></div>
-            </form>
         </div>
     </section>
 </main>

@@ -62,25 +62,37 @@
                 <div class="space-y-6">
                     <h4 class="text-lg font-bold font-grotesk text-white">Contact Us</h4>
                     <ul class="space-y-4">
+                        <% if (locals.settings && settings.description) { %>
+                        <li class="flex items-start space-x-3 text-white/70 text-sm">
+                            <i data-lucide="globe" class="w-5 h-5 text-tech-blue mt-0.5 shrink-0"></i>
+                            <span><%= settings.description %></span>
+                        </li>
+                        <% } %>
+                        <% if (locals.settings && settings.address) { %>
                         <li class="flex items-start space-x-3 text-white/70 text-sm">
                             <i data-lucide="map-pin" class="w-5 h-5 text-tech-blue mt-0.5 shrink-0"></i>
-                            <span>123 Innovation Drive, Silicon Valley, CA 94025, USA</span>
+                            <span><%= settings.address %></span>
                         </li>
+                        <% } %>
+                        <% if (locals.settings && settings.phone) { %>
                         <li class="flex items-center space-x-3 text-white/70 text-sm">
                             <i data-lucide="phone" class="w-5 h-5 text-tech-blue shrink-0"></i>
-                            <span>+1 (888) SYMBOL-SCI</span>
+                            <span><%= settings.phone %></span>
                         </li>
+                        <% } %>
+                        <% if (locals.settings && settings.contactEmail) { %>
                         <li class="flex items-center space-x-3 text-white/70 text-sm">
                             <i data-lucide="mail" class="w-5 h-5 text-tech-blue shrink-0"></i>
-                            <span>contact@symbolsciences.com</span>
+                            <span><%= settings.contactEmail %></span>
                         </li>
+                        <% } %>
                     </ul>
                 </div>
             </div>
 
             <!-- Copyright -->
             <div class="border-t border-white/5 mt-16 pt-8 flex flex-col md:flex-row items-center justify-between text-white/40 text-xs">
-                <p>© 2026 Symbol Sciences. All rights reserved.</p>
+                <p>© <%= new Date().getFullYear() %> <%= locals.settings && settings.siteName ? settings.siteName : "Symbol Sciences" %>. All rights reserved.</p>
                 <div class="flex items-center space-x-8 mt-4 md:mt-0">
                     <a href="#" class="hover:text-tech-blue transition-colors">Privacy Policy</a>
                     <a href="#" class="hover:text-tech-blue transition-colors">Terms of Service</a>

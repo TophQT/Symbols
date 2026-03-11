@@ -194,6 +194,22 @@ router.get('/software-list', async (req, res) => {
     }
 });
 
+// Our Brands Page
+router.get('/ourbrands', async (req, res) => {
+    try {
+        const settings = await getSettings();
+        const brandsWeCarry = await BrandWeCarry.find().sort({ createdAt: -1 });
+        res.render('ourbrands', { 
+            title: 'Our Brands - Symbol Sciences', 
+            settings,
+            brandsWeCarry
+        });
+    } catch (error) {
+        console.error('Error loading our brands page:', error);
+        res.status(500).render('500', { title: 'Server Error', settings: await getSettings() });
+    }
+});
+
 // About Us Page
 router.get('/about', async (req, res) => {
     const settings = await getSettings();
