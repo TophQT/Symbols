@@ -209,6 +209,24 @@
 
                 <!-- Forms Container -->
                 <div class="glass-card rounded-2xl shadow-xl p-8 border border-white/5">
+                    <!-- Success/Error Messages -->
+                    <% if (typeof success !== 'undefined' && success) { %>
+                        <div class="mb-6 p-4 bg-green-500/20 border border-green-500/30 rounded-lg text-green-100 text-center">
+                            <div class="flex items-center justify-center gap-2">
+                                <i data-lucide="check-circle" class="w-5 h-5"></i>
+                                <span><%= success %></span>
+                            </div>
+                        </div>
+                    <% } %>
+                    
+                    <% if (typeof error !== 'undefined' && error) { %>
+                        <div class="mb-6 p-4 bg-red-500/20 border border-red-500/30 rounded-lg text-red-100 text-center">
+                            <div class="flex items-center justify-center gap-2">
+                                <i data-lucide="alert-circle" class="w-5 h-5"></i>
+                                <span><%= error %></span>
+                            </div>
+                        </div>
+                    <% } %>
                     
                     <!-- Form 1: Our Services Inquiry -->
                     <div id="services-inquiry-form" class="space-y-6">
@@ -226,6 +244,7 @@
                                         id="services-fullname" 
                                         name="fullname" 
                                         required
+                                        value="<%= typeof formData !== 'undefined' && formData.fullname ? formData.fullname : '' %>"
                                         placeholder="Enter your full name"
                                         class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-tech-blue/50 focus:border-tech-blue/50 transition-all">
                                 </div>
@@ -236,6 +255,7 @@
                                         id="services-email" 
                                         name="email" 
                                         required
+                                        value="<%= typeof formData !== 'undefined' && formData.email ? formData.email : '' %>"
                                         placeholder="your.email@example.com"
                                         class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-tech-blue/50 focus:border-tech-blue/50 transition-all">
                                 </div>
@@ -249,6 +269,7 @@
                                         id="services-phone" 
                                         name="phone" 
                                         required
+                                        value="<%= typeof formData !== 'undefined' && formData.phone ? formData.phone : '' %>"
                                         placeholder="+1 (555) 123-4567"
                                         class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-tech-blue/50 focus:border-tech-blue/50 transition-all">
                                 </div>
@@ -260,14 +281,13 @@
                                         required
                                         class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-tech-blue/50 focus:border-tech-blue/50 transition-all">
                                         <option value="">Select a service</option>
-                                        <option value="enterprise">Enterprise</option>
-                                        <option value="government">Government</option>
-                                        <option value="retail">Retail</option>
-                                        <option value="wholesale">Wholesale Distribution</option>
-                                        <option value="healthcare">Healthcare</option>
-                                        <option value="manufacturing">Manufacturing and Production</option>
-                                        <option value="transportation">Transportation</option>
-                                        <option value="others">Others</option>
+                                        <option value="consulting" <%= typeof formData !== 'undefined' && formData.service === 'consulting' ? 'selected' : '' %>>Consulting and System Integration</option>
+                                        <option value="project-management" <%= typeof formData !== 'undefined' && formData.service === 'project-management' ? 'selected' : '' %>>Project Management</option>
+                                        <option value="event-data" <%= typeof formData !== 'undefined' && formData.service === 'event-data' ? 'selected' : '' %>>Event Data-Process Service</option>
+                                        <option value="software-development" <%= typeof formData !== 'undefined' && formData.service === 'software-development' ? 'selected' : '' %>>Software Development and Programming</option>
+                                        <option value="maintenance" <%= typeof formData !== 'undefined' && formData.service === 'maintenance' ? 'selected' : '' %>>Maintenance Contracts and Service Calls</option>
+                                        <option value="printing" <%= typeof formData !== 'undefined' && formData.service === 'printing' ? 'selected' : '' %>>Printing and Verification Service</option>
+                                        <option value="others" <%= typeof formData !== 'undefined' && formData.service === 'others' ? 'selected' : '' %>>Others</option>
                                     </select>
                                 </div>
                             </div>
@@ -280,7 +300,7 @@
                                     rows="4" 
                                     required
                                     placeholder="Please describe your inquiry in detail..."
-                                    class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/20 focus:outline-none focus:border-tech-blue transition-colors"></textarea>
+                                    class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/20 focus:outline-none focus:border-tech-blue transition-colors"><%= typeof formData !== 'undefined' && formData.inquiry ? formData.inquiry : '' %></textarea>
                             </div>
 
                             <div class="flex justify-center pt-4">
@@ -310,6 +330,7 @@
                                         id="industry-fullname" 
                                         name="fullname" 
                                         required
+                                        value="<%= typeof formData !== 'undefined' && formData.fullname ? formData.fullname : '' %>"
                                         placeholder="Enter your full name"
                                         class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-tech-blue/50 focus:border-tech-blue/50 transition-all">
                                 </div>
@@ -320,6 +341,7 @@
                                         id="industry-email" 
                                         name="email" 
                                         required
+                                        value="<%= typeof formData !== 'undefined' && formData.email ? formData.email : '' %>"
                                         placeholder="your.email@example.com"
                                         class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-tech-blue/50 focus:border-tech-blue/50 transition-all">
                                 </div>
@@ -333,6 +355,7 @@
                                         id="industry-phone" 
                                         name="phone" 
                                         required
+                                        value="<%= typeof formData !== 'undefined' && formData.phone ? formData.phone : '' %>"
                                         placeholder="+1 (555) 123-4567"
                                         class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-tech-blue/50 focus:border-tech-blue/50 transition-all">
                                 </div>
@@ -344,13 +367,14 @@
                                         required
                                         class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-tech-blue/50 focus:border-tech-blue/50 transition-all">
                                         <option value="">Select an industry solution</option>
-                                        <option value="consulting">Consulting and System Integration</option>
-                                        <option value="project-management">Project Management</option>
-                                        <option value="event-data">Event Data-Process Service</option>
-                                        <option value="software-development">Software Development and Programming</option>
-                                        <option value="maintenance">Maintenance Contracts and Service Calls</option>
-                                        <option value="printing">Printing and Verification Service</option>
-                                        <option value="others">Others</option>
+                                        <option value="enterprise" <%= typeof formData !== 'undefined' && formData.solution === 'enterprise' ? 'selected' : '' %>>Enterprise</option>
+                                        <option value="government" <%= typeof formData !== 'undefined' && formData.solution === 'government' ? 'selected' : '' %>>Government</option>
+                                        <option value="retail" <%= typeof formData !== 'undefined' && formData.solution === 'retail' ? 'selected' : '' %>>Retail</option>
+                                        <option value="wholesale" <%= typeof formData !== 'undefined' && formData.solution === 'wholesale' ? 'selected' : '' %>>Wholesale Distribution</option>
+                                        <option value="healthcare" <%= typeof formData !== 'undefined' && formData.solution === 'healthcare' ? 'selected' : '' %>>Healthcare</option>
+                                        <option value="manufacturing" <%= typeof formData !== 'undefined' && formData.solution === 'manufacturing' ? 'selected' : '' %>>Manufacturing and Production</option>
+                                        <option value="transportation" <%= typeof formData !== 'undefined' && formData.solution === 'transportation' ? 'selected' : '' %>>Transportation</option>
+                                        <option value="others" <%= typeof formData !== 'undefined' && formData.solution === 'others' ? 'selected' : '' %>>Others</option>
                                     </select>
                                 </div>
                             </div>
@@ -363,7 +387,7 @@
                                     rows="4" 
                                     required
                                     placeholder="Please describe your particular concerns or requirements..."
-                                    class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/20 focus:outline-none focus:border-tech-blue transition-colors"></textarea>
+                                    class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-white/20 focus:outline-none focus:border-tech-blue transition-colors"><%= typeof formData !== 'undefined' && formData.concern ? formData.concern : '' %></textarea>
                             </div>
 
                             <div class="flex justify-center pt-4">
@@ -411,6 +435,11 @@
     // Initialize with services form visible
     document.addEventListener('DOMContentLoaded', function() {
         showServicesForm();
+        
+        // Reinitialize Lucide icons for dynamically added content
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
     });
 </script>
 

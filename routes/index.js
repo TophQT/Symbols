@@ -14,6 +14,8 @@ const BrandWeCarry = require('../models/BrandWeCarry');
 const Software = require('../models/Software');
 const Update = require('../models/Update');
 const Customer = require('../models/Customer');
+const ServiceInquiry = require('../models/ServiceInquiry');
+const IndustryInquiry = require('../models/IndustryInquiry');
 
 // Helper to get site settings
 const getSettings = async () => {
@@ -275,7 +277,7 @@ router.post('/product-inquiry', async (req, res) => {
 // Contact Form Submission
 router.post('/contact', async (req, res) => {
     try {
-        const { name, email, company, phone, message } = req.body;
+        const { name, email, subject, phone, message } = req.body;
         
         // Validation handled by Mongoose schema, but extra check here
         if (!name || !email || !message) {
@@ -285,7 +287,7 @@ router.post('/contact', async (req, res) => {
         const newMessage = new Message({
             name,
             email,
-            company,
+            subject,
             phone,
             message
         });
@@ -296,6 +298,112 @@ router.post('/contact', async (req, res) => {
     } catch (err) {
         console.error('Database Error:', err);
         res.status(500).json({ success: false, message: 'Internal system error. Please try again later.' });
+    }
+});
+
+// Services Inquiry Form Submission
+router.post('/inquiry/services', async (req, res) => {
+    try {
+        const { fullname, email, phone, service, inquiry } = req.body;
+        
+        // Server-side validation
+        if (!fullname || !email || !phone || !service || !inquiry) {
+            return res.status(400).render('services', { 
+                title: 'Services & Solutions - Symbol Sciences', 
+                settings: await getSettings(),
+                error: 'Please fill in all required fields.',
+                formData: req.body
+            });
+        }
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).render('services', { 
+                title: 'Services & Solutions - Symbol Sciences', 
+                settings: await getSettings(),
+                error: 'Please enter a valid email address.',
+                formData: req.body
+            });
+        }
+
+        const newServiceInquiry = new ServiceInquiry({
+            fullName: fullname,
+            email: email,
+            contactNumber: phone,
+            service: service,
+            inquiry: inquiry
+        });
+
+        await newServiceInquiry.save();
+        console.log('Service inquiry saved to database:', newServiceInquiry);
+        
+        res.render('services', { 
+            title: 'Services & Solutions - Symbol Sciences', 
+            settings: await getSettings(),
+            success: 'Your service inquiry has been submitted successfully! We will contact you shortly.'
+        });
+    } catch (err) {
+        console.error('Database Error:', err);
+        res.status(500).render('services', { 
+            title: 'Services & Solutions - Symbol Sciences', 
+            settings: await getSettings(),
+            error: 'Internal system error. Please try again later.',
+            formData: req.body
+        });
+    }
+});
+
+// Industry Solutions Inquiry Form Submission
+router.post('/inquiry/industry', async (req, res) => {
+    try {
+        const { fullname, email, phone, solution, concern } = req.body;
+        
+        // Server-side validation
+        if (!fullname || !email || !phone || !solution || !concern) {
+            return res.status(400).render('services', { 
+                title: 'Services & Solutions - Symbol Sciences', 
+                settings: await getSettings(),
+                error: 'Please fill in all required fields.',
+                formData: req.body
+            });
+        }
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).render('services', { 
+                title: 'Services & Solutions - Symbol Sciences', 
+                settings: await getSettings(),
+                error: 'Please enter a valid email address.',
+                formData: req.body
+            });
+        }
+
+        const newIndustryInquiry = new IndustryInquiry({
+            fullName: fullname,
+            email: email,
+            contactNumber: phone,
+            solution: solution,
+            concern: concern
+        });
+
+        await newIndustryInquiry.save();
+        console.log('Industry inquiry saved to database:', newIndustryInquiry);
+        
+        res.render('services', { 
+            title: 'Services & Solutions - Symbol Sciences', 
+            settings: await getSettings(),
+            success: 'Your industry solution inquiry has been submitted successfully! We will contact you shortly.'
+        });
+    } catch (err) {
+        console.error('Database Error:', err);
+        res.status(500).render('services', { 
+            title: 'Services & Solutions - Symbol Sciences', 
+            settings: await getSettings(),
+            error: 'Internal system error. Please try again later.',
+            formData: req.body
+        });
     }
 });
 

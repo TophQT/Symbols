@@ -9,6 +9,8 @@ const Software = require('../models/Software');
 const Update = require('../models/Update');
 const Customer = require('../models/Customer');
 const Inquiry = require('../models/Inquiry');
+const ServiceInquiry = require('../models/ServiceInquiry');
+const IndustryInquiry = require('../models/IndustryInquiry');
 const authMiddleware = require('../middleware/auth');
 const upload = require('../middleware/upload');
 const { uploadVideo, uploadCustomerLogo } = require('../middleware/upload');
@@ -1079,6 +1081,133 @@ router.delete('/product-inquiries/:id', authMiddleware, async (req, res) => {
     } catch (error) {
         console.error('Error deleting inquiry:', error);
         res.status(500).json({ success: false, message: 'Failed to delete inquiry' });
+    }
+});
+
+// GET /admin/inquiries - Display all inquiry submissions
+router.get('/inquiries', authMiddleware, async (req, res) => {
+    try {
+        // Fetch all service inquiries
+        const serviceInquiries = await ServiceInquiry.find().sort({ createdAt: -1 });
+        
+        // Fetch all industry inquiries
+        const industryInquiries = await IndustryInquiry.find().sort({ createdAt: -1 });
+        
+        // Combine and format data for display
+        const allInquiries = [];
+        
+        // Process service inquiries
+        serviceInquiries.forEach(inquiry => {
+            allInquiries.push({
+                fullName: inquiry.fullName,
+                email: inquiry.email,
+                contactNumber: inquiry.contactNumber,
+                type: 'service',
+                selectedOption: inquiry.service,
+                message: inquiry.inquiry,
+                createdAt: inquiry.createdAt
+            });
+        });
+        
+        // Process industry inquiries
+        industryInquiries.forEach(inquiry => {
+            allInquiries.push({
+                fullName: inquiry.fullName,
+                email: inquiry.email,
+                contactNumber: inquiry.contactNumber,
+                type: 'industry',
+                selectedOption: inquiry.solution,
+                message: inquiry.concern,
+                createdAt: inquiry.createdAt
+            });
+        });
+        
+        // Sort all inquiries by date (newest first)
+        allInquiries.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        
+        // Calculate statistics
+        const totalInquiries = allInquiries.length;
+        const serviceInquiryCount = serviceInquiries.length;
+        const industryInquiryCount = industryInquiries.length;
+        
+        res.render('admin/inquiries', {
+            title: 'Inquiries - Admin Dashboard',
+            inquiries: allInquiries,
+            totalInquiries: totalInquiries,
+            serviceInquiries: serviceInquiryCount,
+            industryInquiries: industryInquiryCount,
+            success: req.session.success || null,
+            error: req.session.error || null
+        });
+        
+        // Clear session messages
+        delete req.session.success;
+        delete req.session.error;
+        
+    } catch (error) {
+        console.error('Error fetching inquiries:', error);
+        res.status(500).render('admin/inquiries', {
+            title: 'Inquiries - Admin Dashboard',
+            inquiries: [],
+            totalInquiries: 0,
+            serviceInquiries: 0,
+            industryInquiries: 0,
+            error: 'Failed to load inquiries. Please try again.'
+        });
+    }
+});
+
+// GET /admin/contactmessages - Display all contact messages
+router.get('/contactmessages', authMiddleware, async (req, res) => {
+    try {
+        const Message = require('../models/Message');
+        const settings = await getSettings();
+        const messages = await Message.find().sort({ createdAt: -1 });
+        
+        res.render('admin/contactmessages', { 
+            title: 'Contact Messages - Admin Dashboard', 
+            settings,
+            messages,
+            dashboardTheme: req.session.dashboardTheme || 'dark'
+        });
+    } catch (error) {
+        console.error('Error loading contact messages:', error);
+        res.status(500).render('500', { title: 'Server Error' });
+    }
+});
+
+// GET /admin/contactmessages/:id - Get individual message details
+router.get('/contactmessages/:id', authMiddleware, async (req, res) => {
+    try {
+        const Message = require('../models/Message');
+        const message = await Message.findById(req.params.id);
+        
+        if (!message) {
+            return res.status(404).json({ success: false, message: 'Message not found' });
+        }
+
+        res.json(message);
+    } catch (error) {
+        console.error('Error fetching message details:', error);
+        res.status(500).json({ success: false, message: 'Failed to fetch message details' });
+    }
+});
+
+// DELETE /admin/contactmessages/:id - Delete a contact message
+router.delete('/contactmessages/:id', authMiddleware, async (req, res) => {
+    try {
+        const Message = require('../models/Message');
+        const message = await Message.findById(req.params.id);
+        
+        if (!message) {
+            return res.status(404).json({ success: false, message: 'Message not found' });
+        }
+
+        await Message.findByIdAndDelete(req.params.id);
+        res.json({ success: true, message: 'Message deleted successfully!' });
+    } catch (error) {
+        console.error('Error deleting message:', error);
+        res.status(500).json({ success: false, message: 'Failed to delete message' });
     }
 });
 

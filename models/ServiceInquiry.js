@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const messageSchema = new mongoose.Schema({
-    name: {
+const serviceInquirySchema = new mongoose.Schema({
+    fullName: {
         type: String,
         required: true,
         trim: true
@@ -12,15 +12,17 @@ const messageSchema = new mongoose.Schema({
         trim: true,
         lowercase: true
     },
-    subject: {
+    contactNumber: {
         type: String,
+        required: true,
         trim: true
     },
-    phone: {
+    service: {
         type: String,
+        required: true,
         trim: true
     },
-    message: {
+    inquiry: {
         type: String,
         required: true,
         trim: true
@@ -31,4 +33,4 @@ const messageSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Message', messageSchema);
+module.exports = mongoose.model('ServiceInquiry', serviceInquirySchema);
