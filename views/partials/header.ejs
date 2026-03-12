@@ -283,7 +283,7 @@
     <script>
       // Immediate theme check to prevent flash
       (function() {
-        const theme = localStorage.getItem('site-theme') || 'dark';
+        const theme = localStorage.getItem('site-theme') || 'light';
         if (theme === 'light') {
           document.documentElement.classList.add('light');
           document.addEventListener('DOMContentLoaded', () => {
@@ -293,7 +293,7 @@
       })();
     </script>
 </head>
-<body class="bg-tech-dark text-white">
+<body class="bg-tech-light text-gray-900">
     <!-- Loading Screen -->
     <div id="loading-screen" class="fixed inset-0 z-[100] flex items-center justify-center bg-tech-dark transition-opacity duration-700">
         <div class="relative">
@@ -400,7 +400,7 @@
             const mobileIcons = setupToggle(themeBtnMobile);
 
             // Initialize theme from localStorage
-            const savedTheme = localStorage.getItem('site-theme') || 'dark';
+            const savedTheme = localStorage.getItem('site-theme') || 'light';
             if (savedTheme === 'light') {
                 applyLightTheme();
             }

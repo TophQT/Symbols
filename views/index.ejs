@@ -2,7 +2,7 @@
 
 <main class="relative">
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-tech-dark">
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden" style="background-color: var(--tech-bg);">
         <!-- Three.js Container -->
         <div id="hero-canvas" class="absolute inset-0 z-0"></div>
 
@@ -16,7 +16,7 @@
                 <h1 class="text-5xl md:text-7xl font-bold font-grotesk leading-tight tracking-tight">
                     Empowering <span class="text-transparent bg-clip-text bg-gradient-to-r from-tech-blue to-tech-accent">Innovation</span> Through Intelligent Technology
                 </h1>
-                <p class="text-white/60 text-lg max-w-xl leading-relaxed">
+                <p class="text-gray-600 text-lg max-w-xl leading-relaxed">
                     Symbol Sciences delivers advanced barcode, automation, and enterprise technology solutions. We bridge the gap between complex data and actionable insights.
                 </p>
                 <div class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
@@ -24,7 +24,7 @@
                         <span class="relative z-10">Explore Products</span>
                         <div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                     </a>
-                    <a href="/contact" class="px-8 py-4 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-xl font-bold transition-all backdrop-blur-sm w-full sm:w-auto text-center">
+                    <a href="/contact" class="px-8 py-4 bg-gray-100 hover:bg-gray-200 text-gray-900 border border-gray-300 rounded-xl font-bold transition-all backdrop-blur-sm w-full sm:w-auto text-center">
                         Get Consultation
                     </a>
                 </div>
@@ -33,8 +33,8 @@
 
         <!-- Floating Particles Background (CSS only) -->
         <div class="absolute inset-0 pointer-events-none z-0">
-            <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-tech-blue/5 rounded-full blur-[100px] animate-float"></div>
-            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-tech-accent/5 rounded-full blur-[120px] animate-float" style="animation-delay: -1.5s"></div>
+            <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-[100px] animate-float"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-400/10 rounded-full blur-[120px] animate-float" style="animation-delay: -1.5s"></div>
         </div>
     </section>
 
@@ -49,9 +49,9 @@
                 </div>
             </div>
             <div class="space-y-8 reveal">
-                <h2 class="text-4xl font-bold font-grotesk text-white">Technology Consulting</h2>
+                <h2 class="text-4xl font-bold font-grotesk" style="color: var(--tech-text);">Technology Consulting</h2>
                 <div class="space-y-6">
-                    <p class="text-white/70 text-lg leading-relaxed">
+                    <p class="text-gray-600 text-lg leading-relaxed">
                         <span class="text-tech-blue font-bold">SYMBOL SCIENCES, Inc.</span> is the pioneering company in the field of bar coding and automatic identification technologies in the Philippines.
                     </p>
                     <div class="flex items-start space-x-4">
@@ -59,8 +59,8 @@
                             <i data-lucide="barcode" class="w-6 h-6"></i>
                         </div>
                         <div>
-                            <h4 class="text-xl font-bold font-grotesk text-white">Advanced Solutions</h4>
-                            <p class="text-white/70">Our solutions range from the supply of certified bar code images and high quality bar code labels to the manufacture of ISO compliant bar code verifies.</p>
+                            <h4 class="text-xl font-bold font-grotesk" style="color: var(--tech-text);">Advanced Solutions</h4>
+                            <p class="text-gray-600">Our solutions range from the supply of certified bar code images and high quality bar code labels to the manufacture of ISO compliant bar code verifies.</p>
                         </div>
                     </div>
                     <div class="flex items-start space-x-4">
@@ -68,8 +68,8 @@
                             <i data-lucide="file-check" class="w-6 h-6"></i>
                         </div>
                         <div>
-                            <h4 class="text-xl font-bold font-grotesk text-white">Consultancy Services</h4>
-                            <p class="text-white/70">Our consultancy services cover bar code quality audits, bar code certification and a range of dedicated training programs.</p>
+                            <h4 class="text-xl font-bold font-grotesk" style="color: var(--tech-text);">Consultancy Services</h4>
+                            <p class="text-gray-600">Our consultancy services cover bar code quality audits, bar code certification and a range of dedicated training programs.</p>
                         </div>
                     </div>
                 </div>
@@ -85,9 +85,9 @@
     <section id="about-us" class="py-24 section-bg-subtle">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16 space-y-4 reveal">
-                <h2 class="text-4xl md:text-5xl font-bold font-grotesk text-white">About Symbol Sciences</h2>
+                <h2 class="text-4xl md:text-5xl font-bold font-grotesk" style="color: var(--tech-text);">About Symbol Sciences</h2>
                 <div class="w-20 h-1 bg-tech-blue mx-auto rounded-full"></div>
-                <p class="text-white/70 max-w-3xl mx-auto text-lg">
+                <p class="text-gray-600 max-w-3xl mx-auto text-lg">
                     Pioneering the future of enterprise technology through innovation, precision, and unwavering commitment to excellence.
                 </p>
             </div>
@@ -96,8 +96,8 @@
                 <div class="w-20 h-20 bg-purple-500/10 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-500">
                     <i data-lucide="award" class="text-purple-400 w-10 h-10"></i>
                 </div>
-                <h3 class="text-2xl font-bold font-grotesk text-purple-400">Our Core Values</h3>
-                <p class="text-white/70 leading-relaxed">
+                <h3 class="text-2xl font-bold font-grotesk text-purple-600">Our Core Values</h3>
+                <p class="text-gray-600 leading-relaxed">
                     We shall put God before and above all, love of country, the preservation of the environment, service above self and a harmonious family life in achieving our goals.
                     We shall promote the well being of our employees both physically and spiritually through teamwork & camaraderie and the pursuit of excellence in everything we do. In fidelity, loyalty, honor, integrity, honesty and transparency, where our word is our bond.
                     We believe profit is a result of and by product of these core values the we uphold.
@@ -117,14 +117,14 @@
                                 <i data-lucide="history" class="w-3 h-3"></i>
                                 <span>Established 1993</span>
                             </div>
-                            <h3 class="text-4xl md:text-5xl font-bold font-grotesk text-white leading-tight">Our Journey of <span class="text-transparent bg-clip-text bg-gradient-to-r from-tech-blue to-tech-accent">Innovation</span></h3>
+                            <h3 class="text-4xl md:text-5xl font-bold font-grotesk leading-tight" style="color: var(--tech-text);">Our Journey of <span class="text-transparent bg-clip-text bg-gradient-to-r from-tech-blue to-tech-accent">Innovation</span></h3>
                         </div>
 
-                        <div class="space-y-8 text-white/70 leading-relaxed text-lg">
+                        <div class="space-y-8 text-gray-600 leading-relaxed text-lg">
                             <div class="relative pl-8 border-l-2 border-tech-blue/30 group">
                                 <div class="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-tech-blue border-4 border-tech-dark group-hover:scale-125 transition-transform"></div>
                                 <p>
-                                    <span class="text-white font-semibold">Symbol Sciences, Inc. (SSci)</span> is the longest-running company in the Philippines specializing in automatic identification (auto-ID) technology. Established in 1993 by Conrado M. Dayrit III, the company played a key role in promoting barcode technology and helped establish the Philippine Article Numbering Council (now GS1 Philippines).
+                                    <span class="text-gray-900 font-semibold">Symbol Sciences, Inc. (SSci)</span> is the longest-running company in the Philippines specializing in automatic identification (auto-ID) technology. Established in 1993 by Conrado M. Dayrit III, the company played a key role in promoting barcode technology and helped establish the Philippine Article Numbering Council (now GS1 Philippines).
                                 </p>
                             </div>
 
@@ -137,11 +137,11 @@
                                     <div class="grid sm:grid-cols-2 gap-4">
                                         <div class="flex items-center space-x-3 p-3 rounded-xl bg-tech-blue/5 border border-tech-blue/10">
                                             <i data-lucide="award" class="text-tech-blue w-5 h-5 shrink-0"></i>
-                                            <span class="text-sm font-bold text-white">Gold Partner of Honeywell</span>
+                                            <span class="text-sm font-bold" style="color: var(--tech-text);">Gold Partner of Honeywell</span>
                                         </div>
                                         <div class="flex items-center space-x-3 p-3 rounded-xl bg-tech-accent/5 border border-tech-accent/10">
                                             <i data-lucide="shield-check" class="text-tech-accent w-5 h-5 shrink-0"></i>
-                                            <span class="text-sm font-bold text-white">Premier Zebra Partner</span>
+                                            <span class="text-sm font-bold" style="color: var(--tech-text);">Premier Zebra Partner</span>
                                         </div>
                                     </div>
                                 </div>
@@ -163,8 +163,8 @@
                             <div class="w-14 h-14 bg-tech-blue/10 rounded-2xl flex items-center justify-center text-tech-blue group-hover:bg-tech-blue group-hover:text-white transition-all duration-500">
                                 <i data-lucide="users" class="w-7 h-7"></i>
                             </div>
-                            <div class="text-3xl font-bold text-white">500+</div>
-                            <div class="text-xs font-bold uppercase tracking-widest text-white/40 group-hover:text-tech-blue transition-colors">Enterprise Clients</div>
+                            <div class="text-3xl font-bold" style="color: var(--tech-text);">500+</div>
+                            <div class="text-xs font-bold uppercase tracking-widest text-gray-500 group-hover:text-tech-blue transition-colors">Enterprise Clients</div>
                         </div>
 
                         <!-- Stat Card 2 -->
@@ -172,8 +172,8 @@
                             <div class="w-14 h-14 bg-tech-accent/10 rounded-2xl flex items-center justify-center text-tech-accent group-hover:bg-tech-accent group-hover:text-white transition-all duration-500">
                                 <i data-lucide="calendar" class="w-7 h-7"></i>
                             </div>
-                            <div class="text-3xl font-bold text-white">30+</div>
-                            <div class="text-xs font-bold uppercase tracking-widest text-white/40 group-hover:text-tech-accent transition-colors">Years Experience</div>
+                            <div class="text-3xl font-bold" style="color: var(--tech-text);">30+</div>
+                            <div class="text-xs font-bold uppercase tracking-widest text-gray-500 group-hover:text-tech-accent transition-colors">Years Experience</div>
                         </div>
 
                         <!-- Stat Card 3 -->
@@ -181,8 +181,8 @@
                             <div class="w-14 h-14 bg-purple-500/10 rounded-2xl flex items-center justify-center text-purple-400 group-hover:bg-purple-500 group-hover:text-white transition-all duration-500">
                                 <i data-lucide="brain-circuit" class="w-7 h-7"></i>
                             </div>
-                            <div class="text-3xl font-bold text-white">250+</div>
-                            <div class="text-xs font-bold uppercase tracking-widest text-white/40 group-hover:text-purple-400 transition-colors">Man-Years Expertise</div>
+                            <div class="text-3xl font-bold" style="color: var(--tech-text);">250+</div>
+                            <div class="text-xs font-bold uppercase tracking-widest text-gray-500 group-hover:text-purple-400 transition-colors">Man-Years Expertise</div>
                         </div>
 
                         <!-- Feature Block -->
@@ -203,9 +203,9 @@
     <section class="py-24 brands-section-bg">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16 space-y-4 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold font-grotesk">Brands We Carry</h2>
+                <h2 class="text-3xl md:text-4xl font-bold font-grotesk" style="color: var(--tech-text);">Brands We Carry</h2>
                 <div class="w-20 h-1 bg-tech-blue mx-auto rounded-full"></div>
-                <p class="text-white/60 max-w-2xl mx-auto">We partner with industry leaders to provide you with the most reliable and advanced technology solutions.</p>
+                <p class="text-gray-600 max-w-2xl mx-auto">We partner with industry leaders to provide you with the most reliable and advanced technology solutions.</p>
             </div>
 
             <!-- Brands Carousel Slider -->
@@ -230,7 +230,7 @@
             <% if (!brandsWeCarry || brandsWeCarry.length === 0) { %>
                 <!-- Fallback if no brands are uploaded -->
                 <div class="text-center py-12 glass-card rounded-2xl border-dashed reveal">
-                    <p class="text-white/40">Our partner network is growing. Check back soon!</p>
+                    <p class="text-gray-500">Our partner network is growing. Check back soon!</p>
                 </div>
             <% } %>
 
@@ -245,16 +245,16 @@
     </section>
 
     <!-- Our Customers Section -->
-    <section id="our-customers" class="py-24 relative overflow-hidden bg-tech-dark border-t border-white/5">
+    <section id="our-customers" class="py-24 relative overflow-hidden border-t border-gray-200" style="background-color: var(--tech-bg);">
         <!-- Background Decor -->
         <div class="absolute top-0 right-0 w-96 h-96 bg-tech-blue/5 rounded-full blur-[120px] pointer-events-none"></div>
         <div class="absolute bottom-0 left-0 w-96 h-96 bg-tech-accent/5 rounded-full blur-[120px] pointer-events-none"></div>
 
         <div class="container mx-auto px-6 relative z-10">
             <div class="text-center mb-16 space-y-4 reveal">
-                <h2 class="text-4xl md:text-5xl font-bold font-grotesk text-white leading-tight">Our <span class="text-transparent bg-clip-text bg-gradient-to-r from-tech-blue to-tech-accent">Valued</span> Customers</h2>
+                <h2 class="text-4xl md:text-5xl font-bold font-grotesk" style="color: var(--tech-text);" leading-tight>Our <span class="text-transparent bg-clip-text bg-gradient-to-r from-tech-blue to-tech-accent">Valued</span> Customers</h2>
                 <div class="w-20 h-1 bg-tech-blue mx-auto rounded-full"></div>
-                <p class="text-white/60 max-w-2xl mx-auto text-lg leading-relaxed">Trusted by industry leaders across various sectors to deliver precision and efficiency through innovative technology.</p>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">Trusted by industry leaders across various sectors to deliver precision and efficiency through innovative technology.</p>
             </div>
 
             <!-- Filter Buttons -->
@@ -262,7 +262,7 @@
                 <button type="button" data-filter="all" class="customer-filter-btn active px-6 py-2 rounded-full text-sm font-bold transition-all duration-300 bg-tech-blue text-white border border-tech-blue cursor-pointer z-20">All</button>
                 <% const filterCategories = ['Manufacturing', 'Retail', 'Construction', 'Banking', 'Transportation & Logistics', 'Health Care', 'Distribution', 'Agriculture', 'Others']; %>
                 <% filterCategories.forEach(cat => { %>
-                    <button type="button" data-filter="<%= cat %>" class="customer-filter-btn px-6 py-2 rounded-full text-sm font-bold transition-all duration-300 text-white/60 bg-white/5 border border-white/10 hover:border-tech-blue hover:text-white cursor-pointer z-20"><%= cat %></button>
+                    <button type="button" data-filter="<%= cat %>" class="customer-filter-btn px-6 py-2 rounded-full text-sm font-bold transition-all duration-300 text-gray-600 bg-gray-100 border border-gray-300 hover:border-tech-blue hover:text-gray-900 cursor-pointer z-20"><%= cat %></button>
                 <% }) %>
             </div>
 
@@ -280,8 +280,8 @@
                     <% }) %>
                 <% } else { %>
                     <div class="col-span-full text-center py-20 glass-card rounded-3xl border-dashed">
-                        <i data-lucide="users" class="w-12 h-12 text-white/20 mx-auto mb-4"></i>
-                        <p class="text-white/40 font-medium">Join our growing list of satisfied customers.</p>
+                        <i data-lucide="users" class="w-12 h-12 text-gray-400 mx-auto mb-4"></i>
+                        <p class="text-gray-500 font-medium">Join our growing list of satisfied customers.</p>
                     </div>
                 <% } %>
             </div>
