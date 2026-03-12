@@ -521,7 +521,7 @@
       }
     </style>
 </head>
-<body class="bg-tech-dark text-white">
+<body class="bg-tech-light text-gray-900">
     <div class="flex min-h-screen">
         <!-- Sidebar -->
         <aside class="w-64 glass border-r border-white/5 hidden md:flex flex-col fixed h-screen z-40">
@@ -800,8 +800,8 @@
         const themeToggle = document.getElementById('theme-toggle');
         const body = document.body;
         
-        // Check for saved theme preference or default to dark mode
-        const savedTheme = localStorage.getItem('dashboard-theme') || 'dark';
+        // Check for saved theme preference or default to light mode
+        const savedTheme = localStorage.getItem('dashboard-theme') || 'light';
         body.classList.toggle('light', savedTheme === 'light');
         themeToggle.classList.toggle('active', savedTheme === 'light');
         

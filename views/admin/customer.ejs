@@ -177,7 +177,7 @@
       }
     </style>
 </head>
-<body class="bg-tech-dark text-white <%= dashboardTheme === 'light' ? 'light' : '' %>">
+<body class="bg-tech-light text-gray-900">
     <div class="flex min-h-screen">
         <!-- Sidebar -->
         <aside class="w-64 glass border-r border-white/5 hidden md:flex flex-col fixed h-screen z-40">
@@ -268,10 +268,10 @@
                 </div>
                 
                 <div class="flex items-center gap-4">
-                    <button id="theme-toggle" class="relative w-14 h-7 bg-white/10 border border-white/20 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-tech-blue/50 <%= dashboardTheme === 'light' ? 'active' : '' %>">
+                    <button id="theme-toggle" class="relative w-14 h-7 bg-white/10 border border-white/20 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-tech-blue/50 active">
                         <div class="absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full shadow-md transform transition-transform duration-300 flex items-center justify-center">
-                            <i data-lucide="sun" class="w-3 h-3 text-tech-blue <%= dashboardTheme === 'light' ? '' : 'hidden' %>"></i>
-                            <i data-lucide="moon" class="w-3 h-3 text-tech-blue <%= dashboardTheme === 'light' ? 'hidden' : '' %>"></i>
+                            <i data-lucide="sun" class="w-3 h-3 text-tech-blue"></i>
+                            <i data-lucide="moon" class="w-3 h-3 text-tech-blue hidden"></i>
                         </div>
                     </button>
                     <div class="flex items-center gap-3 bg-white/5 border border-white/10 p-2 rounded-2xl pr-6">
@@ -386,8 +386,8 @@
         const themeToggle = document.getElementById('theme-toggle');
         const body = document.body;
 
-        // Check for saved theme preference or default to session theme
-        const savedTheme = localStorage.getItem('dashboard-theme') || '<%= dashboardTheme %>';
+        // Check for saved theme preference or default to light mode
+        const savedTheme = localStorage.getItem('dashboard-theme') || 'light';
         body.classList.toggle('light', savedTheme === 'light');
         themeToggle.classList.toggle('active', savedTheme === 'light');
 
