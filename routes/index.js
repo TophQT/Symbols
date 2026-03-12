@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Message = require('../models/Message');
+const Inquiry = require('../models/Inquiry');
 const Settings = require('../models/Settings');
 const authMiddleware = require('../middleware/auth');
 const upload = require('../middleware/upload');
@@ -205,11 +206,16 @@ router.get('/ourbrands', async (req, res) => {
         res.render('ourbrands', { 
             title: 'Our Brands - Symbol Sciences', 
             settings,
-            brandsWeCarry
+            brandsWeCarry,
+            success: req.session.success || null,
+            error: req.session.error || null
         });
+        // Clear session messages after displaying
+        delete req.session.success;
+        delete req.session.error;
     } catch (error) {
         console.error('Error loading our brands page:', error);
-        res.status(500).render('500', { title: 'Server Error', settings: await getSettings() });
+        res.status(500).render('500', { title: 'Server Error' });
     }
 });
 
@@ -223,6 +229,47 @@ router.get('/about', async (req, res) => {
 router.get('/contact', async (req, res) => {
     const settings = await getSettings();
     res.render('contact', { title: 'Contact Us - Symbol Sciences', settings });
+});
+
+// Products Inquiry Form Submission
+router.post('/product-inquiry', async (req, res) => {
+    try {
+        const { fullName, email, contactNumber, brands, message } = req.body;
+        
+        // Validation for required fields
+        if (!fullName || !email || !message) {
+            req.session.error = 'Please fill in all required fields (Full Name, Email, and Message).';
+            return res.redirect('/ourbrands#inquiry');
+        }
+
+        // Handle brands array - ensure it's an array even if single selection
+        let brandsArray = [];
+        if (brands) {
+            if (Array.isArray(brands)) {
+                brandsArray = brands;
+            } else {
+                brandsArray = [brands];
+            }
+        }
+
+        const newInquiry = new Inquiry({
+            fullName,
+            email,
+            contactNumber,
+            brands: brandsArray,
+            message
+        });
+
+        await newInquiry.save();
+        console.log('Product inquiry saved to database:', newInquiry);
+        
+        req.session.success = 'Your inquiry has been sent successfully! We will get back to you shortly.';
+        res.redirect('/ourbrands#inquiry');
+    } catch (err) {
+        console.error('Database Error:', err);
+        req.session.error = 'Internal system error. Please try again later.';
+        res.redirect('/ourbrands#inquiry');
+    }
 });
 
 // Contact Form Submission

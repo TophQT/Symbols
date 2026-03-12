@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'tech-dark': '#0b0e14',
+              'tech-blue': '#3b82f6',
+              'tech-accent': '#60a5fa',
+              'tech-red': '#ef4444',
+            }
+          }
+        }
+      }
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+      
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #0b0e14;
+        color: #ffffff;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      
+      /* Light Mode Styles */
+      body.light {
+        background-color: #ffffff;
+        color: #1f2937;
+      }
+      
+      body.light .glass {
+        background: rgba(31, 41, 55, 0.05);
+        border: 1px solid rgba(31, 41, 55, 0.1);
+      }
+      
+      body.light .glass-card {
+        background: rgba(31, 41, 55, 0.03);
+        border: 1px solid rgba(31, 41, 55, 0.08);
+      }
+      
+      body.light .glass-card:hover {
+        background: rgba(31, 41, 55, 0.05);
+        border-color: rgba(59, 130, 246, 0.2);
+      }
+      
+      body.light .text-white {
+        color: #1f2937 !important;
+      }
+      
+      body.light .text-white\/40 {
+        color: rgba(31, 41, 55, 0.4) !important;
+      }
+      
+      body.light .text-white\/60 {
+        color: rgba(31, 41, 55, 0.6) !important;
+      }
+      
+      body.light .text-white\/80 {
+        color: rgba(31, 41, 55, 0.8) !important;
+      }
+      
+      body.light .bg-white\/5 {
+        background-color: rgba(31, 41, 55, 0.05) !important;
+      }
+      
+      body.light .bg-white\/10 {
+        background-color: rgba(31, 41, 55, 0.1) !important;
+      }
+      
+      body.light .border-white\/5 {
+        border-color: rgba(31, 41, 55, 0.05) !important;
+      }
+      
+      body.light .border-white\/10 {
+        border-color: rgba(31, 41, 55, 0.1) !important;
+      }
+      
+      body.light .bg-tech-blue\/10 {
+        background-color: rgba(59, 130, 246, 0.1) !important;
+      }
+      
+      body.light .bg-tech-blue\/20 {
+        background-color: rgba(59, 130, 246, 0.2) !important;
+      }
+      
+      body.light .border-tech-blue\/20 {
+        border-color: rgba(59, 130, 246, 0.2) !important;
+      }
+      
+      body.light .border-tech-blue\/30 {
+        border-color: rgba(59, 130, 246, 0.3) !important;
+      }
+      
+      body.light #theme-toggle {
+        background-color: rgba(31, 41, 55, 0.1);
+        border-color: rgba(31, 41, 55, 0.2);
+      }
+      
+      body.light #theme-toggle .bg-white {
+        background-color: #f3f4f6;
+      }
+      
+      /* Theme toggle active state */
+      #theme-toggle.active {
+        background-color: rgba(59, 130, 246, 0.2);
+      }
+      
+      #theme-toggle.active .bg-white {
+        transform: translateX(28px);
+      }
+      
+      .font-grotesk {
+        font-family: 'Space Grotesk', sans-serif;
+      }
+
+      .glass {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .glass-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: all 0.3s ease;
+      }
+
+      .glass-card:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(59, 130, 246, 0.3);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.2);
+      }
+
+      /* Modern Table Styles */
+      .table-container {
+        overflow-x: auto;
+        border-radius: 1rem;
+      }
+
+      .modern-table {
+        min-width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 0.75rem;
+      }
+
+      .modern-table thead tr {
+        background: transparent;
+      }
+
+      .modern-table th {
+        padding: 1rem 1.5rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: rgba(255, 255, 255, 0.4);
+        text-align: left;
+        white-space: nowrap;
+      }
+
+      body.light .modern-table th {
+        color: rgba(31, 41, 55, 0.5);
+      }
+
+      .modern-table tbody tr {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 1rem;
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+
+      body.light .modern-table tbody tr {
+        background: rgba(31, 41, 55, 0.02);
+      }
+
+      .modern-table tbody tr:hover {
+        background: rgba(59, 130, 246, 0.08);
+        transform: scale(1.01);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      body.light .modern-table tbody tr:hover {
+        background: rgba(59, 130, 246, 0.05);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      }
+
+      .modern-table td {
+        padding: 1.25rem 1.5rem;
+        border: none;
+        font-size: 0.95rem;
+        vertical-align: middle;
+      }
+
+      .modern-table td:first-child {
+        border-top-left-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+      }
+
+      .modern-table td:last-child {
+        border-top-right-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+      }
+
+      /* Name cell with avatar */
+      .inquiry-name {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .inquiry-avatar {
+        width: 2.5rem;
+        height: 2.5rem;
+        background: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        border-radius: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        color: #3b82f6;
+        font-size: 1rem;
+        transition: all 0.2s ease;
+      }
+
+      .modern-table tbody tr:hover .inquiry-avatar {
+        background: rgba(59, 130, 246, 0.2);
+        transform: scale(1.05);
+      }
+
+      .inquiry-info {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .inquiry-fullname {
+        font-weight: 600;
+        color: #ffffff;
+        margin-bottom: 0.25rem;
+      }
+
+      body.light .inquiry-fullname {
+        color: #1f2937;
+      }
+
+      .inquiry-email {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      body.light .inquiry-email {
+        color: rgba(31, 41, 55, 0.5);
+      }
+
+      /* Contact cell */
+      .inquiry-contact {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .contact-icon {
+        width: 1.75rem;
+        height: 1.75rem;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(255, 255, 255, 0.3);
+      }
+
+      body.light .contact-icon {
+        background: rgba(31, 41, 55, 0.05);
+        color: rgba(31, 41, 55, 0.3);
+      }
+
+      .contact-number {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.95rem;
+      }
+
+      body.light .contact-number {
+        color: rgba(31, 41, 55, 0.8);
+      }
+
+      /* Date cell */
+      .inquiry-date {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .date-main {
+        color: #ffffff;
+        font-weight: 500;
+        margin-bottom: 0.25rem;
+      }
+
+      body.light .date-main {
+        color: #1f2937;
+      }
+
+      .date-time {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.4);
+      }
+
+      body.light .date-time {
+        color: rgba(31, 41, 55, 0.4);
+      }
+
+      /* Action buttons */
+      .action-buttons {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .btn-view {
+        padding: 0.5rem 1rem;
+        background: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        color: #3b82f6;
+        border-radius: 0.75rem;
+        font-size: 0.85rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+
+      .btn-view:hover {
+        background: rgba(59, 130, 246, 0.2);
+        transform: translateY(-2px);
+      }
+
+      .btn-delete {
+        padding: 0.5rem 1rem;
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+        border-radius: 0.75rem;
+        font-size: 0.85rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+
+      .btn-delete:hover {
+        background: rgba(239, 68, 68, 0.2);
+        transform: translateY(-2px);
+      }
+
+      /* Empty state */
+      .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+      }
+
+      .empty-state-icon {
+        width: 5rem;
+        height: 5rem;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        color: rgba(255, 255, 255, 0.2);
+      }
+
+      body.light .empty-state-icon {
+        background: rgba(31, 41, 55, 0.03);
+        color: rgba(31, 41, 55, 0.2);
+      }
+
+      .empty-state-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        font-family: 'Space Grotesk', sans-serif;
+        color: #ffffff;
+        margin-bottom: 0.5rem;
+      }
+
+      body.light .empty-state-title {
+        color: #1f2937;
+      }
+
+      .empty-state-desc {
+        color: rgba(255, 255, 255, 0.4);
+        max-width: 24rem;
+        margin: 0 auto;
+      }
+
+      body.light .empty-state-desc {
+        color: rgba(31, 41, 55, 0.4);
+      }
+
+      /* Search input */
+      .search-wrapper {
+        position: relative;
+      }
+
+      .search-input {
+        width: 18rem;
+        padding: 0.75rem 1rem 0.75rem 2.75rem;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        color: #ffffff;
+        font-size: 0.95rem;
+        transition: all 0.2s ease;
+      }
+
+      body.light .search-input {
+        background: rgba(31, 41, 55, 0.03);
+        border-color: rgba(31, 41, 55, 0.1);
+        color: #1f2937;
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: #3b82f6;
+        background: rgba(59, 130, 246, 0.05);
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(255, 255, 255, 0.3);
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+
+      body.light .search-icon {
+        color: rgba(31, 41, 55, 0.3);
+      }
+
+      /* Modal styles */
+      #inquiryModal {
+        transition: all 0.3s ease;
+      }
+      
+      #modalContentWrapper {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      body.dark #inquiryModal {
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+      
+      body.light #inquiryModal {
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+      
+      body.dark #modalContentWrapper {
+        background-color: #111827;
+        border-color: #374151;
+      }
+      
+      body.light #modalContentWrapper {
+        background-color: #ffffff;
+        border-color: #e5e7eb;
+      }
+      
+      body.dark #modalContent {
+        background-color: #111827;
+      }
+      
+      body.light #modalContent {
+        background-color: #ffffff;
+      }
+      
+      body.dark #modalContentWrapper + div {
+        background-color: #111827;
+      }
+      
+      body.light #modalContentWrapper + div {
+        background-color: #ffffff;
+      }
+      
+      /* Responsive */
+      @media (max-width: 768px) {
+        .modern-table td {
+          padding: 1rem;
+        }
+        
+        .search-input {
+          width: 100%;
+        }
+        
+        .action-buttons {
+          flex-direction: column;
+        }
+        
+        .btn-view, .btn-delete {
+          padding: 0.5rem;
+        }
+        
+        #modalContentWrapper {
+          margin: 1rem;
+          max-height: calc(100vh - 2rem);
+        }
+      }
+    </style>
+</head>
+<body class="bg-tech-dark text-white">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 glass border-r border-white/5 hidden md:flex flex-col fixed h-screen z-40">
+            <div class="p-6">
+                <a href="/" class="flex items-center group mb-8">
+                    <% if (locals.settings && locals.settings.logo) { %>
+                        <img src="<%= settings.logo %>" alt="Logo" class="h-10 w-auto object-contain transform group-hover:scale-110 transition-transform duration-300">
+                    <% } else if (locals.settings && locals.settings.defaultLogo) { %>
+                        <img src="<%= settings.defaultLogo %>" alt="Default Logo" class="h-10 w-auto object-contain transform group-hover:scale-110 transition-transform duration-300">
+                    <% } else { %>
+                        <div class="h-10 w-auto flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                            <i data-lucide="scan-barcode" class="text-tech-blue w-7 h-7"></i>
+                        </div>
+                    <% } %>
+                </a>
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-tech-blue/10 border border-tech-blue/20 text-tech-blue text-[10px] font-bold uppercase tracking-widest mb-4">
+                    <span class="w-2 h-2 rounded-full bg-tech-blue"></span>
+                    <span>System Online</span>
+                </div>
+            </div>
+            <nav class="flex-grow space-y-1 px-4">
+                <a href="/admin/dashboard" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5 group-hover:text-tech-blue transition-colors"></i>
+                    <span class="font-medium">Dashboard</span>
+                </a>
+                <div class="space-y-1">
+                    <a href="/admin/products/brands" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
+                        <i data-lucide="bookmark" class="w-5 h-5 group-hover:text-tech-blue transition-colors"></i>
+                        <span class="font-medium">Brands</span>
+                    </a>
+                    <a href="/admin/products/categories" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
+                        <i data-lucide="folder" class="w-5 h-5 group-hover:text-tech-blue transition-colors"></i>
+                        <span class="font-medium">Categories</span>
+                    </a>
+                    <a href="/admin/products" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
+                        <i data-lucide="shopping-bag" class="w-5 h-5 group-hover:text-tech-blue transition-colors"></i>
+                        <span class="font-medium">Products</span>
+                    </a>
+                    <a href="/admin/brandswecarry" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
+                        <i data-lucide="image" class="w-5 h-5 group-hover:text-tech-blue transition-colors"></i>
+                        <span class="font-medium">Brands We Carry</span>
+                    </a>
+                    <a href="/admin/software" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
+                        <i data-lucide="package" class="w-5 h-5 group-hover:text-tech-blue transition-colors"></i>
+                        <span class="font-medium">Software</span>
+                    </a>
+                    <a href="/admin/updates" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
+                        <i data-lucide="rss" class="w-5 h-5 group-hover:text-tech-blue transition-colors"></i>
+                        <span class="font-medium">Updates</span>
+                    </a>
+                    <a href="/admin/customers" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
+                        <i data-lucide="users" class="w-5 h-5 group-hover:text-tech-blue transition-colors"></i>
+                        <span class="font-medium">Customers</span>
+                    </a>
+                    <a href="/admin/product-inquiries" class="flex items-center gap-3 px-4 py-3 bg-tech-blue/10 text-tech-blue border border-tech-blue/20 rounded-xl transition-all">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                        <span class="font-medium">Products Inquiry</span>
+                    </a>
+                </div>
+                <a href="/admin/settings" class="flex items-center gap-3 px-4 py-3 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all group">
+                    <i data-lucide="settings" class="w-5 h-5 group-hover:text-tech-blue transition-colors"></i>
+                    <span class="font-medium">Settings</span>
+                </a>
+            </nav>
+            <div class="p-4 mt-auto">
+                <a href="/admin/logout" class="flex items-center gap-3 px-4 py-3 text-tech-red hover:bg-tech-red/10 rounded-xl transition-all group">
+                    <i data-lucide="log-out" class="w-5 h-5"></i>
+                    <span class="font-medium">Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow md:ml-64 p-6 lg:p-10">
+            <!-- Header -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                <div class="space-y-1">
+                    <h1 class="text-3xl font-bold font-grotesk text-white">Products Inquiry</h1>
+                    <p class="text-white/40 text-sm">View and manage all product inquiries submitted by users.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="relative w-14 h-7 bg-white/10 border border-white/20 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-tech-blue/50">
+                        <div class="absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full shadow-md transform transition-transform duration-300 flex items-center justify-center">
+                            <i data-lucide="sun" class="w-3 h-3 text-tech-blue"></i>
+                            <i data-lucide="moon" class="w-3 h-3 text-tech-blue hidden"></i>
+                        </div>
+                    </button>
+                    <div class="flex items-center gap-3 bg-white/5 border border-white/10 p-2 rounded-2xl pr-6">
+                        <div class="w-12 h-12 rounded-xl bg-tech-blue/20 flex items-center justify-center text-tech-blue font-bold border border-tech-blue/30 shadow-lg shadow-tech-blue/10">
+                            A
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-white leading-none">Admin User</p>
+                            <p class="text-[10px] text-white/40 uppercase tracking-widest mt-1">Super Admin</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-tech-blue/10 rounded-xl flex items-center justify-center text-tech-blue">
+                            <i data-lucide="mail" class="w-6 h-6"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-white/40 text-xs font-bold uppercase tracking-widest">Total Inquiries</h3>
+                    <p class="text-2xl font-bold text-white mt-1"><%= inquiries.length %></p>
+                </div>
+                
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center text-green-500">
+                            <i data-lucide="trending-up" class="w-6 h-6"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-white/40 text-xs font-bold uppercase tracking-widest">This Month</h3>
+                    <p class="text-2xl font-bold text-white mt-1">
+                        <%= inquiries.filter(i => new Date(i.createdAt).getMonth() === new Date().getMonth()).length %>
+                    </p>
+                </div>
+                
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-orange-500/10 rounded-xl flex items-center justify-center text-orange-500">
+                            <i data-lucide="clock" class="w-6 h-6"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-white/40 text-xs font-bold uppercase tracking-widest">Pending Response</h3>
+                    <p class="text-2xl font-bold text-white mt-1"><%= inquiries.length %></p>
+                </div>
+            </div>
+
+            <!-- Inquiries Table -->
+            <div class="glass-card rounded-3xl p-6 border border-white/5">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-6">
+                    <h2 class="text-xl font-bold font-grotesk text-white mb-4 md:mb-0">All Inquiries</h2>
+                    <div class="search-wrapper">
+                        <i data-lucide="search" class="search-icon"></i>
+                        <input type="text" id="searchInput" placeholder="Search by name, email, or contact..." class="search-input">
+                    </div>
+                </div>
+
+                <% if (inquiries && inquiries.length > 0) { %>
+                    <div class="table-container">
+                        <table class="modern-table">
+                            <thead>
+                                <tr>
+                                    <th>Contact Information</th>
+                                    <th>Phone Number</th>
+                                    <th>Date Submitted</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inquiriesTableBody">
+                                <% inquiries.forEach(inquiry => { %>
+                                    <tr onclick="viewInquiry('<%= inquiry._id %>')">
+                                        <td>
+                                            <div class="inquiry-name">
+                                                <div class="inquiry-avatar">
+                                                    <%= inquiry.fullName.charAt(0).toUpperCase() %>
+                                                </div>
+                                                <div class="inquiry-info">
+                                                    <span class="inquiry-fullname"><%= inquiry.fullName %></span>
+                                                    <span class="inquiry-email"><%= inquiry.email %></span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="inquiry-contact">
+                                                <div class="contact-icon">
+                                                    <i data-lucide="phone" class="w-4 h-4"></i>
+                                                </div>
+                                                <span class="contact-number"><%= inquiry.contactNumber %></span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="inquiry-date">
+                                                <span class="date-main">
+                                                    <%= new Date(inquiry.createdAt).toLocaleDateString('en-US', { 
+                                                        month: 'short', 
+                                                        day: 'numeric',
+                                                        year: 'numeric'
+                                                    }) %>
+                                                </span>
+                                                <span class="date-time">
+                                                    <%= new Date(inquiry.createdAt).toLocaleDateString('en-US', { 
+                                                        hour: '2-digit',
+                                                        minute: '2-digit'
+                                                    }) %>
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td onclick="event.stopPropagation()">
+                                            <div class="action-buttons">
+                                                <button onclick="viewInquiry('<%= inquiry._id %>')" class="btn-view">
+                                                    <i data-lucide="eye" class="w-4 h-4"></i>
+                                                    <span>View</span>
+                                                </button>
+                                                <button onclick="deleteInquiry('<%= inquiry._id %>')" class="btn-delete">
+                                                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                                    <span>Delete</span>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+                <% } else { %>
+                    <div class="empty-state">
+                        <div class="empty-state-icon">
+                            <i data-lucide="inbox" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="empty-state-title">No Inquiries Found</h3>
+                        <p class="empty-state-desc">
+                            No product inquiries have been submitted yet. When users fill out the inquiry form on the website, they will appear here.
+                        </p>
+                    </div>
+                <% } %>
+            </div>
+        </main>
+    </div>
+
+    <!-- Inquiry Details Modal -->
+    <div id="inquiryModal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] border border-gray-200 dark:border-gray-700 transform transition-all duration-300 scale-95 opacity-0" id="modalContentWrapper">
+            <div class="relative">
+                <!-- Modal Header -->
+                <div class="bg-white dark:bg-gray-900 p-6 rounded-t-3xl border-b border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-2xl font-bold font-grotesk text-gray-900 dark:text-white">Inquiry Details</h3>
+                        <button onclick="closeModal()" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-all duration-200 hover:scale-110">
+                            <i data-lucide="x" class="w-5 h-5 text-gray-600 dark:text-gray-400"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Fixed Content Area -->
+                <div class="p-8 pb-4 bg-white dark:bg-gray-900 space-y-6">
+                    <!-- Content will be dynamically inserted here except message -->
+                </div>
+                
+                <!-- Scrollable Message Section -->
+                <div class="px-8 pb-4 bg-white dark:bg-gray-900">
+                    <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 max-h-60 overflow-y-auto">
+                        <!-- Message content will be inserted here -->
+                    </div>
+                </div>
+                
+                <!-- Modal Footer -->
+                <div class="p-6 pt-0 bg-white dark:bg-gray-900 rounded-b-3xl">
+                    <button onclick="closeModal()" class="w-full px-4 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl transition-all duration-300 font-medium hover:scale-105">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to dark mode
+        const savedTheme = localStorage.getItem('dashboard-theme') || 'dark';
+        body.classList.toggle('light', savedTheme === 'light');
+        themeToggle.classList.toggle('active', savedTheme === 'light');
+        
+        // Update icon visibility based on theme
+        const updateIcons = () => {
+            const sunIcon = document.querySelector('#theme-toggle [data-lucide="sun"]');
+            const moonIcon = document.querySelector('#theme-toggle [data-lucide="moon"]');
+            if (sunIcon && moonIcon) {
+                if (body.classList.contains('light')) {
+                    sunIcon.classList.remove('hidden');
+                    moonIcon.classList.add('hidden');
+                } else {
+                    sunIcon.classList.add('hidden');
+                    moonIcon.classList.remove('hidden');
+                }
+            }
+        };
+        
+        // Initial icon update
+        updateIcons();
+        
+        // Theme toggle event listener
+        themeToggle.addEventListener('click', () => {
+            const isLight = body.classList.toggle('light');
+            themeToggle.classList.toggle('active', isLight);
+            
+            localStorage.setItem('dashboard-theme', isLight ? 'light' : 'dark');
+            updateIcons();
+            
+            setTimeout(() => {
+                lucide.createIcons();
+            }, 100);
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const tableBody = document.getElementById('inquiriesTableBody');
+        
+        if (searchInput && tableBody) {
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const rows = tableBody.getElementsByTagName('tr');
+                
+                Array.from(rows).forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(searchTerm) ? '' : 'none';
+                });
+            });
+        }
+
+        // Delete inquiry function
+        async function deleteInquiry(inquiryId) {
+            if (confirm('Are you sure you want to delete this inquiry? This action cannot be undone.')) {
+                try {
+                    const response = await fetch(`/admin/product-inquiries/${inquiryId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        // Remove the row from the table
+                        const row = document.querySelector(`button[onclick="deleteInquiry('${inquiryId}')"]`).closest('tr');
+                        row.style.transition = 'opacity 0.3s ease';
+                        row.style.opacity = '0';
+                        setTimeout(() => {
+                            row.remove();
+                            
+                            // Update statistics
+                            updateStatistics();
+                            
+                            // Show success message
+                            showNotification(result.message || 'Inquiry deleted successfully!', 'success');
+                        }, 300);
+                    } else {
+                        showNotification(result.message || 'Failed to delete inquiry', 'error');
+                    }
+                } catch (error) {
+                    console.error('Error deleting inquiry:', error);
+                    showNotification('An error occurred while deleting the inquiry', 'error');
+                }
+            }
+        }
+
+        // Modal functions
+        let currentInquiryId = null;
+
+        async function viewInquiry(inquiryId) {
+            try {
+                // Fetch inquiry details
+                const response = await fetch(`/admin/product-inquiries/${inquiryId}`);
+                const inquiry = await response.json();
+
+                if (inquiry) {
+                    currentInquiryId = inquiryId;
+                    displayInquiryInModal(inquiry);
+                    openModal();
+                } else {
+                    showNotification('Inquiry not found', 'error');
+                }
+            } catch (error) {
+                console.error('Error fetching inquiry details:', error);
+                showNotification('Failed to load inquiry details', 'error');
+            }
+        }
+
+        function displayInquiryInModal(inquiry) {
+            const fixedContent = document.querySelector('.p-8.pb-4.space-y-6');
+            const messageContainer = document.querySelector('.max-h-60.overflow-y-auto');
+            
+            const brandsHtml = inquiry.brands && inquiry.brands.length > 0 
+                ? inquiry.brands.map(brand => `<span class="inline-block px-3 py-1 bg-tech-blue/10 text-tech-blue dark:bg-tech-blue/20 dark:text-tech-accent border border-tech-blue/20 dark:border-tech-blue/30 rounded-lg text-sm font-medium">${brand}</span>`).join('')
+                : '<span class="text-gray-500 dark:text-gray-400 italic">No brands selected</span>';
+
+            // Update fixed content (everything except message)
+            fixedContent.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700">
+                            <h4 class="text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-2">Full Name</h4>
+                            <p class="text-gray-900 dark:text-white font-medium text-lg">${inquiry.fullName}</p>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700">
+                            <h4 class="text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-2">Email Address</h4>
+                            <p class="text-gray-900 dark:text-white break-all">${inquiry.email}</p>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700">
+                            <h4 class="text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-2">Contact Number</h4>
+                            <p class="text-gray-900 dark:text-white font-medium">${inquiry.contactNumber}</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700">
+                            <h4 class="text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-2">Date Submitted</h4>
+                            <p class="text-gray-900 dark:text-white">${new Date(inquiry.createdAt).toLocaleDateString('en-US', { 
+                                year: 'numeric', 
+                                month: 'long', 
+                                day: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            })}</p>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700">
+                            <h4 class="text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-2">Selected Brands</h4>
+                            <div class="flex flex-wrap gap-2">
+                                ${brandsHtml}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Update message section with scrollable container
+            messageContainer.innerHTML = `
+                <h4 class="text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-3">Message</h4>
+                <p class="text-gray-800 dark:text-gray-200 leading-relaxed whitespace-pre-wrap">${inquiry.message}</p>
+            `;
+            
+            // Re-initialize Lucide icons for modal content
+            setTimeout(() => {
+                lucide.createIcons();
+            }, 100);
+        }
+
+        function openModal() {
+            const modal = document.getElementById('inquiryModal');
+            const modalWrapper = document.getElementById('modalContentWrapper');
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            
+            // Trigger animation
+            setTimeout(() => {
+                modalWrapper.classList.remove('scale-95', 'opacity-0');
+                modalWrapper.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('inquiryModal');
+            const modalWrapper = document.getElementById('modalContentWrapper');
+            
+            // Add closing animation
+            modalWrapper.classList.remove('scale-100', 'opacity-100');
+            modalWrapper.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = 'auto';
+                currentInquiryId = null;
+            }, 300);
+        }
+
+        function deleteFromModal() {
+            if (currentInquiryId) {
+                closeModal();
+                setTimeout(() => {
+                    deleteInquiry(currentInquiryId);
+                }, 300);
+            }
+        }
+
+        // Close modal on background click
+        document.getElementById('inquiryModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Update statistics function
+        function updateStatistics() {
+            const totalInquiriesElement = document.querySelector('.glass-card p.text-2xl');
+            if (totalInquiriesElement) {
+                const currentCount = parseInt(totalInquiriesElement.textContent) || 0;
+                totalInquiriesElement.textContent = Math.max(0, currentCount - 1);
+            }
+        }
+
+        // Show notification function
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 p-4 rounded-xl text-white font-medium z-50 transition-all duration-300 ${
+                type === 'success' ? 'bg-green-500/20 border border-green-500/30 text-green-400' : 
+                'bg-red-500/20 border border-red-500/30 text-red-400'
+            }`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

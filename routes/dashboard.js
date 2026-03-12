@@ -8,6 +8,7 @@ const Product = require('../models/Product');
 const Software = require('../models/Software');
 const Update = require('../models/Update');
 const Customer = require('../models/Customer');
+const Inquiry = require('../models/Inquiry');
 const authMiddleware = require('../middleware/auth');
 const upload = require('../middleware/upload');
 const { uploadVideo, uploadCustomerLogo } = require('../middleware/upload');
@@ -1028,6 +1029,56 @@ router.delete('/updates/:id', authMiddleware, async (req, res) => {
     } catch (error) {
         console.error('Error deleting update:', error);
         res.status(500).json({ success: false, message: 'Failed to delete update' });
+    }
+});
+
+// GET /admin/product-inquiries - Display all product inquiries
+router.get('/product-inquiries', authMiddleware, async (req, res) => {
+    try {
+        const settings = await getSettings();
+        const inquiries = await Inquiry.find().sort({ createdAt: -1 });
+        
+        res.render('admin/productinquiries', { 
+            title: 'Products Inquiry - Admin Dashboard', 
+            settings,
+            inquiries
+        });
+    } catch (error) {
+        console.error('Error loading product inquiries:', error);
+        res.status(500).render('500', { title: 'Server Error' });
+    }
+});
+
+// GET /admin/product-inquiries/:id - Get individual inquiry details
+router.get('/product-inquiries/:id', authMiddleware, async (req, res) => {
+    try {
+        const inquiry = await Inquiry.findById(req.params.id);
+        
+        if (!inquiry) {
+            return res.status(404).json({ success: false, message: 'Inquiry not found' });
+        }
+
+        res.json(inquiry);
+    } catch (error) {
+        console.error('Error fetching inquiry details:', error);
+        res.status(500).json({ success: false, message: 'Failed to fetch inquiry details' });
+    }
+});
+
+// DELETE /admin/product-inquiries/:id - Delete a product inquiry
+router.delete('/product-inquiries/:id', authMiddleware, async (req, res) => {
+    try {
+        const inquiry = await Inquiry.findById(req.params.id);
+        
+        if (!inquiry) {
+            return res.status(404).json({ success: false, message: 'Inquiry not found' });
+        }
+
+        await Inquiry.findByIdAndDelete(req.params.id);
+        res.json({ success: true, message: 'Inquiry deleted successfully!' });
+    } catch (error) {
+        console.error('Error deleting inquiry:', error);
+        res.status(500).json({ success: false, message: 'Failed to delete inquiry' });
     }
 });
 
