@@ -379,6 +379,14 @@
     </div>
 
     <script>
+        // Force light mode on page load to prevent flash
+        (function() {
+            const savedTheme = localStorage.getItem('dashboard-theme') || 'light';
+            if (savedTheme === 'light') {
+                document.body.classList.add('light');
+            }
+        })();
+        
         // Initialize Lucide Icons
         lucide.createIcons();
 
