@@ -37,6 +37,18 @@ const videoStorage = multer.diskStorage({
     }
 });
 
+// Set storage engine for customer logos
+const customerStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, path.join(__dirname, '../public/uploads/customers'));
+    },
+    filename: function (req, file, cb) {
+        // Create unique filename with timestamp
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+    }
+});
+
 // File filter to allow image, video, and document files
 const fileFilter = (req, file, cb) => {
     // Allowed file types
@@ -93,6 +105,23 @@ const uploadVideo = multer({
     }
 });
 
+// Initialize multer for customer logo files
+const uploadCustomerLogo = multer({
+    storage: customerStorage,
+    limits: {
+        fileSize: 5 * 1024 * 1024 // 5MB limit for logos
+    },
+    fileFilter: (req, file, cb) => {
+        const allowedImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+        if (allowedImageTypes.includes(file.mimetype)) {
+            cb(null, true);
+        } else {
+            cb(new Error('Invalid file type. Only JPEG, JPG, PNG, and WEBP images are allowed.'), false);
+        }
+    }
+});
+
 module.exports = upload;
 module.exports.uploadProductDetails = uploadProductDetails;
 module.exports.uploadVideo = uploadVideo;
+module.exports.uploadCustomerLogo = uploadCustomerLogo;

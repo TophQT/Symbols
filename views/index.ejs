@@ -243,6 +243,50 @@
             </div>
         </div>
     </section>
+
+    <!-- Our Customers Section -->
+    <section id="our-customers" class="py-24 relative overflow-hidden bg-tech-dark border-t border-white/5">
+        <!-- Background Decor -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-tech-blue/5 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-tech-accent/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 space-y-4 reveal">
+                <h2 class="text-4xl md:text-5xl font-bold font-grotesk text-white leading-tight">Our <span class="text-transparent bg-clip-text bg-gradient-to-r from-tech-blue to-tech-accent">Valued</span> Customers</h2>
+                <div class="w-20 h-1 bg-tech-blue mx-auto rounded-full"></div>
+                <p class="text-white/60 max-w-2xl mx-auto text-lg leading-relaxed">Trusted by industry leaders across various sectors to deliver precision and efficiency through innovative technology.</p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-3 mb-16">
+                <button type="button" data-filter="all" class="customer-filter-btn active px-6 py-2 rounded-full text-sm font-bold transition-all duration-300 bg-tech-blue text-white border border-tech-blue cursor-pointer z-20">All</button>
+                <% const filterCategories = ['Manufacturing', 'Retail', 'Construction', 'Banking', 'Transportation & Logistics', 'Health Care', 'Distribution', 'Agriculture', 'Others']; %>
+                <% filterCategories.forEach(cat => { %>
+                    <button type="button" data-filter="<%= cat %>" class="customer-filter-btn px-6 py-2 rounded-full text-sm font-bold transition-all duration-300 text-white/60 bg-white/5 border border-white/10 hover:border-tech-blue hover:text-white cursor-pointer z-20"><%= cat %></button>
+                <% }) %>
+            </div>
+
+            <!-- Customers Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8 reveal" id="customers-grid">
+                <% if (customers && customers.length > 0) { %>
+                    <% customers.forEach(customer => { %>
+                        <div class="customer-item group relative glass-card p-6 rounded-2xl flex items-center justify-center aspect-square transition-all duration-500 hover:scale-110 hover:border-tech-blue/30 hover:shadow-lg hover:shadow-tech-blue/20" data-category="<%= customer.category %>">
+                            <img src="/uploads/customers/<%= customer.logo %>" alt="Customer Logo" class="max-w-full max-h-full object-contain transition-all duration-500 opacity-90 group-hover:opacity-100">
+                            <!-- Tooltip/Badge -->
+                            <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-1 bg-tech-blue text-[10px] font-bold text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
+                                <%= customer.category %>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <div class="col-span-full text-center py-20 glass-card rounded-3xl border-dashed">
+                        <i data-lucide="users" class="w-12 h-12 text-white/20 mx-auto mb-4"></i>
+                        <p class="text-white/40 font-medium">Join our growing list of satisfied customers.</p>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </section>
 </main>
 
 <!-- Three.js Scene Setup -->
@@ -503,38 +547,84 @@
     const contactForm = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
 
-    contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const formData = new FormData(contactForm);
-        const data = Object.fromEntries(formData.entries());
-        
-        formStatus.classList.remove('hidden', 'bg-red-500/20', 'text-red-400', 'bg-green-500/20', 'text-green-400');
-        formStatus.classList.add('block', 'bg-blue-500/20', 'text-blue-400');
-        formStatus.textContent = 'Sending message...';
-
-        try {
-            const response = await fetch('/contact', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-            const result = await response.json();
+    if (contactForm && formStatus) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData.entries());
             
-            formStatus.classList.remove('bg-blue-500/20', 'text-blue-400');
-            if (result.success) {
-                formStatus.classList.add('bg-green-500/20', 'text-green-400');
-                formStatus.textContent = result.message;
-                contactForm.reset();
-            } else {
+            formStatus.classList.remove('hidden', 'bg-red-500/20', 'text-red-400', 'bg-green-500/20', 'text-green-400');
+            formStatus.classList.add('block', 'bg-blue-500/20', 'text-blue-400');
+            formStatus.textContent = 'Sending message...';
+
+            try {
+                const response = await fetch('/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                
+                formStatus.classList.remove('bg-blue-500/20', 'text-blue-400');
+                if (result.success) {
+                    formStatus.classList.add('bg-green-500/20', 'text-green-400');
+                    formStatus.textContent = result.message;
+                    contactForm.reset();
+                } else {
+                    formStatus.classList.add('bg-red-500/20', 'text-red-400');
+                    formStatus.textContent = result.message;
+                }
+            } catch (error) {
+                formStatus.classList.remove('bg-blue-500/20', 'text-blue-400');
                 formStatus.classList.add('bg-red-500/20', 'text-red-400');
-                formStatus.textContent = result.message;
+                formStatus.textContent = 'An error occurred. Please try again later.';
             }
-        } catch (error) {
-            formStatus.classList.remove('bg-blue-500/20', 'text-blue-400');
-            formStatus.classList.add('bg-red-500/20', 'text-red-400');
-            formStatus.textContent = 'An error occurred. Please try again later.';
-        }
-    });
+        });
+    }
+
+    // Customer Filtering Logic
+    const initCustomerFilters = () => {
+        const filterButtons = document.querySelectorAll('.customer-filter-btn');
+        const customerItems = document.querySelectorAll('.customer-item');
+
+        if (filterButtons.length === 0 || customerItems.length === 0) return;
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const filter = btn.getAttribute('data-filter');
+                
+                // Update active button state
+                filterButtons.forEach(b => {
+                    b.classList.remove('active', 'bg-tech-blue', 'text-white', 'border-tech-blue');
+                    b.classList.add('text-white/60', 'bg-white/5', 'border-white/10');
+                });
+                btn.classList.add('active', 'bg-tech-blue', 'text-white', 'border-tech-blue');
+                btn.classList.remove('text-white/60', 'bg-white/5', 'border-white/10');
+
+                // Filter items
+                customerItems.forEach(item => {
+                    const category = item.getAttribute('data-category');
+                    if (filter === 'all' || category === filter) {
+                        item.style.display = 'flex';
+                        gsap.fromTo(item, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" });
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                // Re-trigger scroll reveal for the grid
+                ScrollTrigger.refresh();
+            });
+        });
+    };
+
+    // Initialize on DOM load
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCustomerFilters);
+    } else {
+        initCustomerFilters();
+    }
 </script>
 
 <%- include('partials/footer') %>

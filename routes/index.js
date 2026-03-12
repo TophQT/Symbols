@@ -12,6 +12,7 @@ const Category = require('../models/Category');
 const BrandWeCarry = require('../models/BrandWeCarry');
 const Software = require('../models/Software');
 const Update = require('../models/Update');
+const Customer = require('../models/Customer');
 
 // Helper to get site settings
 const getSettings = async () => {
@@ -59,10 +60,12 @@ router.get('/', async (req, res) => {
     try {
         const settings = await getSettings();
         const brandsWeCarry = await BrandWeCarry.find().sort({ createdAt: -1 });
+        const customers = await Customer.find().sort({ createdAt: -1 });
         res.render('index', { 
             title: 'Symbol Sciences - Empowering Innovation', 
             settings,
-            brandsWeCarry
+            brandsWeCarry,
+            customers
         });
     } catch (error) {
         console.error('Error loading home page:', error);

@@ -7,9 +7,10 @@ const Category = require('../models/Category');
 const Product = require('../models/Product');
 const Software = require('../models/Software');
 const Update = require('../models/Update');
+const Customer = require('../models/Customer');
 const authMiddleware = require('../middleware/auth');
 const upload = require('../middleware/upload');
-const { uploadVideo } = require('../middleware/upload');
+const { uploadVideo, uploadCustomerLogo } = require('../middleware/upload');
 const path = require('path');
 const multer = require('multer');
 
@@ -140,6 +141,99 @@ router.get('/dashboard', authMiddleware, async (req, res) => {
     } catch (error) {
         console.error('Error loading dashboard:', error);
         res.status(500).render('500', { title: 'Server Error' });
+    }
+});
+
+// Customer Logos Page
+router.get('/customers', authMiddleware, async (req, res) => {
+    try {
+        const settings = await getSettings();
+        const customers = await Customer.find().sort({ createdAt: -1 });
+        
+        // Group customers by category
+        const categories = [
+            'Manufacturing',
+            'Retail',
+            'Construction',
+            'Banking',
+            'Transportation & Logistics',
+            'Health Care',
+            'Distribution',
+            'Agriculture',
+            'Others'
+        ];
+        
+        const groupedCustomers = {};
+        categories.forEach(cat => {
+            groupedCustomers[cat] = customers.filter(c => c.category === cat);
+        });
+
+        res.render('admin/customer', { 
+            title: 'Customer Logos - Admin Dashboard', 
+            settings,
+            groupedCustomers,
+            categories,
+            dashboardTheme: req.session.dashboardTheme || 'dark',
+            success: req.session.success || null,
+            error: req.session.error || null
+        });
+        // Clear session messages
+        delete req.session.success;
+        delete req.session.error;
+    } catch (error) {
+        console.error('Error loading customers:', error);
+        res.status(500).render('500', { title: 'Server Error' });
+    }
+});
+
+// Handle Customer Logo Upload
+router.post('/customers/upload', authMiddleware, uploadCustomerLogo.single('logo'), async (req, res) => {
+    try {
+        const { category } = req.body;
+        
+        if (!req.file) {
+            req.session.error = 'Please select a logo to upload.';
+            return res.redirect('/admin/customers');
+        }
+
+        if (!category) {
+            req.session.error = 'Please select a category.';
+            return res.redirect('/admin/customers');
+        }
+
+        const newCustomer = new Customer({
+            logo: req.file.filename,
+            category: category
+        });
+
+        await newCustomer.save();
+        req.session.success = 'Customer logo uploaded successfully!';
+        res.redirect('/admin/customers');
+    } catch (error) {
+        console.error('Error uploading customer logo:', error);
+        req.session.error = 'Error uploading customer logo.';
+        res.redirect('/admin/customers');
+    }
+});
+
+// Delete Customer Logo
+router.post('/customers/delete/:id', authMiddleware, async (req, res) => {
+    try {
+        const customer = await Customer.findByIdAndDelete(req.params.id);
+        if (customer) {
+            // Optionally delete file from filesystem
+            const fs = require('fs');
+            const filePath = path.join(__dirname, '../public/uploads/customers', customer.logo);
+            if (fs.existsSync(filePath)) {
+                fs.unlinkSync(filePath);
+            }
+            req.session.success = 'Customer logo deleted successfully!';
+        }
+        res.redirect('/admin/customers');
+    } catch (error) {
+        console.error('Error deleting customer logo:', error);
+        req.session.error = 'Error deleting customer logo.';
+        res.redirect('/admin/customers');
     }
 });
 
