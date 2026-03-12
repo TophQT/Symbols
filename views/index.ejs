@@ -263,61 +263,119 @@
 
         // Barcode Object (Group of boxes)
         const barcodeGroup = new THREE.Group();
-        const colors = [0x3b82f6, 0x60a5fa, 0x1e293b];
+        const colors = [0x3b82f6, 0x00f2ff, 0x1e293b];
         
-        for (let i = 0; i < 40; i++) {
-            const height = Math.random() * 2 + 1;
-            const width = Math.random() * 0.1 + 0.05;
-            const geometry = new THREE.BoxGeometry(width, height, 0.2);
+        // More realistic barcode pattern
+        const barWidths = [0.05, 0.1, 0.05, 0.2, 0.1, 0.05, 0.15, 0.05, 0.1, 0.2, 0.05, 0.1];
+        let currentX = -4;
+        
+        for (let i = 0; i < 50; i++) {
+            const width = barWidths[i % barWidths.length];
+            const height = 3.5; // Consistent height for barcode look
+            const geometry = new THREE.BoxGeometry(width, height, 0.1);
             const material = new THREE.MeshStandardMaterial({ 
-                color: colors[Math.floor(Math.random() * colors.length)],
-                emissive: colors[Math.floor(Math.random() * colors.length)],
-                emissiveIntensity: 0.2,
+                color: colors[i % 2 === 0 ? 0 : 2],
+                emissive: colors[i % 2 === 0 ? 0 : 2],
+                emissiveIntensity: 0.3,
                 transparent: true,
-                opacity: 0.8
+                opacity: 0.9
             });
             const mesh = new THREE.Mesh(geometry, material);
-            mesh.position.x = (i - 20) * 0.15;
+            mesh.position.x = currentX;
+            currentX += width + 0.08;
             barcodeGroup.add(mesh);
         }
         scene.add(barcodeGroup);
 
-        // Laser Scanner
-        const laserGeo = new THREE.BoxGeometry(7, 0.02, 0.5);
-        const laserMat = new THREE.MeshBasicMaterial({ color: 0xef4444 });
+        // Laser Scanner (Glowing effect - Horizontal line for Up/Down scan)
+        const laserGeo = new THREE.BoxGeometry(9, 0.05, 0.5);
+        const laserMat = new THREE.MeshBasicMaterial({ 
+            color: 0xef4444,
+            transparent: true,
+            opacity: 0.8
+        });
         const laser = new THREE.Mesh(laserGeo, laserMat);
         scene.add(laser);
 
+        // Add a glow to the laser
+        const glowGeo = new THREE.BoxGeometry(9, 0.2, 0.4);
+        const glowMat = new THREE.MeshBasicMaterial({ 
+            color: 0xef4444,
+            transparent: true,
+            opacity: 0.3
+        });
+        const glow = new THREE.Mesh(glowGeo, glowMat);
+        laser.add(glow);
+
         // Lights
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
         scene.add(ambientLight);
-        const pointLight = new THREE.PointLight(0x3b82f6, 2, 10);
-        pointLight.position.set(2, 2, 2);
+        const pointLight = new THREE.PointLight(0x3b82f6, 3, 15);
+        pointLight.position.set(2, 2, 5);
         scene.add(pointLight);
 
-        camera.position.z = 5;
+        camera.position.z = 6;
+         camera.position.y = 0;
+         camera.position.x = -2; // Shift camera left to move animation right
 
         // Animation Loop
         const animate = () => {
             requestAnimationFrame(animate);
             
-            barcodeGroup.rotation.y += 0.005;
-            barcodeGroup.rotation.x += 0.002;
+            // Subtle movement for the barcode
+            barcodeGroup.rotation.y = Math.sin(Date.now() * 0.0005) * 0.2;
+            barcodeGroup.position.z = Math.cos(Date.now() * 0.0005) * 0.5;
             
-            const time = Date.now() * 0.002;
-            laser.position.y = Math.sin(time) * 1.5;
+            // Vertical laser scan (Up and Down)
+            const time = Date.now() * 0.0015;
+            laser.position.y = Math.sin(time) * 2;
             laser.position.z = 0.5;
+            
+            // Make bars pulse when laser passes vertically
+            barcodeGroup.children.forEach(bar => {
+                const distance = Math.abs(bar.position.y - laser.position.y);
+                if (distance < 0.5) {
+                    bar.material.emissiveIntensity = 1.5;
+                } else {
+                    bar.material.emissiveIntensity = 0.3;
+                }
+            });
             
             renderer.render(scene, camera);
         };
-        animate();
+        // Responsive Resize logic with multiple breakpoints
+        const handleResize = () => {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
 
-        // Resize
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+
+            if (width < 1024) { // Mobile and Tablet devices
+                heroContainer.style.display = 'none'; // Hide canvas
+            } else {
+                heroContainer.style.display = 'block'; // Show canvas
+
+                if (width >= 1280) { // Large desktops
+                    camera.position.z = 7;
+                    camera.position.x = -4; // Furthest right
+                    barcodeGroup.scale.set(1.0, 1.0, 1.0);
+                    laser.scale.set(1.0, 1.0, 1.0);
+                } else { // Laptops
+                    camera.position.z = 8;
+                    camera.position.x = -3; // Mid-right
+                    barcodeGroup.scale.set(0.9, 0.9, 0.9);
+                    laser.scale.set(0.9, 0.9, 0.9);
+                }
+            }
+
             camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
+        };
+
+        window.addEventListener('resize', handleResize);
+        handleResize(); // Initial call to set size and position
+
+        animate();
     }
 
     // Consulting Section Animation
@@ -352,6 +410,28 @@
             sphere.rotation.y += 0.005;
             renderer.render(scene, camera);
         };
+
+        // Responsive resize for consulting canvas
+        const handleConsultResize = () => {
+            const width = consultContainer.clientWidth;
+            const height = consultContainer.clientHeight;
+
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+
+            // Adjust scale based on container width
+            if (width < 400) {
+                sphere.scale.set(0.8, 0.8, 0.8);
+            } else {
+                sphere.scale.set(1.0, 1.0, 1.0);
+            }
+
+            camera.updateProjectionMatrix();
+        };
+
+        window.addEventListener('resize', handleConsultResize);
+        handleConsultResize(); // Initial call
+
         animateConsult();
     }
 </script>
